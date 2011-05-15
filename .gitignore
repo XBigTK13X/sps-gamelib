@@ -1,0 +1,6 @@
+bin
+obj
+Debug
+SimplePathXna.suo
+SimplePathXna.csproj.Debug.cachefile
+.gitignore~

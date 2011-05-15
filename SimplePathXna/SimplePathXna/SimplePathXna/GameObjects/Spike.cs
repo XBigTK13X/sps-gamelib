@@ -12,16 +12,16 @@ namespace SimplePathXna.GameObjects
     {
         public Spike(int x, int y)
         {
-            Initialize(x, y, SpriteType.SPIKE);
+            Initialize(x, y, SpriteType.SPIKE,GameObjectType.SPIKE);
         }
         public override void Update()
         {
             base.Update();
-            if (null != GameplayObjectManager.GetObject(SpriteType.PLAYER_STAND))
+            if (null != GameplayObjectManager.GetObject(GameObjectType.PLAYER))
             {
-                if (HitTest.IsTouching(this, GameplayObjectManager.GetObject(SpriteType.PLAYER_STAND)))
+                if (HitTest.IsTouching(this, GameplayObjectManager.GetObject(GameObjectType.PLAYER)))
                 {
-                    GameplayObjectManager.GetObject(SpriteType.PLAYER_STAND).SetInactive();
+                    GameplayObjectManager.GetObject(GameObjectType.PLAYER).SetInactive();
                 }
             }
         }

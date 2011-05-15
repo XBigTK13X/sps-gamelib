@@ -12,14 +12,15 @@ namespace SimplePathXna.GameObjects
 {
     class GameplayObject
     {
+
         protected AnimatedTexture m_graphic = new AnimatedTexture(); 
         
         protected static int COOLDOWN_TIME = 6;
         protected bool m_isActive = true;
         protected bool m_isBlocking = false;
         protected SpriteType m_assetName;
+        protected GameObjectType m_objectType;
         
-
         //Load the texture for the sprite using the Content Pipeline
         public void LoadContent()
         {
@@ -31,9 +32,10 @@ namespace SimplePathXna.GameObjects
             m_graphic.Draw();
         }
 
-        protected void Initialize(int x, int y, SpriteType type)
+        protected void Initialize(int x, int y, SpriteType spriteType,GameObjectType objectType)
         {
-            m_assetName = type;
+            m_assetName = spriteType;
+            m_objectType = objectType;
             m_graphic.SetPosition(x,y);
         }
         public virtual void Update()
@@ -61,6 +63,10 @@ namespace SimplePathXna.GameObjects
         public SpriteType GetAssetType()
         {
             return m_assetName;
+        }
+        public GameObjectType GetObjectType()
+        {
+            return m_objectType;
         }
         public Vector2 GetPosition()
         {

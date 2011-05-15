@@ -17,7 +17,7 @@ namespace SimplePathXna.GameObjects
 
         private void Setup(int x, int y,int playerIndex)
         {
-            Initialize(x, y,SpriteType.PLAYER_STAND);
+            Initialize(x, y,SpriteType.PLAYER_STAND,GameObjectType.PLAYER);
             m_playerIndex = playerIndex;
             m_isBlocking = true;
             AIManager.Add(this);

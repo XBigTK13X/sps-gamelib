@@ -112,6 +112,7 @@
     <Compile Include="Factory\AnimatedTextureFactory.cs" />
     <Compile Include="Factory\GameplayObjectFactory.cs" />
     <Compile Include="GameObjects\Floor.cs" />
+    <Compile Include="GameObjects\GameObjectType.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameObjects\Spike.cs" />
     <Compile Include="Management\GameplayObjectManager.cs" />

@@ -12,12 +12,12 @@ namespace SimplePathXna.GameObjects
     {
         public Floor(int gridX, int gridY)
         {
-            Initialize(gridX, gridY, SpriteType.FLOOR);
+            Initialize(gridX, gridY, SpriteType.FLOOR,GameObjectType.FLOOR);
         }
         public override void Update()
         {
             base.Update();
-            GameplayObject player = GameplayObjectManager.GetObject(SpriteType.PLAYER_STAND);
+            GameplayObject player = GameplayObjectManager.GetObject(GameObjectType.PLAYER);
             if(null != player)
             {
                 if (HitTest.IsTouching(player, this))

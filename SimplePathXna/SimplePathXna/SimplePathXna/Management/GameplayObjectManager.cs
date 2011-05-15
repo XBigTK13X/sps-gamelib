@@ -14,13 +14,13 @@ namespace SimplePathXna.Management
         {
             m_contents.Add(gameplayObject);
         }
-        static public GameplayObject GetObject(SpriteType type)
+        static public GameplayObject GetObject(GameObjectType type)
         {
             if (m_contents != null)
             {
                 foreach (GameplayObject item in m_contents)
                 {
-                    if (item.GetAssetType() == type)
+                    if (item.GetObjectType() == type)
                     {
                         return item;
                     }
