@@ -36,8 +36,7 @@ namespace SimplePathXna.Sprites
             SpriteBatch target = XnaManager.GetRenderTarget();
             target.Begin();
             m_currentCell = new Rectangle(m_currentFrame * m_spriteInfo.X, m_spriteInfo.SpriteIndex * m_spriteInfo.Y, m_spriteInfo.X, m_spriteInfo.Y);
-            //Vector2 tempPosition = new Vector2(m_position.Y * SpriteInfo.Width, m_position.X * SpriteInfo.Height);
-            Vector2 tempPosition = new Vector2(m_position.Y, m_position.X);
+            Vector2 tempPosition = new Vector2(m_position.X, m_position.Y);
             target.Draw(m_graphic, tempPosition, m_currentCell, Color.White);
             target.End();
         }
