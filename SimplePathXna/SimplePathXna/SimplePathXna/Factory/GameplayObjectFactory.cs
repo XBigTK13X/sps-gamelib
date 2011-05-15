@@ -10,18 +10,18 @@ namespace SimplePathXna.Factory
     class GameplayObjectFactory
     {
         static private int s_playerCount = 0;
-        static public GameplayObject Create(SpriteType type, int x, int y)
+        static public GameplayObject Create(GameObjectType type, int x, int y)
         {
             switch (type)
             {
-                case SpriteType.PLAYER_STAND:
+                case GameObjectType.PLAYER:
                     return new Player(x, y,s_playerCount++);
-                case SpriteType.FLOOR:
+                case GameObjectType.FLOOR:
                     return new Floor(x, y);
-                case SpriteType.SPIKE:
+                case GameObjectType.SPIKE:
                     return new Spike(x, y);
                 default:
-                    throw new Exception("An undefined SpriteType case was passed into the GameplayObjectFactory.");
+                    throw new Exception("An undefined GameObjectType case was passed into the GameplayObjectFactory.");
             }
         }
         static public void ResetPlayerCount()
