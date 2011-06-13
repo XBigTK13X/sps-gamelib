@@ -16,9 +16,9 @@ namespace SimplePathXna.States
     {
         public GameplayState()
         {
-            Add(GameplayObjectFactory.Create(GameObjectType.PLAYER, 100, 100));
-            Add(GameplayObjectFactory.Create(GameObjectType.FLOOR, 200, 200));
-            Add(GameplayObjectFactory.Create(GameObjectType.SPIKE, 300, 300));
+            GameplayObjectFactory.Create(GameObjectType.PLAYER, 100, 100);
+            GameplayObjectFactory.Create(GameObjectType.FLOOR, 200, 200);
+            GameplayObjectFactory.Create(GameObjectType.SPIKE, 300, 300);
         }
     }
 }

@@ -54,7 +54,7 @@ namespace SimplePathXna
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             XnaManager.SetRenderTarget(spriteBatch);
-            StateManager.LoadContent();
+            GameplayObjectManager.LoadContent();
             // TODO: use this.Content to load your game content here
         }
 
@@ -79,7 +79,7 @@ namespace SimplePathXna
                 this.Exit();
 
             // TODO: Add your update logic here
-            StateManager.Update();
+            GameplayObjectManager.Update();
             base.Update(gameTime);
         }
 
@@ -92,7 +92,7 @@ namespace SimplePathXna
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            StateManager.Draw(); 
+            GameplayObjectManager.Draw(); 
             base.Draw(gameTime);
         }
     }
