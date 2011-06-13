@@ -8,8 +8,6 @@ namespace SimplePathXna.Sprites
 {
     class SpriteSheetManager
     {
-        public static readonly int Columns = 600;
-        public static readonly int Rows = 600;
         private static Dictionary<SpriteType, SpriteInfo> m_manager = new Dictionary<SpriteType, SpriteInfo>()
         {
             {SpriteType.EMPTY,new SpriteInfo(0,1)},
