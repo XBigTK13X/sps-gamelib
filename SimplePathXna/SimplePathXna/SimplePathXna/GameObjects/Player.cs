@@ -35,8 +35,8 @@ namespace SimplePathXna.GameObjects
         }
         public virtual void Run() 
         {
-            int yVel = ((InputManager.IsPressed(InputManager.Commands.MoveLeft, m_playerIndex)) ? -10 : 0) + ((InputManager.IsPressed(InputManager.Commands.MoveRight, m_playerIndex)) ? 10 : 0);
-            int xVel = ((InputManager.IsPressed(InputManager.Commands.MoveDown, m_playerIndex)) ? 10 : 0) + ((InputManager.IsPressed(InputManager.Commands.MoveUp, m_playerIndex)) ? -10 : 0);
+            int xVel = ((InputManager.IsPressed(InputManager.Commands.MoveLeft, m_playerIndex)) ? -10 : 0) + ((InputManager.IsPressed(InputManager.Commands.MoveRight, m_playerIndex)) ? 10 : 0);
+            int yVel = ((InputManager.IsPressed(InputManager.Commands.MoveDown, m_playerIndex)) ? 10 : 0) + ((InputManager.IsPressed(InputManager.Commands.MoveUp, m_playerIndex)) ? -10 : 0);
             MoveIfPossible(xVel, yVel);
         }
 
