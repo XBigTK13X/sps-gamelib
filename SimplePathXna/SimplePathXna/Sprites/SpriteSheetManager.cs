@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using SimplePathXna.GameObjects;
 
 namespace SimplePathXna.Sprites
 {
@@ -18,6 +19,10 @@ namespace SimplePathXna.Sprites
         public static SpriteInfo GetSpriteInfo(SpriteType spriteName)
         {
             return m_manager[spriteName];
+        }
+        public static void Add(SpriteType type,SpriteInfo info)
+        {
+            m_manager.Add(type, info);
         }
     }
 }
