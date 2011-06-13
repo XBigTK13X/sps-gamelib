@@ -40,6 +40,7 @@ namespace SimplePathXna
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            XnaManager.SetContentManager(this.Content);
             StateManager.LoadState(new GameplayState());
             base.Initialize();
         }
@@ -53,7 +54,6 @@ namespace SimplePathXna
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             XnaManager.SetRenderTarget(spriteBatch);
-            XnaManager.SetContentManager(this.Content);
             StateManager.LoadContent();
             // TODO: use this.Content to load your game content here
         }
