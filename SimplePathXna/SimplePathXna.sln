@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplePathXnaContent", "SimplePathXna\SimplePathXnaContent\SimplePathXnaContent.contentproj", "{8A495ADC-2819-44B3-8C19-D48C32546A05}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplePathXna", "SimplePathXna\SimplePathXna.csproj", "{83EE19F3-0E2E-4275-890F-3D14D203B49A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPXDemo", "SPXDemo\SPXDemo\SPXDemo.csproj", "{69AA9D08-99A7-471A-94DC-F956A6F39CC3}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "SPXDemoContent", "SPXDemo\SPXDemoContent\SPXDemoContent.contentproj", "{E8B1053C-F1A6-41FB-AC8A-1B42D48EE4A2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplePathXna", "SimplePathXna_\SimplePathXna.csproj", "{83EE19F3-0E2E-4275-890F-3D14D203B49A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPXDemoContent", "SPXDemo\SPXDemoContent\SPXDemoContent.contentproj", "{E8B1053C-F1A6-41FB-AC8A-1B42D48EE4A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +13,16 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8A495ADC-2819-44B3-8C19-D48C32546A05}.Debug|x86.ActiveCfg = Debug|x86
-		{8A495ADC-2819-44B3-8C19-D48C32546A05}.Release|x86.ActiveCfg = Release|x86
+		{83EE19F3-0E2E-4275-890F-3D14D203B49A}.Debug|x86.ActiveCfg = Debug|x86
+		{83EE19F3-0E2E-4275-890F-3D14D203B49A}.Debug|x86.Build.0 = Debug|x86
+		{83EE19F3-0E2E-4275-890F-3D14D203B49A}.Release|x86.ActiveCfg = Release|x86
+		{83EE19F3-0E2E-4275-890F-3D14D203B49A}.Release|x86.Build.0 = Release|x86
 		{69AA9D08-99A7-471A-94DC-F956A6F39CC3}.Debug|x86.ActiveCfg = Debug|x86
 		{69AA9D08-99A7-471A-94DC-F956A6F39CC3}.Debug|x86.Build.0 = Debug|x86
 		{69AA9D08-99A7-471A-94DC-F956A6F39CC3}.Release|x86.ActiveCfg = Release|x86
 		{69AA9D08-99A7-471A-94DC-F956A6F39CC3}.Release|x86.Build.0 = Release|x86
 		{E8B1053C-F1A6-41FB-AC8A-1B42D48EE4A2}.Debug|x86.ActiveCfg = Debug|x86
 		{E8B1053C-F1A6-41FB-AC8A-1B42D48EE4A2}.Release|x86.ActiveCfg = Release|x86
-		{83EE19F3-0E2E-4275-890F-3D14D203B49A}.Debug|x86.ActiveCfg = Debug|x86
-		{83EE19F3-0E2E-4275-890F-3D14D203B49A}.Debug|x86.Build.0 = Debug|x86
-		{83EE19F3-0E2E-4275-890F-3D14D203B49A}.Release|x86.ActiveCfg = Release|x86
-		{83EE19F3-0E2E-4275-890F-3D14D203B49A}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

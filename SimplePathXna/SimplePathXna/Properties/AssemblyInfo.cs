@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SimplePathXna")]
-[assembly: AssemblyProduct("SimplePathXna")]
+[assembly: AssemblyTitle("SimplePathXna_")]
+[assembly: AssemblyProduct("SimplePathXna_")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("Microsoft")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
@@ -22,7 +22,7 @@ using System.Runtime.InteropServices;
 // On Windows, the following GUID is for the ID of the typelib if this
 // project is exposed to COM. On other platforms, it unique identifies the
 // title storage container when deploying this assembly to the device.
-[assembly: Guid("b1d4f99a-df93-41c6-8247-6b572b212024")]
+[assembly: Guid("d00d1f00-39d6-4ab2-a762-b2e969ce2274")]
 
 // Version information for an assembly consists of the following four values:
 //
