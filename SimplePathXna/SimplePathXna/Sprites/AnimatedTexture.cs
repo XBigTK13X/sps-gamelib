@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using SimplePathXna.Management;
+using SimplePathXna.Collision;
 
 namespace SimplePathXna.Sprites
 {
@@ -19,6 +20,7 @@ namespace SimplePathXna.Sprites
         private Rectangle m_currentCell;
         private Texture2D m_graphic;
         private int m_animationTimer;
+        private Color m_color = Color.White;
 
         protected Vector2 m_position = Vector2.Zero;
 
@@ -34,23 +36,41 @@ namespace SimplePathXna.Sprites
         {
             UpdateAnimation();
             SpriteBatch target = XnaManager.GetRenderTarget();
-            target.Begin();
-            m_currentCell = new Rectangle(m_currentFrame * m_spriteInfo.X, m_spriteInfo.SpriteIndex * m_spriteInfo.Y, m_spriteInfo.X, m_spriteInfo.Y);
-            Vector2 tempPosition = new Vector2(m_position.X, m_position.Y);
-            target.Draw(m_graphic, tempPosition, m_currentCell, Color.White);
+            //target.Begin();
+            target.Begin(SpriteSortMode.BackToFront,
+                         BlendState.AlphaBlend,
+                         null,
+                         null,
+                         null,
+                         null,
+                         XnaManager.GetCamera().GetTransformation(XnaManager.GetGraphicsDevice().GraphicsDevice));
+            m_currentCell = new Rectangle(m_currentFrame * m_spriteInfo.X, m_spriteInfo.SpriteIndex * m_spriteInfo.Y,
+                                          m_spriteInfo.X, m_spriteInfo.Y);
+            var tempPosition = new Vector2(m_position.X, m_position.Y);
+            target.Draw(m_graphic, tempPosition, m_currentCell, m_color);
             target.End();
         }
 
         private void UpdateAnimation()
         {
-            if (m_spriteInfo.MaxFrame != 1)
+            try
             {
-                m_animationTimer--;
-                if (m_animationTimer <= 0)
+                if (m_spriteInfo.MaxFrame != 1)
                 {
-                    m_currentFrame = (m_currentFrame + 1) % m_spriteInfo.MaxFrame;
-                    m_animationTimer = m_ANIMATE_SPEED;
+                    m_animationTimer--;
+                    if (m_animationTimer <= 0)
+                    {
+                        m_currentFrame = (m_currentFrame + 1) % m_spriteInfo.MaxFrame;
+                        m_animationTimer = m_ANIMATE_SPEED;
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("AnimatedTexture.UpdateAnimation() threw an exception.");
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                Console.WriteLine(e.InnerException);
             }
         }
 
@@ -63,15 +83,25 @@ namespace SimplePathXna.Sprites
             }
         }
 
-        public Vector2 GetPosition()
+        public void SetPosition(float x, float y)
         {
-            return m_position;
+            m_position.X = (int)x;
+            m_position.Y = (int)y;
         }
 
-        public void SetPosition(int x, int y)
+        public void SetPosition(Point2 position)
         {
-            m_position.X = x;
-            m_position.Y = y;
+            m_position = new Vector2(position.PosX, position.PosY);
+        }
+
+        public void SetColor(Color color)
+        {
+            m_color = color;
+        }
+
+        public void SetAlpha(float alpha)
+        {
+            m_color = new Color(m_color.R, m_color.G, m_color.B, alpha);
         }
     }
 }

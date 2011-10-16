@@ -10,6 +10,7 @@ using SPXDemo.Management;
 using SPXDemo.Factory;
 using SimplePathXna.States;
 using SimplePathXna.GameObjects;
+using SimplePathXna.Management;
 
 namespace SPXDemo.States
 {
@@ -20,6 +21,19 @@ namespace SPXDemo.States
             GameplayObjectFactory.Create(GameObjectType.PLAYER, 100, 100);
             GameplayObjectFactory.Create(GameObjectType.FLOOR, 200, 200);
             GameplayObjectFactory.Create(GameObjectType.SPIKE, 300, 300);
+        }
+        public override void Draw()
+        {
+            GameplayObjectManager.Draw();
+        }
+        public override void LoadContent()
+        {
+            GameplayObjectManager.LoadContent();
+        }
+        public override void Update()
+        {
+            Console.WriteLine("LOAD");
+            GameplayObjectManager.Update();
         }
     }
 }

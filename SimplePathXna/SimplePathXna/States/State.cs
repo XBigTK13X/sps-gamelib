@@ -11,11 +11,10 @@ using SimplePathXna.Management;
 
 namespace SimplePathXna.States
 {
-    public class State
+    public abstract class State
     {
-        protected State()
-        {
-            
-        }
+        public abstract void Draw();
+        public abstract void Update();
+        public abstract void LoadContent();
     }
 }

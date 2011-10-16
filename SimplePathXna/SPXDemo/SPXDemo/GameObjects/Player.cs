@@ -15,7 +15,7 @@ namespace SPXDemo.GameObjects
         private int m_playerIndex;
 
         private float m_health = 100;
-        private int m_moveCooldown = COOLDOWN_TIME;
+        private int m_moveCooldown = 18;
 
         private void Setup(int x, int y,int playerIndex)
         {
@@ -56,7 +56,7 @@ namespace SPXDemo.GameObjects
             if ((xVel != 0 || yVel != 0) && m_moveCooldown <= 0)
             {
                 Move(xVel, yVel);
-                m_moveCooldown = COOLDOWN_TIME;
+                m_moveCooldown = 18 ;
             }
             else
             {

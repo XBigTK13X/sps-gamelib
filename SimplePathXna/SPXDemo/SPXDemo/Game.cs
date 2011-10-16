@@ -29,6 +29,7 @@ namespace SPXDemo
             graphics.PreferredBackBufferHeight = XnaManager.WindowHeight;
             graphics.PreferredBackBufferWidth = XnaManager.WindowWidth;
             graphics.ApplyChanges();
+            XnaManager.SetupCamera(graphics);
             Content.RootDirectory = "Content";
         }
 
@@ -55,7 +56,7 @@ namespace SPXDemo
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             XnaManager.SetRenderTarget(spriteBatch);
-            GameplayObjectManager.LoadContent();
+            StateManager.LoadContent();
             // TODO: use this.Content to load your game content here
         }
 
@@ -80,7 +81,7 @@ namespace SPXDemo
                 this.Exit();
 
             // TODO: Add your update logic here
-            GameplayObjectManager.Update();
+            StateManager.Update();
             base.Update(gameTime);
         }
 
@@ -93,7 +94,7 @@ namespace SPXDemo
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            GameplayObjectManager.Draw(); 
+            StateManager.Draw();
             base.Draw(gameTime);
         }
     }

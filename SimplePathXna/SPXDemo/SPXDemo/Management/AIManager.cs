@@ -18,7 +18,7 @@ namespace SPXDemo.Management
         public static bool IsClosestPlayerNorth(Player source)
         {
             Player target = GetClosest(source);
-            if (target.GetPosition().Y < source.GetPosition().Y)
+            if (target.GetLocation().Y < source.GetLocation().Y)
             {
                 return true;
             }
@@ -28,7 +28,7 @@ namespace SPXDemo.Management
         public static bool IsClosestPlayerSouth(Player source)
         {
             Player target = GetClosest(source);
-            if (target.GetPosition().Y > source.GetPosition().Y)
+            if (target.GetLocation().Y > source.GetLocation().Y)
             {
                 return true;
             }
@@ -38,7 +38,7 @@ namespace SPXDemo.Management
         public static bool IsClosestPlayerEast(Player source)
         {
             Player target = GetClosest(source);
-            if (target.GetPosition().X > source.GetPosition().X)
+            if (target.GetLocation().X > source.GetLocation().X)
             {
                 return true;
             }
@@ -48,7 +48,7 @@ namespace SPXDemo.Management
         public static bool IsClosestPlayerWest(Player source)
         {
             Player target = GetClosest(source);
-            if (target.GetPosition().X < source.GetPosition().X)
+            if (target.GetLocation().X < source.GetLocation().X)
             {
                 return true;
             }
@@ -59,8 +59,8 @@ namespace SPXDemo.Management
         {
             List<float> s_distances = new List<float>();
             foreach (Player target in s_players)
-            {               
-                s_distances.Add(Math.Abs(target.GetPosition().X-source.GetPosition().X)+Math.Abs(target.GetPosition().Y-source.GetPosition().Y));   
+            {
+                s_distances.Add(Math.Abs(target.GetLocation().X - source.GetLocation().X) + Math.Abs(target.GetLocation().Y - source.GetLocation().Y));   
             }
             float leastDistance = float.PositiveInfinity;
             Player result = null;

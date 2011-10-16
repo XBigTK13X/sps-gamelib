@@ -7,11 +7,11 @@ using SimplePathXna.Management;
 
 namespace SimplePathXna.Collision
 {
-    static class CoordVerifier
+    public static class CoordVerifier
     {
-        static public bool IsValid(int x, int y)
+        public static bool IsValid(Point2 position)
         {
-            return (x > 0 && y > 0 && x < XnaManager.WindowWidth && y < XnaManager.WindowHeight);
+            return (position.PosX > 0 && position.PosY > 0 && position.PosX < XnaManager.WindowWidth && position.PosY < XnaManager.WindowHeight);
         }
     }
 }

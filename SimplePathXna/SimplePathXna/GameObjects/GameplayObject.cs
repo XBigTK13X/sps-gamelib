@@ -7,78 +7,150 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SimplePathXna.Collision;
 using SimplePathXna.Sprites;
+using SimplePathXna.Management;
 
 namespace SimplePathXna.GameObjects
 {
     public class GameplayObject
     {
+        protected AnimatedTexture m_graphic = new AnimatedTexture();
 
-        protected AnimatedTexture m_graphic = new AnimatedTexture(); 
-        
-        protected static int COOLDOWN_TIME = 6;
         protected bool m_isActive = true;
         protected bool m_isBlocking = false;
         protected SpriteType m_assetName;
         protected GameObjectType m_objectType;
-        
+        protected bool m_isOnBoard = true;
+        private bool m_isInteracting = false;
+        protected Point2 m_location;
+
         //Load the texture for the sprite using the Content Pipeline
         public void LoadContent()
         {
             m_graphic.LoadContent(m_assetName);
         }
+
         //Draw the sprite to the screen
-        public void Draw()
+        public virtual void Draw()
         {
-            m_graphic.Draw();
+            if (m_isOnBoard)
+            {
+                m_graphic.Draw();
+            }
         }
 
-        protected void Initialize(int x, int y, SpriteType spriteType,GameObjectType objectType)
+        public void Hide()
+        {
+            m_isOnBoard = false;
+        }
+
+        public void Show()
+        {
+            m_isOnBoard = true;
+        }
+
+        protected void Initialize(Point2 location, SpriteType spriteType, GameObjectType objectType)
         {
             m_assetName = spriteType;
             m_objectType = objectType;
-            m_graphic.SetPosition(x,y);
+            m_location = new Point2(location);
+            m_graphic.SetPosition(m_location);
         }
+
+        protected void Initialize(float x, float y, SpriteType spriteType, GameObjectType objectType)
+        {
+            Initialize(new Point2(x, y), spriteType, objectType);
+        }
+
         public virtual void Update()
         {
         }
-        public void Move(int amountX, int amountY)
+
+        public void SetLocation(Point2 location)
         {
-            if (CoordVerifier.IsValid((int)m_graphic.GetPosition().X + amountX,(int)m_graphic.GetPosition().Y + amountY))
+            m_graphic.SetPosition(location);
+            m_location = new Point2(location);
+        }
+
+        public void UpdateLocation(Point2 location)
+        {
+            var oldLocation = new Point2(m_location);
+            m_graphic.SetPosition(location);
+            m_location = new Point2(location);
+        }
+
+        public void Move(float amountX, float amountY)
+        {
+            amountX = NormalizeDistance(amountX);
+            amountY = NormalizeDistance(amountY);
+            var target = new Point2(m_location.PosX + amountX, m_location.PosY + amountY);
+            if (CoordVerifier.IsValid(target))
             {
-                m_graphic.SetPosition((int)m_graphic.GetPosition().X + amountX, (int)m_graphic.GetPosition().Y + amountY);
+                UpdateLocation(target);
             }
         }
+
+        private static float NormalizeDistance(float amount)
+        {
+            var isNeg = (amount < 0) ? -1 : 1;
+            amount = Math.Abs(amount);
+            var factorsOfSpriteHeight = (int)Math.Floor(amount / SpriteInfo.Height);
+            factorsOfSpriteHeight = (factorsOfSpriteHeight == 0 && amount != 0) ? 1 : factorsOfSpriteHeight;
+            return (SpriteInfo.Height * factorsOfSpriteHeight * isNeg);
+        }
+
         public bool IsActive()
         {
             return m_isActive;
         }
+
         public void SetInactive()
         {
             m_isActive = false;
         }
+
         public bool IsBlocking()
         {
             return m_isBlocking;
         }
+
         public SpriteType GetAssetType()
         {
             return m_assetName;
         }
+
         public GameObjectType GetObjectType()
         {
             return m_objectType;
         }
-        public Vector2 GetPosition()
+
+        public Point2 GetLocation()
         {
-            return m_graphic.GetPosition();
+            return m_location;
         }
+
         public bool IsGraphicLoaded()
         {
             return (m_graphic != null);
         }
+
         protected void SetSpriteInfo(SpriteInfo sprite)
         {
             m_graphic.SetSpriteInfo(sprite);
+        }
+
+        public bool Contains(Point2 target)
+        {
+            return target.GridX == GetLocation().GridX && target.GridY == GetLocation().GridY;
+        }
+
+        public void SetInteraction(bool isInteracting)
+        {
+            m_isInteracting = isInteracting;
+        }
+
+        public bool IsInteracting()
+        {
+            return m_isInteracting;
         }
     }
 }

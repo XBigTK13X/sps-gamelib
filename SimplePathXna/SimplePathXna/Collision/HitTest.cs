@@ -9,7 +9,7 @@ namespace SimplePathXna.Collision
 {
     public static class HitTest
     {
-        static public bool IsTouching(GameplayObject source, GameplayObject target)
+        public static bool IsTouching(GameplayObject source, GameplayObject target)
         {
             if (IsClose(source, target))
             {
@@ -17,13 +17,30 @@ namespace SimplePathXna.Collision
             }
             return false;
         }
-        static private bool IsClose(GameplayObject source, GameplayObject target)
+
+        private static bool IsClose(GameplayObject source, GameplayObject target)
         {
-            return IsClose(source.GetPosition().X, target.GetPosition().X, source.GetPosition().Y, target.GetPosition().Y);
+            return IsClose(source.GetLocation().PosX, target.GetLocation().PosX, source.GetLocation().PosY,
+                           target.GetLocation().PosY);
         }
-        static private bool IsClose(float x1, float x2, float y1, float y2)
+
+        private static bool IsClose(float x1, float x2, float y1, float y2)
         {
-            return (Math.Pow((x1 - x2), 2) + Math.Pow((y1 - y2), 2)) <= 2*(SpriteInfo.Radius*SpriteInfo.Radius);
+            return GetDistanceSquare(x1, x2, y1, y2) <= 2 * (SpriteInfo.Radius * SpriteInfo.Radius);
+        }
+
+        public static float GetDistanceSquare(GameplayObject source, GameplayObject target)
+        {
+            return GetDistanceSquare(source.GetLocation().PosX, target.GetLocation().PosX, source.GetLocation().PosY,
+                                     target.GetLocation().PosY);
+        }
+        public static float GetDistanceSquare(Point2 source, Point2 target)
+        {
+            return GetDistanceSquare(source.PosX, target.PosX, source.PosY, target.PosY);
+        }
+        private static float GetDistanceSquare(float x1, float x2, float y1, float y2)
+        {
+            return (float)(Math.Pow((x1 - x2), 2) + Math.Pow((y1 - y2), 2));
         }
     }
 }

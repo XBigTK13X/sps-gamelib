@@ -10,10 +10,28 @@ namespace SimplePathXna.Management
 {
     public class StateManager
     {
-        static private State m_state;
-        static public void LoadState(State state)
+        private static State m_state;
+
+        public static void LoadState(State state)
         {
             m_state = state;
+            m_state.LoadContent();
+            m_state.Draw();
+        }
+
+        public static void Draw()
+        {
+            m_state.Draw();
+        }
+
+        public static void LoadContent()
+        {
+            m_state.LoadContent();
+        }
+
+        public static void Update()
+        {
+            m_state.Update();
         }
     }
 }
