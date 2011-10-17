@@ -7,22 +7,16 @@ using SimplePathXna.GameObjects;
 
 namespace SimplePathXna.Sprites
 {
-    class SpriteSheetManager
+    public class SpriteSheetManager
     {
-        private static Dictionary<SpriteType, SpriteInfo> m_manager = new Dictionary<SpriteType, SpriteInfo>()
-        {
-            {SpriteType.EMPTY,new SpriteInfo(0,1)},
-            {SpriteType.PLAYER_STAND,new SpriteInfo(1,2)},
-            {SpriteType.WALL,new SpriteInfo(2,1)},
-            {SpriteType.SPIKE,new SpriteInfo(3,1)}
-        };
+        private static Dictionary<SpriteType, SpriteInfo> m_manager = new Dictionary<SpriteType, SpriteInfo>();
         public static SpriteInfo GetSpriteInfo(SpriteType spriteName)
         {
             return m_manager[spriteName];
         }
-        public static void Add(SpriteType type,SpriteInfo info)
+        public static void Add(SpriteType type,int framesOfAnimation)
         {
-            m_manager.Add(type, info);
+            m_manager.Add(type, new SpriteInfo(m_manager.Keys.Count(),framesOfAnimation));
         }
     }
 }

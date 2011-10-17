@@ -43,6 +43,7 @@ namespace SPXDemo
         {
             // TODO: Add your initialization logic here
             XnaManager.SetContentManager(this.Content);
+            AssetManager.Initialize();
             StateManager.LoadState(new GameplayState());
             base.Initialize();
         }
