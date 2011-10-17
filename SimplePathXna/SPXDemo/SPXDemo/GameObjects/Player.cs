@@ -22,7 +22,7 @@ namespace SPXDemo.GameObjects
 
         private void Setup(int x, int y,int playerIndex)
         {
-            Initialize(x, y,SpriteType.PLAYER_STAND,GameObjectType.PLAYER);
+            Initialize(x, y,SpriteType.PLAYER,GameObjectType.PLAYER);
             m_playerIndex = playerIndex;
             m_isBlocking = true;
             AIManager.Add(this);

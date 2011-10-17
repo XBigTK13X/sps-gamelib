@@ -17,8 +17,8 @@ namespace SimplePathXna.GameObjects
 
         protected bool m_isActive = true;
         protected bool m_isBlocking = false;
-        protected SpriteType m_assetName;
-        protected GameObjectType m_objectType;
+        protected string m_assetName;
+        protected string m_objectType;
         protected bool m_isOnBoard = true;
         private bool m_isInteracting = false;
         protected Point2 m_location;
@@ -48,7 +48,7 @@ namespace SimplePathXna.GameObjects
             m_isOnBoard = true;
         }
 
-        protected void Initialize(Point2 location, SpriteType spriteType, GameObjectType objectType)
+        protected void Initialize(Point2 location, string spriteType, string objectType)
         {
             m_assetName = spriteType;
             m_objectType = objectType;
@@ -56,7 +56,7 @@ namespace SimplePathXna.GameObjects
             m_graphic.SetPosition(m_location);
         }
 
-        protected void Initialize(float x, float y, SpriteType spriteType, GameObjectType objectType)
+        protected void Initialize(float x, float y, string spriteType, string objectType)
         {
             Initialize(new Point2(x, y), spriteType, objectType);
         }
@@ -101,12 +101,12 @@ namespace SimplePathXna.GameObjects
             return m_isBlocking;
         }
 
-        public SpriteType GetAssetType()
+        public string GetAssetType()
         {
             return m_assetName;
         }
 
-        public GameObjectType GetObjectType()
+        public string GetObjectType()
         {
             return m_objectType;
         }

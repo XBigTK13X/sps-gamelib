@@ -11,7 +11,6 @@ namespace SimplePathXna.Management
     public static class GameplayObjectManager
     {
         private static List<GameplayObject> m_contents = new List<GameplayObject>();
-        private static bool m_gameOver = false;
 
         public static GameplayObject AddObject(GameplayObject gameplayObject)
         {
@@ -20,7 +19,7 @@ namespace SimplePathXna.Management
             return gameplayObject;
         }
 
-        public static GameplayObject GetObject(GameObjectType type)
+        public static GameplayObject GetObject(string type)
         {
             if (m_contents != null)
             {
@@ -29,7 +28,7 @@ namespace SimplePathXna.Management
             return null;
         }
 
-        public static IEnumerable<GameplayObject> GetObjects(GameObjectType type, Point2 target)
+        public static IEnumerable<GameplayObject> GetObjects(string type, Point2 target)
         {
             if (m_contents != null)
             {
@@ -38,7 +37,7 @@ namespace SimplePathXna.Management
             return null;
         }
 
-        public static IEnumerable<GameplayObject> GetObjects(GameObjectType type)
+        public static IEnumerable<GameplayObject> GetObjects(string type)
         {
             return m_contents.Where(item => item.GetObjectType() == type);
         }

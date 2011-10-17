@@ -96,7 +96,6 @@
     <Compile Include="Collision\HitTest.cs" />
     <Compile Include="Collision\Point2.cs" />
     <Compile Include="Factory\AnimatedTextureFactory.cs" />
-    <Compile Include="GameObjects\GameObjectType.cs" />
     <Compile Include="GameObjects\GameplayObject.cs" />
     <Compile Include="Management\Camera.cs" />
     <Compile Include="Management\GameplayObjectManager.cs" />
@@ -107,7 +106,6 @@
     <Compile Include="Sprites\AnimatedTexture.cs" />
     <Compile Include="Sprites\SpriteInfo.cs" />
     <Compile Include="Sprites\SpriteSheetManager.cs" />
-    <Compile Include="Sprites\SpriteType.cs" />
     <Compile Include="States\State.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
