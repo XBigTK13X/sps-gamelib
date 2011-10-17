@@ -44,8 +44,8 @@ namespace SimplePathXna.Sprites
                          null,
                          null,
                          XnaManager.GetCamera().GetTransformation(XnaManager.GetGraphicsDevice().GraphicsDevice));
-            m_currentCell = new Rectangle(m_currentFrame * m_spriteInfo.X+m_currentFrame+1, m_spriteInfo.SpriteIndex * m_spriteInfo.Y + m_spriteInfo.SpriteIndex+1,
-                                          m_spriteInfo.X, m_spriteInfo.Y);
+            m_currentCell = new Rectangle(m_currentFrame * SpriteInfo.Width+m_currentFrame+1, m_spriteInfo.SpriteIndex * SpriteInfo.Height + m_spriteInfo.SpriteIndex+1,
+                                          SpriteInfo.Width, SpriteInfo.Height);
             var tempPosition = new Vector2(m_position.X, m_position.Y);
             target.Draw(m_graphic, tempPosition, m_currentCell, m_color);
             target.End();

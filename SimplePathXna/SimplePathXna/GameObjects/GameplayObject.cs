@@ -73,29 +73,17 @@ namespace SimplePathXna.GameObjects
 
         public void UpdateLocation(Point2 location)
         {
-            var oldLocation = new Point2(m_location);
             m_graphic.SetPosition(location);
             m_location = new Point2(location);
         }
 
-        public void Move(float amountX, float amountY)
+        public void Move(Point2 velocity)
         {
-            amountX = NormalizeDistance(amountX);
-            amountY = NormalizeDistance(amountY);
-            var target = new Point2(m_location.PosX + amountX, m_location.PosY + amountY);
+            var target = new Point2(m_location.PosX + velocity.X, m_location.PosY + velocity.Y);
             if (CoordVerifier.IsValid(target))
             {
                 UpdateLocation(target);
             }
-        }
-
-        private static float NormalizeDistance(float amount)
-        {
-            var isNeg = (amount < 0) ? -1 : 1;
-            amount = Math.Abs(amount);
-            var factorsOfSpriteHeight = (int)Math.Floor(amount / SpriteInfo.Height);
-            factorsOfSpriteHeight = (factorsOfSpriteHeight == 0 && amount != 0) ? 1 : factorsOfSpriteHeight;
-            return (SpriteInfo.Height * factorsOfSpriteHeight * isNeg);
         }
 
         public bool IsActive()

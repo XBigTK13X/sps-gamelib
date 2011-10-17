@@ -11,7 +11,7 @@ namespace SimplePathXna.Collision
     {
         public static bool IsValid(Point2 position)
         {
-            return (position.PosX > 0 && position.PosY > 0 && position.PosX < XnaManager.WindowWidth && position.PosY < XnaManager.WindowHeight);
+            return (position.PosCenterX > 0 && position.PosCenterY > 0 && position.PosCenterX < XnaManager.WindowWidth && position.PosCenterY < XnaManager.WindowHeight);
         }
     }
 }

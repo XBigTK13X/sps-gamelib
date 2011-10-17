@@ -19,12 +19,12 @@ namespace SPXDemo.GameObjects
         public override void Update()
         {
             base.Update();
-            GameplayObject player = GameplayObjectManager.GetObject(GameObjectType.PLAYER);
+            var player = GameplayObjectManager.GetObject(GameObjectType.PLAYER) as Player;
             if(null != player)
             {
                 if (HitTest.IsTouching(player, this))
                 {
-                    player.Move(-5, -5);
+                    player.Move(new Point2(-player.GetVelocity().X,-player.GetVelocity().Y));
                 }
             }
         }
