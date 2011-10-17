@@ -11,8 +11,8 @@ namespace SimplePathXna.Management
 {
     public static class XnaManager
     {
-        public static readonly int WindowHeight = 600;
-        public static readonly int WindowWidth = 800;
+        public static int WindowHeight = 600;
+        public static int WindowWidth = 800;
         private static ContentManager s_assetHandler;
         private static SpriteBatch s_renderTarget;
         private static Camera s_camera = new Camera();
@@ -28,6 +28,15 @@ namespace SimplePathXna.Management
             s_renderTarget = renderTarget;
         }
 
+        public static GraphicsDeviceManager SetupDisplay(Game game, int displayWidth, int displayHeight)
+        {
+            var graphics = new GraphicsDeviceManager(game);
+            graphics.PreferredBackBufferHeight = XnaManager.WindowHeight = 600;
+            graphics.PreferredBackBufferWidth = XnaManager.WindowWidth = 800;
+            graphics.ApplyChanges();
+            XnaManager.SetupCamera(graphics);
+            return graphics;
+        }
         public static ContentManager GetContentManager()
         {
             return s_assetHandler;

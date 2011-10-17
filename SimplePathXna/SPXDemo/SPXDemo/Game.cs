@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using SPXDemo.Management;
 using SPXDemo.States;
-using SimplePathXna.Sprites;
+using SPXDemo.Sprites;
 using SimplePathXna.Management;
 
 namespace SPXDemo
@@ -25,11 +25,7 @@ namespace SPXDemo
         
         public Game()
         {
-            graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferHeight = XnaManager.WindowHeight;
-            graphics.PreferredBackBufferWidth = XnaManager.WindowWidth;
-            graphics.ApplyChanges();
-            XnaManager.SetupCamera(graphics);
+            graphics = XnaManager.SetupDisplay(this, 800, 600);            
             Content.RootDirectory = "Content";
         }
 

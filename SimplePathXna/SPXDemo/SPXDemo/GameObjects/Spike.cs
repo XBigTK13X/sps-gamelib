@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using SPXDemo.Management;
 using SimplePathXna.GameObjects;
-using SimplePathXna.Sprites;
 using SimplePathXna.Management;
 using SimplePathXna.Collision;
+using SPXDemo.Sprites;
 
 namespace SPXDemo.GameObjects
 {

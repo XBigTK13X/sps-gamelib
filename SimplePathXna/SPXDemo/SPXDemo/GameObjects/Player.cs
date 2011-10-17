@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using SPXDemo.Management;
 using SimplePathXna.Collision;
-using SimplePathXna.Sprites;
+using SPXDemo.Sprites;
 using SimplePathXna.GameObjects;
 using SimplePathXna.Management;
 
