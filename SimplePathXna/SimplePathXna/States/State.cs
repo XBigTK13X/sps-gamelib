@@ -5,11 +5,11 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using SimplePathXna.GameObjects;
-using SimplePathXna.Management;
+using SPX.GameObjects;
+using SPX.Management;
 
 
-namespace SimplePathXna.States
+namespace SPX.States
 {
     public abstract class State
     {

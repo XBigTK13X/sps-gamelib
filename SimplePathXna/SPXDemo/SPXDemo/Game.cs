@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using SPXDemo.Management;
 using SPXDemo.States;
 using SPXDemo.Sprites;
-using SimplePathXna.Management;
+using SPX.Management;
 
 namespace SPXDemo
 {

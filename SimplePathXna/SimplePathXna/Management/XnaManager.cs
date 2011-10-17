@@ -5,9 +5,9 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
-using SimplePathXna.Sprites;
+using SPX.Sprites;
 
-namespace SimplePathXna.Management
+namespace SPX.Management
 {
     public static class XnaManager
     {

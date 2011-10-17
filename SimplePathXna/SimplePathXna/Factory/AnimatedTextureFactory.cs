@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
-using SimplePathXna.Sprites;
+using SPX.Sprites;
 
-namespace SimplePathXna.Factory
+namespace SPX.Factory
 {
     class AnimatedTextureFactory
     {

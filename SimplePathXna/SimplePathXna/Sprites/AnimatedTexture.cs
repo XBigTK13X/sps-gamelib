@@ -5,10 +5,10 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
-using SimplePathXna.Management;
-using SimplePathXna.Collision;
+using SPX.Management;
+using SPX.Collision;
 
-namespace SimplePathXna.Sprites
+namespace SPX.Sprites
 {
     public class AnimatedTexture
     {

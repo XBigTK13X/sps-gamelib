@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-using SimplePathXna.GameObjects;
+using SPX.GameObjects;
 
-namespace SimplePathXna.Sprites
+namespace SPX.Sprites
 {
     public class SpriteSheetManager
     {

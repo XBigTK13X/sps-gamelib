@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SimplePathXna.Management
+namespace SPX.Management
 {
     public class Camera
     {

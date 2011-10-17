@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SimplePathXna.GameObjects;
-using SimplePathXna.Collision;
-using SimplePathXna.Sprites;
+using SPX.GameObjects;
+using SPX.Collision;
+using SPX.Sprites;
 
-namespace SimplePathXna.Management
+namespace SPX.Management
 {
     public static class GameplayObjectManager
     {

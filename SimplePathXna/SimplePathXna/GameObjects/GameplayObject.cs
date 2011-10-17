@@ -5,11 +5,11 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using SimplePathXna.Collision;
-using SimplePathXna.Sprites;
-using SimplePathXna.Management;
+using SPX.Collision;
+using SPX.Sprites;
+using SPX.Management;
 
-namespace SimplePathXna.GameObjects
+namespace SPX.GameObjects
 {
     public class GameplayObject
     {

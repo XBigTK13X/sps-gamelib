@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 using SPXDemo.GameObjects;
 using SPXDemo.Management;
 using SPXDemo.Factory;
-using SimplePathXna.States;
-using SimplePathXna.GameObjects;
-using SimplePathXna.Management;
+using SPX.States;
+using SPX.GameObjects;
+using SPX.Management;
 
 namespace SPXDemo.States
 {

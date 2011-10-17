@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SimplePathXna.Sprites;
+using SPX.Sprites;
 
-namespace SimplePathXna.Collision
+namespace SPX.Collision
 {
     public class Point2
     {

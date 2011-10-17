@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SimplePathXna.Sprites;
-using SimplePathXna.Management;
+using SPX.Sprites;
+using SPX.Management;
 using Microsoft.Xna.Framework.Input;
 using SPXDemo.IO;
 

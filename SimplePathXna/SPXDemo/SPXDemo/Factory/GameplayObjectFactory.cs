@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using SPXDemo.GameObjects;
 using SPXDemo.Management;
-using SimplePathXna.GameObjects;
-using SimplePathXna.Management;
+using SPX.GameObjects;
+using SPX.Management;
 
 namespace SPXDemo.Factory
 {

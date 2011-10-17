@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SPXDemo.Management;
-using SimplePathXna.Collision;
+using SPX.Collision;
 using SPXDemo.Sprites;
-using SimplePathXna.GameObjects;
-using SimplePathXna.Management;
+using SPX.GameObjects;
+using SPX.Management;
 
 namespace SPXDemo.GameObjects
 {

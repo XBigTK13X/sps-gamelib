@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using SimplePathXna.States;
+using SPX.States;
 
-namespace SimplePathXna.Management
+namespace SPX.Management
 {
     public class StateManager
     {

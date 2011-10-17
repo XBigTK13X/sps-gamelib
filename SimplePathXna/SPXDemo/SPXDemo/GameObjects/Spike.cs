@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SPXDemo.Management;
-using SimplePathXna.GameObjects;
-using SimplePathXna.Management;
-using SimplePathXna.Collision;
+using SPX.GameObjects;
+using SPX.Management;
+using SPX.Collision;
 using SPXDemo.Sprites;
 
 namespace SPXDemo.GameObjects

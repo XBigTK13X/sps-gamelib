@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SimplePathXna.GameObjects;
-using SimplePathXna.Management;
+using SPX.GameObjects;
+using SPX.Management;
 
-namespace SimplePathXna.Collision
+namespace SPX.Collision
 {
     public static class CoordVerifier
     {
