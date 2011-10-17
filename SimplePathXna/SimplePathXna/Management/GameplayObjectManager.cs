@@ -20,7 +20,6 @@ namespace SimplePathXna.Management
             return gameplayObject;
         }
 
-        //GOT Accessors
         public static GameplayObject GetObject(GameObjectType type)
         {
             if (m_contents != null)
@@ -42,16 +41,6 @@ namespace SimplePathXna.Management
         public static IEnumerable<GameplayObject> GetObjects(GameObjectType type)
         {
             return m_contents.Where(item => item.GetObjectType() == type);
-        }
-
-        public static IEnumerable<GameplayObject> GetObjectsToCache()
-        {
-            return m_contents.Where(o => o.GetObjectType() != GameObjectType.FLOOR);
-        }
-
-        public static void AddObjects(IEnumerable<GameplayObject> cache)
-        {
-            m_contents.AddRange(cache);
         }
 
         public static void RemoveObject(GameplayObject target)

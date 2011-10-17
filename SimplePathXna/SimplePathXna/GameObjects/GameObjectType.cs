@@ -9,6 +9,6 @@ namespace SimplePathXna.GameObjects
     {
         PLAYER,
         SPIKE,
-        FLOOR
+        WALL
     }
 }

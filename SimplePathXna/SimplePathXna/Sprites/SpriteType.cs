@@ -9,7 +9,7 @@ namespace SimplePathXna.Sprites
     {
         EMPTY,
         PLAYER_STAND,
-        FLOOR,
+        WALL,
         SPIKE
     }
 }

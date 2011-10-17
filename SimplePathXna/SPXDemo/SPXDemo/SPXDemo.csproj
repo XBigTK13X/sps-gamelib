@@ -110,7 +110,7 @@
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Factory\GameplayObjectFactory.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="GameObjects\Floor.cs" />
+    <Compile Include="GameObjects\Wall.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameObjects\Spike.cs" />
     <Compile Include="Management\AIManager.cs" />

@@ -10,11 +10,11 @@ using SimplePathXna.Management;
 
 namespace SPXDemo.GameObjects
 {
-    class Floor:GameplayObject
+    class Wall:GameplayObject
     {
-        public Floor(int gridX, int gridY)
+        public Wall(int gridX, int gridY)
         {
-            Initialize(gridX, gridY, SpriteType.FLOOR,GameObjectType.FLOOR);
+            Initialize(gridX, gridY, SpriteType.WALL,GameObjectType.WALL);
         }
         public override void Update()
         {

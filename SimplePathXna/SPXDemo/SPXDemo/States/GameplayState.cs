@@ -19,7 +19,7 @@ namespace SPXDemo.States
         public GameplayState()
         {
             GameplayObjectFactory.Create(GameObjectType.PLAYER, 100, 100);
-            GameplayObjectFactory.Create(GameObjectType.FLOOR, 200, 200);
+            GameplayObjectFactory.Create(GameObjectType.WALL, 200, 200);
             GameplayObjectFactory.Create(GameObjectType.SPIKE, 300, 300);
         }
         public override void Draw()

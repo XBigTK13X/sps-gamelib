@@ -18,8 +18,8 @@ namespace SPXDemo.Factory
             {
                 case GameObjectType.PLAYER:
                     return new Player(x, y, s_playerCount++);
-                case GameObjectType.FLOOR:
-                    return new Floor(x, y);
+                case GameObjectType.WALL:
+                    return new Wall(x, y);
                 case GameObjectType.SPIKE:
                     return new Spike(x, y);
                 default:
