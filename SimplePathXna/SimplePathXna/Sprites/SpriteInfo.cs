@@ -7,8 +7,8 @@ namespace SimplePathXna.Sprites
 {
     public class SpriteInfo
     {
-        public static int Height = 33;
-        public static int Width = 33;
+        public static int Height = 64;
+        public static int Width = 64;
         public static double Radius = Math.Sqrt(Math.Pow(Height / 2, 2) + Math.Pow(Width / 2, 2));
         public int X, Y, SpriteIndex, MaxFrame;
 
@@ -18,13 +18,6 @@ namespace SimplePathXna.Sprites
             Y = Height;
             SpriteIndex = spriteIndex;
             MaxFrame = maxFrame;
-        }
-
-        public static void SetDimensions(int height,int width)
-        {
-            Height = height;
-            Width = width;
-            Radius = Math.Sqrt(Math.Pow(Height / 2, 2) + Math.Pow(Width / 2, 2));
         }
     }
 }

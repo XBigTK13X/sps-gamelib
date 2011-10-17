@@ -11,8 +11,8 @@ namespace SimplePathXna.Management
 {
     public static class XnaManager
     {
-        public static readonly int WindowHeight = SpriteInfo.Height * 20;
-        public static readonly int WindowWidth = SpriteInfo.Width * 30;
+        public static readonly int WindowHeight = 600;
+        public static readonly int WindowWidth = 800;
         private static ContentManager s_assetHandler;
         private static SpriteBatch s_renderTarget;
         private static Camera s_camera = new Camera();
@@ -40,7 +40,7 @@ namespace SimplePathXna.Management
 
         public static void SetupCamera(GraphicsDeviceManager graphicsDevice)
         {
-            s_camera.Pos = new Vector2(SpriteInfo.Width * 15, SpriteInfo.Height * 10);
+            s_camera.Pos = XnaManager.GetCenter();
             s_camera.Zoom = 1f;
             s_graphicsDevice = graphicsDevice;
         }
