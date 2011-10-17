@@ -7,6 +7,7 @@ using SimplePathXna.Collision;
 using SPXDemo.Sprites;
 using SimplePathXna.GameObjects;
 using SimplePathXna.Management;
+using SPXDemo.IO;
 
 namespace SPXDemo.GameObjects
 {
@@ -40,12 +41,12 @@ namespace SPXDemo.GameObjects
         }
         public virtual void Run() 
         {
-            m_velocity.SetX(((InputManager.IsPressed(InputManager.Commands.MoveLeft, m_playerIndex)) ? -m_moveSpeed : 0)
+            m_velocity.SetX(((InputManager.IsPressed(Input.MOVE_LEFT, m_playerIndex)) ? -m_moveSpeed : 0)
                         +
-                       ((InputManager.IsPressed(InputManager.Commands.MoveRight, m_playerIndex)) ? m_moveSpeed : 0));
-            m_velocity.SetY(((InputManager.IsPressed(InputManager.Commands.MoveDown, m_playerIndex)) ? m_moveSpeed : 0)
+                       ((InputManager.IsPressed(Input.MOVE_RIGHT, m_playerIndex)) ? m_moveSpeed : 0));
+            m_velocity.SetY(((InputManager.IsPressed(Input.MOVE_DOWN, m_playerIndex)) ? m_moveSpeed : 0)
                         +
-                       ((InputManager.IsPressed(InputManager.Commands.MoveUp, m_playerIndex)) ? -m_moveSpeed : 0));
+                       ((InputManager.IsPressed(Input.MOVE_UP, m_playerIndex)) ? -m_moveSpeed : 0));
             if (m_velocity.X != 0 || m_velocity.Y!= 0)
             {
                 MoveIfPossible();

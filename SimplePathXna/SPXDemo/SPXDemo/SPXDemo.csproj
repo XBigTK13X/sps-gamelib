@@ -114,6 +114,7 @@
     <Compile Include="GameObjects\Wall.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameObjects\Spike.cs" />
+    <Compile Include="Input\Input.cs" />
     <Compile Include="Management\AIManager.cs" />
     <Compile Include="Sprites\AssetManager.cs" />
     <Compile Include="Sprites\SpriteType.cs" />

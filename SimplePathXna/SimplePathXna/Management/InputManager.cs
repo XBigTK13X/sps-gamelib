@@ -9,36 +9,14 @@ namespace SimplePathXna.Management
 {
     public class InputManager
     {
-        public enum Commands
-        {
-            MoveUp,
-            MoveDown,
-            MoveLeft,
-            MoveRight,
-            Confirm
-        }
         private static readonly List<string> m_playerInputDevices = new List<string>()
         {
             "KEYBOARD",
             "GAMEPAD"
         };
-        private static readonly Dictionary<Commands, Keys> m_keyboardMapping = new Dictionary<Commands, Keys>()
-        {
-            {Commands.MoveUp,Keys.Up},
-            {Commands.MoveDown,Keys.Down},
-            {Commands.MoveRight,Keys.Right},
-            {Commands.MoveLeft,Keys.Left},
-            {Commands.Confirm,Keys.Q}
-        };
+        private static readonly Dictionary<string, Keys> m_keyboardMapping = new Dictionary<string, Keys>();
 
-        private static readonly Dictionary<Commands, Buttons> m_gamePadMapping = new Dictionary<Commands, Buttons>()
-        {
-            {Commands.MoveUp,Buttons.DPadUp},
-            {Commands.MoveDown,Buttons.DPadDown},
-            {Commands.MoveRight,Buttons.DPadRight},
-            {Commands.MoveLeft,Buttons.DPadLeft},
-            {Commands.Confirm,Buttons.LeftShoulder}
-        };
+        private static readonly Dictionary<string, Buttons> m_gamePadMapping = new Dictionary<string, Buttons>();
 
         private static readonly List<PlayerIndex> m_playerIndex = new List<PlayerIndex>()
         {
@@ -48,7 +26,7 @@ namespace SimplePathXna.Management
             PlayerIndex.Four
         };
 
-        public static bool IsPressed(Commands command,int playerIndex)
+        public static bool IsPressed(string command,int playerIndex)
         {
             string inputMechanism = m_playerInputDevices[playerIndex];
             bool isInputActive = false;
@@ -64,6 +42,12 @@ namespace SimplePathXna.Management
                     throw new Exception("What were you smoking that brought up this error?");
             }
             return isInputActive;
+        }
+
+        public static void Add(string command, Keys keyboardKey, Buttons gamepadButton)
+        {
+            m_gamePadMapping.Add(command, gamepadButton);
+            m_keyboardMapping.Add(command, keyboardKey);
         }
     }
 }
