@@ -23,7 +23,7 @@ namespace SPX.Management
         {
             if (m_contents != null)
             {
-                return m_contents.FirstOrDefault(item => item.GetObjectType() == type);
+                return m_contents.FirstOrDefault(item => item.GetObjectType().ToString() == type.ToString());
             }
             return null;
         }
@@ -39,7 +39,7 @@ namespace SPX.Management
 
         public static IEnumerable<GameplayObject> GetObjects(Enum type)
         {
-            return m_contents.Where(item => item.GetObjectType() == type);
+            return m_contents.Where(item => item.GetObjectType().ToString() == type.ToString());
         }
 
         public static void RemoveObject(GameplayObject target)

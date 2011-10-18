@@ -9,14 +9,19 @@ namespace SPX.Management
 {
     public class InputManager
     {
-        private static readonly List<string> m_playerInputDevices = new List<string>()
+        private enum Device
         {
-            "KEYBOARD",
-            "GAMEPAD"
+            KEYBOARD,
+            GAMEPAD
+        }
+        private static readonly List<Enum> m_playerInputDevices = new List<Enum>()
+        {
+            Device.KEYBOARD,
+            Device.GAMEPAD
         };
-        private static readonly Dictionary<string, Keys> m_keyboardMapping = new Dictionary<string, Keys>();
+        private static readonly Dictionary<Enum, Keys> m_keyboardMapping = new Dictionary<Enum, Keys>();
 
-        private static readonly Dictionary<string, Buttons> m_gamePadMapping = new Dictionary<string, Buttons>();
+        private static readonly Dictionary<Enum, Buttons> m_gamePadMapping = new Dictionary<Enum, Buttons>();
 
         private static readonly List<PlayerIndex> m_playerIndex = new List<PlayerIndex>()
         {
@@ -26,16 +31,16 @@ namespace SPX.Management
             PlayerIndex.Four
         };
 
-        public static bool IsPressed(string command,int playerIndex)
+        public static bool IsPressed(Enum command,int playerIndex)
         {
-            string inputMechanism = m_playerInputDevices[playerIndex];
+            Device inputMechanism = (Device)m_playerInputDevices[playerIndex];
             bool isInputActive = false;
             switch (inputMechanism)
             {
-                case "KEYBOARD":
+                case Device.KEYBOARD:
                     isInputActive = Keyboard.GetState().IsKeyDown(m_keyboardMapping[command]);
                     break;
-                case "GAMEPAD":
+                case Device.GAMEPAD:
                     isInputActive = GamePad.GetState(m_playerIndex[playerIndex]).IsButtonDown(m_gamePadMapping[command]);
                     break;
                 default:
@@ -44,7 +49,7 @@ namespace SPX.Management
             return isInputActive;
         }
 
-        public static void Add(string command, Keys keyboardKey, Buttons gamepadButton)
+        public static void Add(Enum command, Keys keyboardKey, Buttons gamepadButton)
         {
             m_gamePadMapping.Add(command, gamepadButton);
             m_keyboardMapping.Add(command, keyboardKey);
