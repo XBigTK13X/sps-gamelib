@@ -12,9 +12,9 @@ namespace SPXDemo.Factory
     class GameplayObjectFactory
     {
         static private int s_playerCount = 0;
-        static private GameplayObject Construct(string type, int x, int y)
+        static private GameplayObject Construct(GameObjectType type, int x, int y)
         {
-            switch (type)
+            switch(type)
             {
                 case GameObjectType.PLAYER:
                     return new Player(x, y, s_playerCount++);
@@ -26,7 +26,7 @@ namespace SPXDemo.Factory
                     throw new Exception("An undefined string case was passed into the GameplayObjectFactory.");
             }
         }
-        static public GameplayObject Create(string type, int x, int y)
+        static public GameplayObject Create(GameObjectType type, int x, int y)
         {
             return GameplayObjectManager.AddObject(Construct(type, x, y));
         }

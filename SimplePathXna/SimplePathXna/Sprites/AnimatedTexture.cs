@@ -24,7 +24,7 @@ namespace SPX.Sprites
 
         protected Vector2 m_position = Vector2.Zero;
 
-        public void LoadContent(string assetName)
+        public void LoadContent(Enum assetName)
         {
             m_graphic = XnaManager.GetContentManager().Load<Texture2D>(m_assetPath);
             m_spriteInfo = SpriteSheetManager.GetSpriteInfo(assetName);

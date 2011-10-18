@@ -9,12 +9,12 @@ namespace SPX.Sprites
 {
     public class SpriteSheetManager
     {
-        private static Dictionary<string, SpriteInfo> m_manager = new Dictionary<string, SpriteInfo>();
-        public static SpriteInfo GetSpriteInfo(string spriteName)
+        private static Dictionary<Enum, SpriteInfo> m_manager = new Dictionary<Enum, SpriteInfo>();
+        public static SpriteInfo GetSpriteInfo(Enum spriteName)
         {
             return m_manager[spriteName];
         }
-        public static void Add(string type,int framesOfAnimation)
+        public static void Add(Enum type,int framesOfAnimation)
         {
             m_manager.Add(type, new SpriteInfo(m_manager.Keys.Count(),framesOfAnimation));
         }

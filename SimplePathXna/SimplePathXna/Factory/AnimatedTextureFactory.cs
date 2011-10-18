@@ -9,7 +9,7 @@ namespace SPX.Factory
 {
     class AnimatedTextureFactory
     {
-        static public AnimatedTexture Create(string type,int x, int y)
+        static public AnimatedTexture Create(Enum type,int x, int y)
         {
             var sprite = new AnimatedTexture();
             sprite.LoadContent(type);

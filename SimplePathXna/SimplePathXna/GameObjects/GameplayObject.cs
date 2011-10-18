@@ -17,8 +17,8 @@ namespace SPX.GameObjects
 
         protected bool m_isActive = true;
         protected bool m_isBlocking = false;
-        protected string m_assetName;
-        protected string m_objectType;
+        protected Enum m_assetName;
+        protected Enum m_objectType;
         protected bool m_isOnBoard = true;
         private bool m_isInteracting = false;
         protected Point2 m_location;
@@ -48,7 +48,7 @@ namespace SPX.GameObjects
             m_isOnBoard = true;
         }
 
-        protected void Initialize(Point2 location, string spriteType, string objectType)
+        protected void Initialize(Point2 location, Enum spriteType, Enum objectType)
         {
             m_assetName = spriteType;
             m_objectType = objectType;
@@ -56,7 +56,7 @@ namespace SPX.GameObjects
             m_graphic.SetPosition(m_location);
         }
 
-        protected void Initialize(float x, float y, string spriteType, string objectType)
+        protected void Initialize(float x, float y, Enum spriteType, Enum objectType)
         {
             Initialize(new Point2(x, y), spriteType, objectType);
         }
@@ -101,12 +101,12 @@ namespace SPX.GameObjects
             return m_isBlocking;
         }
 
-        public string GetAssetType()
+        public Enum GetAssetType()
         {
             return m_assetName;
         }
 
-        public string GetObjectType()
+        public Enum GetObjectType()
         {
             return m_objectType;
         }

@@ -5,10 +5,10 @@ using System.Text;
 
 namespace SPXDemo.GameObjects
 {
-    class GameObjectType
+    enum GameObjectType
     {
-        public const string PLAYER = "gPLAYER";
-        public const string WALL = "gWALL";
-        public const string SPIKE = "gSPIKE";
+        PLAYER,
+        WALL,
+        SPIKE
     }
 }

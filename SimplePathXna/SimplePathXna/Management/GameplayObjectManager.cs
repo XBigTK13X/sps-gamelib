@@ -19,7 +19,7 @@ namespace SPX.Management
             return gameplayObject;
         }
 
-        public static GameplayObject GetObject(string type)
+        public static GameplayObject GetObject(Enum type)
         {
             if (m_contents != null)
             {
@@ -28,7 +28,7 @@ namespace SPX.Management
             return null;
         }
 
-        public static IEnumerable<GameplayObject> GetObjects(string type, Point2 target)
+        public static IEnumerable<GameplayObject> GetObjects(Enum type, Point2 target)
         {
             if (m_contents != null)
             {
@@ -37,7 +37,7 @@ namespace SPX.Management
             return null;
         }
 
-        public static IEnumerable<GameplayObject> GetObjects(string type)
+        public static IEnumerable<GameplayObject> GetObjects(Enum type)
         {
             return m_contents.Where(item => item.GetObjectType() == type);
         }
