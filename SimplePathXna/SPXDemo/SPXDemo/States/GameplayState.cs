@@ -32,7 +32,6 @@ namespace SPXDemo.States
         }
         public override void Update()
         {
-            Console.WriteLine("LOAD");
             GameplayObjectManager.Update();
         }
     }
