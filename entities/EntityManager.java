@@ -1,7 +1,11 @@
 package sps.entities;
 
+import aigilas.management.Common;
 import sps.bridge.ActorType;
+import sps.bridge.ActorTypes;
 import sps.bridge.EntityType;
+import sps.bridge.EntityTypes;
+import sps.core.Core;
 import sps.core.Point2;
 import sps.core.RNG;
 import sps.core.Settings;
@@ -92,9 +96,9 @@ public class EntityManager {
 
     public List<IActor> getActors(ActorType type) {
         _creatures.clear();
-        if (type != ActorType.Non_Player) {
+        if (type != ActorTypes.get(Core.Non_Player)) {
             for (Entity elem : _contents) {
-                if (elem.getEntityType() == EntityType.Actor) {
+                if (elem.getEntityType() == EntityTypes.get(Common.Actor)) {
                     if (((IActor) elem).getActorType() == type) {
                         _creatures.add(((IActor) elem));
                     }
@@ -103,8 +107,8 @@ public class EntityManager {
         }
         else {
             for (Entity elem : _contents) {
-                if (elem.getEntityType() == EntityType.Actor) {
-                    if (((IActor) elem).getActorType() != ActorType.Player) {
+                if (elem.getEntityType() == EntityTypes.get(Common.Actor)) {
+                    if (((IActor) elem).getActorType() != ActorTypes.get(Core.Player)) {
                         _creatures.add(((IActor) elem));
                     }
                 }
@@ -118,9 +122,9 @@ public class EntityManager {
     public List<IActor> getActorsAt(Point2 target, ActorType actorType) {
         _creatures.clear();
         for (Entity elem : _gridContents.get(target)) {
-            if (elem.getEntityType() == EntityType.Actor) {
+            if (elem.getEntityType() == EntityTypes.get(Common.Actor)) {
                 _nextResult = (IActor) elem;
-                if (actorType == null || _nextResult.getActorType() == actorType || (actorType == ActorType.Non_Player && _nextResult.getActorType() != ActorType.Player)) {
+                if (actorType == null || _nextResult.getActorType() == actorType || (actorType == ActorTypes.get(Core.Non_Player) && _nextResult.getActorType() != ActorTypes.get(Core.Player))) {
                     _creatures.add(_nextResult);
                 }
             }
@@ -160,7 +164,7 @@ public class EntityManager {
     }
 
     public IActor getNearestPlayer(Entity target) {
-        List<IActor> actors = getActors(ActorType.Player);
+        List<IActor> actors = getActors(ActorTypes.get(Core.Player));
         if (actors.size() > 0) {
             Entity closest = (Entity) actors.get(0);
             Entity player;
@@ -243,7 +247,7 @@ public class EntityManager {
     public List<Entity> getPlayers() {
         _players.clear();
         for (Entity tile : _contents) {
-            if (tile.getEntityType() == EntityType.Actor && ((IActor) tile).getActorType() == ActorType.Player) {
+            if (tile.getEntityType() == EntityTypes.get(Common.Actor) && ((IActor) tile).getActorType() == ActorTypes.get(Core.Player)) {
                 _players.add(tile);
             }
         }
@@ -256,7 +260,7 @@ public class EntityManager {
             if (location.GridX > 0 && location.GridY > 0 && location.GridX < Settings.get().tileMapWidth - 1 && location.GridY < Settings.get().tileMapHeight - 1) {
                 boolean exclude = false;
                 for (int ii = 0; ii < _gridContents.get(location).size(); ii++) {
-                    if (_gridContents.get(location).get(ii).getEntityType() == EntityType.Actor) {
+                    if (_gridContents.get(location).get(ii).getEntityType() == EntityTypes.get(Common.Actor)) {
                         exclude = true;
                     }
                 }
@@ -271,7 +275,7 @@ public class EntityManager {
     public List<Entity> getEntitiesToCache() {
         List<Entity> results = new ArrayList<Entity>();
         for (Entity _content : _contents) {
-            if (_content.getEntityType() != EntityType.Floor) {
+            if (_content.getEntityType() != EntityTypes.get(Common.Floor)) {
                 results.add(_content);
             }
         }
@@ -280,7 +284,7 @@ public class EntityManager {
 
     public IActor getTouchingCreature(Entity entity) {
         for (Entity _content : _contents) {
-            if (_content.getEntityType() == EntityType.Actor) {
+            if (_content.getEntityType() == EntityTypes.get(Common.Actor)) {
                 if (_content.contains(entity.getLocation())) {
                     return (IActor) _content;
                 }
