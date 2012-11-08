@@ -1,9 +1,9 @@
 package sps.bridge;
 
-public class EntityType {
+public class Context {
     public final String Name;
 
-    public EntityType(String name) {
+    public Context(String name) {
         Name = name;
     }
 }
