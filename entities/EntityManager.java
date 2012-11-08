@@ -1,6 +1,6 @@
 package sps.entities;
 
-import aigilas.management.Common;
+import aigilas.Common;
 import sps.bridge.ActorType;
 import sps.bridge.ActorTypes;
 import sps.bridge.EntityType;

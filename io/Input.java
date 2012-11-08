@@ -1,6 +1,6 @@
 package sps.io;
 
-import aigilas.management.Common;
+import aigilas.Common;
 import com.badlogic.gdx.Gdx;
 import sps.bridge.Command;
 import sps.bridge.Commands;
