@@ -13,7 +13,7 @@
     <url>http://maven.apache.org</url>
 
     <build>
-        <finalName>aigilas</finalName>
+        <finalName>sps-gamelib</finalName>
         <sourceDirectory>${basedir}</sourceDirectory>
         <plugins>
             <plugin>
