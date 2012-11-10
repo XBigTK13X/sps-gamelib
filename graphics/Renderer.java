@@ -12,23 +12,28 @@ import sps.core.Settings;
 
 public class Renderer {
 
-    // This is the resolution used by the game internally
-    public static final int VirtualHeight = Settings.get().spriteHeight * Settings.get().tileMapHeight;
-    public static final int VirtualWidth = Settings.get().spriteWidth * Settings.get().tileMapWidth;
-
     private static Renderer instance;
 
     public static Renderer get() {
         if (instance == null) {
-            instance = new Renderer();
+            instance = new Renderer(Settings.get().spriteWidth * Settings.get().tileMapWidth, Settings.get().spriteHeight * Settings.get().tileMapHeight);
         }
         return instance;
     }
 
-    private final SpriteBatch batch;
-    private final OrthographicCamera camera;
+    public static void setVirtualResolution(int width, int height) {
+        instance = new Renderer(width, height);
+    }
 
-    private Renderer() {
+    // This is the resolution used by the game internally
+    public final int VirtualHeight;
+    public final int VirtualWidth;
+    public final SpriteBatch batch;
+    public final OrthographicCamera camera;
+
+    private Renderer(int width, int height) {
+        VirtualWidth = width;
+        VirtualHeight = height;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, VirtualWidth, VirtualHeight);
         batch = new SpriteBatch();
@@ -74,6 +79,6 @@ public class Renderer {
     private void renderString(String content, Point2 location, Color filter, float scale, DrawDepth depth) {
         Assets.get().font().setScale(scale);
         Assets.get().font().setColor(filter);
-        Assets.get().font().draw(batch, content, location.X, location.Y);
+        Assets.get().font().draw(batch, content, location.PosX, location.PosY);
     }
 }
