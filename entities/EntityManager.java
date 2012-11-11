@@ -136,17 +136,20 @@ public class EntityManager {
     }
 
     private final List<IActor> _creatures2 = new ArrayList<IActor>();
+    private Point2 buffer = new Point2(0,0);
 
     public List<IActor> getActorsSurrounding(Point2 target, int distance)
-
     {
         _creatures2.clear();
         for (int ii = -distance; ii < distance + 1; ii++) {
             for (int jj = -distance; jj < distance + 1; jj++) {
                 if (ii != 0 || jj != 0) {
-                    for (IActor creature : getActorsAt(target.add(new Point2(ii, jj)), null)) {
-                        _creatures2.add(creature);
-                    }
+		    buffer.copy(target.add(new Point2(ii, jj)));
+		    if(CoordVerifier.isValid(buffer)){
+                        for (IActor creature : getActorsAt(buffer, null)) {
+                            _creatures2.add(creature);
+                        }
+		    }
                 }
             }
         }
