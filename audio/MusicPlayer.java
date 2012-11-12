@@ -24,6 +24,18 @@ public abstract class MusicPlayer {
         }
         return __instance;
     }
+    
+    private static MusicPlayer togglePlayer;
+    public static void toggle(){
+        if(togglePlayer == null){
+	   togglePlayer = __instance;
+	   __instance = new MuteMusicPlayer();
+	}
+	else{
+	   __instance = togglePlayer;
+	   togglePlayer = null;
+	}
+    }
 
     public abstract void start();
 
