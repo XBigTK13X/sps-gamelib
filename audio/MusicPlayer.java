@@ -27,7 +27,8 @@ public abstract class MusicPlayer {
     
     private static MusicPlayer togglePlayer;
     public static void toggle(){
-        if(togglePlayer == null){
+        __instance.stop();
+	if(togglePlayer == null){
 	   togglePlayer = __instance;
 	   __instance = new MuteMusicPlayer();
 	}
@@ -35,6 +36,7 @@ public abstract class MusicPlayer {
 	   __instance = togglePlayer;
 	   togglePlayer = null;
 	}
+	__instance.start();
     }
 
     public abstract void start();
