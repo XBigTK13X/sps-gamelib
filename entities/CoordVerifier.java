@@ -18,6 +18,6 @@ public class CoordVerifier {
     public static boolean contains(Point2 target, EntityType type)
 
     {
-        return EntityManager.get().anyContains(target, type);
+        return EntityManager.get().anyAt(target, type);
     }
 }

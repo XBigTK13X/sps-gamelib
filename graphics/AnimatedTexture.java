@@ -15,6 +15,8 @@ public class AnimatedTexture {
     private Color _color = Color.WHITE;
     private Sprite _sprite;
     private DrawDepth _depth;
+    private int _rotation = 0;
+    private SpriteEdge _edge = SpriteEdge.None;
 
     protected Point2 _position = new Point2(0, 0);
 
@@ -33,6 +35,13 @@ public class AnimatedTexture {
             _sprite = Assets.get().sprite(_spriteInfo.SpriteIndex);
         }
         if (_color.a > 0) {
+            if(_edge == SpriteEdge.None){
+                _sprite.setRotation(_rotation);
+            }
+            else{
+                _sprite.setRotation(_edge.Rotation);
+                _currentFrame = _edge.Frame;
+            }
             Assets.get().setIndices(_sprite, _currentFrame, _spriteInfo.SpriteIndex);
             updateAnimation();
             Renderer.get().draw(_sprite, _position, _depth, _color);
@@ -78,5 +87,17 @@ public class AnimatedTexture {
 
     public DrawDepth getDepth() {
         return _depth;
+    }
+
+    public void setFrame(int frame){
+        _currentFrame = frame;
+    }
+
+    public void setRotation(int degrees){
+        _rotation = degrees;
+    }
+
+    public void setEdge(SpriteEdge edge){
+        _edge = edge;
     }
 }

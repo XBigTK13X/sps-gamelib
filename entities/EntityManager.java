@@ -181,10 +181,13 @@ public class EntityManager {
         return null;
     }
 
-    public boolean anyContains(Point2 target, EntityType type) {
-        for (Entity entity : _gridContents.get(target)) {
-            if (entity.getEntityType() == type) {
-                return true;
+    public boolean anyAt(Point2 target, EntityType type) {
+        if(CoordVerifier.isValid(target))
+        {
+            for (Entity entity : _gridContents.get(target)) {
+                if (entity.getEntityType() == type) {
+                    return true;
+                }
             }
         }
         return false;
