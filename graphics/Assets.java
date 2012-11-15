@@ -32,8 +32,8 @@ public class Assets {
         private Dimensions reset(int frame, int index) {
             X = frame * Settings.get().spriteHeight + (Settings.get().spriteGap * frame) + Settings.get().spriteGap;
             Y = index * Settings.get().spriteHeight + (Settings.get().spriteGap * index) + Settings.get().spriteGap;
-            Width = Settings.get().spriteWidth - Settings.get().spriteGap;
-            Height = Settings.get().spriteHeight - Settings.get().spriteGap;
+            Width = Settings.get().spriteWidth;
+            Height = Settings.get().spriteHeight;
             return this;
         }
     }
