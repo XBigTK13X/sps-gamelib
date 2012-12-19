@@ -30,7 +30,10 @@ public class Logger {
         for (StackTraceElement el : e.getStackTrace()) {
             log("  " + el.toString());
         }
-        Gdx.app.exit();
+        try{
+            Gdx.app.exit();
+        }
+        catch(Exception swallow){}
         System.exit(-1);
     }
 

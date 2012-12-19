@@ -42,7 +42,7 @@ public class AnimatedTexture {
                 _sprite.setRotation(_edge.Rotation);
                 _currentFrame = _edge.Frame;
             }
-            Assets.get().setIndices(_sprite, _currentFrame, _spriteInfo.SpriteIndex);
+            _sprite = Assets.get().sprite(_currentFrame, _spriteInfo.SpriteIndex);
             updateAnimation();
             Renderer.get().draw(_sprite, _position, _depth, _color);
         }

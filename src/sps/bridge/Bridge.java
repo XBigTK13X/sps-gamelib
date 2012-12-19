@@ -1,6 +1,7 @@
 package sps.bridge;
 
 import sps.core.Logger;
+import sps.graphics.Assets;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -18,6 +19,7 @@ public class Bridge {
 
     private Bridge() {
         try {
+            Assets.get();
             FileReader reader = new FileReader(__bridgePath);
             BufferedReader br = new BufferedReader(reader);
             String line;
@@ -45,15 +47,6 @@ public class Bridge {
                     if (name.equals("entityType")) {
                         String id = values[1];
                         EntityTypes.add(new EntityType(id));
-                    }
-                    if (name.equals("spriteType")) {
-                        String id = values[1];
-                        int index = Integer.parseInt(values[2]);
-                        int frameCount = 1;
-                        if (values.length == 4) {
-                            frameCount = Integer.parseInt(values[3]);
-                        }
-                        SpriteTypes.add(new SpriteType(id, index, frameCount));
                     }
                     if (name.equals("actorType")) {
                         String id = values[1];

@@ -2,44 +2,24 @@ package sps.graphics;
 
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import sps.bridge.SpriteType;
+import sps.bridge.SpriteTypes;
+import sps.core.Logger;
 import sps.core.Settings;
+import sps.util.Parse;
+import sun.rmi.rmic.iiop.DirectoryLoader;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Assets {
-    private static class Dimensions {
-        private static Dimensions instance = new Dimensions();
-
-        public static Dimensions get(int frame, int index) {
-            return instance.reset(frame, index);
-        }
-
-        private Dimensions() {
-        }
-
-        ;
-
-        public int Height;
-        public int Width;
-        public int X;
-        public int Y;
-
-        private Dimensions reset(int frame, int index) {
-            X = frame * Settings.get().spriteHeight + (Settings.get().spriteGap * frame) + Settings.get().spriteGap;
-            Y = index * Settings.get().spriteHeight + (Settings.get().spriteGap * index) + Settings.get().spriteGap;
-            Width = Settings.get().spriteWidth;
-            Height = Settings.get().spriteHeight;
-            return this;
-        }
-    }
-
     private enum Sprites {
-        Gameplay,
         Particle,
         MenuBase
     }
@@ -57,21 +37,50 @@ public class Assets {
         return instance;
     }
 
-
     private final BitmapFont _font;
-    private final Texture _spriteSheet;
-    private final Sprite _sprite;
-    Dimensions d;
 
     private Map<String, Texture> textures = new HashMap<String, Texture>();
     private Map<Sprites, Sprite> sprites = new HashMap<Sprites, Sprite>();
 
+    private final HashMap<Integer,HashMap<Integer,Sprite>> indexedSprites = new HashMap<Integer,HashMap<Integer,Sprite>>();
+    private final HashMap<Integer,String> spriteNames = new HashMap<Integer,String>();
+
+
     private Assets() {
         File fontFile = new File(fontAsset);
-        _font = new BitmapFont(Gdx.files.getFileHandle(fontFile.getAbsolutePath(), Files.FileType.Absolute), false);
-        _spriteSheet = image("GameplaySheet.png");
-        d = Dimensions.get(0, 0);
-        _sprite = new Sprite(_spriteSheet, d.X, d.Y, d.Width, d.Height);
+        _font = new BitmapFont(new FileHandle(fontFile.getAbsolutePath()), false);
+
+
+        File spritesRoot = new File("assets/graphics/sprites");
+        for(File spriteTile:spritesRoot.listFiles()){
+            if(!spriteTile.isHidden()){
+                String[] comps = spriteTile.getName().split("-");
+                int index = Parse.inte(comps[0]);
+                int frame = Parse.inte(comps[1]);
+                String name = "";
+                for(int ii = 2; ii < comps.length; ii++){
+                    String baseName = comps[ii].replace(".png","");
+                    name += Character.toUpperCase(baseName.charAt(0)) + baseName.substring(1) + "_";
+                }
+                name = name.substring(0,name.length()-1);
+                Logger.info("Ingesting sprite for [" + name + "]");
+                spriteNames.put(index,name);
+                Sprite sprite = new Sprite(new Texture(spriteTile.getAbsolutePath()));
+                if(!indexedSprites.containsKey(index)){
+                    indexedSprites.put(index,new HashMap<Integer,Sprite>());
+                }
+                if(!indexedSprites.get(index).containsKey(frame)){
+                    indexedSprites.get(index).put(frame,sprite);
+                }
+            }
+        }
+
+        for(Integer index:indexedSprites.keySet()){
+            int frames = indexedSprites.get(index).keySet().size();
+            String id = spriteNames.get(index);
+            SpriteTypes.add(new SpriteType(id, index, frames));
+        }
+
         sprites.put(Sprites.Particle, new Sprite(image(__particleSprite)));
         sprites.put(Sprites.MenuBase, new Sprite(image(__menuBaseSprite)));
     }
@@ -88,13 +97,11 @@ public class Assets {
     }
 
     public Sprite sprite(int verticalIndex) {
-        setIndices(_sprite, 0, verticalIndex);
-        return _sprite;
+        return indexedSprites.get(verticalIndex).get(0);
     }
 
-    public void setIndices(Sprite sprite, int frame, int index) {
-        d = Dimensions.get(frame, index);
-        sprite.setRegion(d.X, d.Y, d.Width, d.Height);
+    public Sprite sprite(int frame, int index) {
+         return indexedSprites.get(index).get(frame);
     }
 
     public Sprite particle() {
