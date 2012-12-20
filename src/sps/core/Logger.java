@@ -7,13 +7,15 @@ import java.io.File;
 import java.io.IOException;
 
 public class Logger {
-    private static File logFile = new File("sps-gamelib.log");
+    private static File logFile;
+
     public static void setLogFile(String name){
         logFile = new File(name);
         try {
             if(logFile.exists()){
                 FileUtils.forceDelete(logFile);
             }
+            log("Logging to: "+logFile.getAbsolutePath());
         }
         catch (IOException swallow) {
             swallow.printStackTrace();
@@ -30,8 +32,11 @@ public class Logger {
 
     private static void log(String message) {
         System.out.println(message);
+        if(logFile == null){
+            setLogFile("sps-gamelib.log");
+        }
         try {
-            FileUtils.writeStringToFile(logFile, message, true);
+            FileUtils.writeStringToFile(logFile, message + "\n", true);
         }
         catch (IOException e) {
             e.printStackTrace();
