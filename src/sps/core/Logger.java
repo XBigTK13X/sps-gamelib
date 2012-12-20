@@ -1,8 +1,25 @@
 package sps.core;
 
 import com.badlogic.gdx.Gdx;
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Logger {
+    private static File logFile = new File("sps-gamelib.log");
+    public static void setLogFile(String name){
+        logFile = new File(name);
+        try {
+            if(logFile.exists()){
+                FileUtils.forceDelete(logFile);
+            }
+        }
+        catch (IOException swallow) {
+            swallow.printStackTrace();
+        }
+    }
+
     public static void error(String message) {
         log(message);
     }
@@ -13,9 +30,14 @@ public class Logger {
 
     private static void log(String message) {
         System.out.println(message);
+        try {
+            FileUtils.writeStringToFile(logFile, message, true);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    //TODO See why this isn't being called
     public static void devConsole(String message) {
         if (Settings.get().devConsoleEnabled) {
             DevConsole.get().add(message);

@@ -12,6 +12,54 @@
     <name>sps-gamelib</name>
     <url>http://maven.apache.org</url>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.badlogic</groupId>
+            <artifactId>gdx</artifactId>
+            <version>0.9.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogic</groupId>
+            <artifactId>gdx-sources</artifactId>
+            <version>0.9.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogic</groupId>
+            <artifactId>gdx-natives</artifactId>
+            <version>0.9.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogic</groupId>
+            <artifactId>gdx-openal</artifactId>
+            <version>0.9.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogic</groupId>
+            <artifactId>gdx-sources</artifactId>
+            <version>0.9.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogic</groupId>
+            <artifactId>gdx-backend-lwjgl</artifactId>
+            <version>0.9.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogic</groupId>
+            <artifactId>gdx-backend-lwjgl-natives</artifactId>
+            <version>0.9.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogic</groupId>
+            <artifactId>gdx-sources</artifactId>
+            <version>0.9.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <finalName>sps-gamelib</finalName>
         <sourceDirectory>${basedir}/src</sourceDirectory>
@@ -31,24 +79,18 @@
 		<version>2.4</version>
 	      </plugin>
             <plugin>
-                <groupId>com.googlecode.addjars-maven-plugin</groupId>
-                <artifactId>addjars-maven-plugin</artifactId>
-                <version>1.0.4</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.0</version>
+                <configuration>
+
+                </configuration>
                 <executions>
                     <execution>
+                        <phase>package</phase>
                         <goals>
-                            <goal>add-jars</goal>
+                            <goal>shade</goal>
                         </goals>
-                        <configuration>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}/lib</directory>
-                                    <includes>
-                                        <include>**/*.jar</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>

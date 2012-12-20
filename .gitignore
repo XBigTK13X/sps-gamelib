@@ -12,3 +12,4 @@ deploy-snapshot.sh
 target/
 .DS_Store
 *~
+dependency-reduced-pom.xml
