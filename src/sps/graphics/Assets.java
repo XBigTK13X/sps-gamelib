@@ -63,7 +63,6 @@ public class Assets {
                     name += Character.toUpperCase(baseName.charAt(0)) + baseName.substring(1) + "_";
                 }
                 name = name.substring(0,name.length()-1);
-                Logger.info("Ingesting sprite for [" + name + "]");
                 spriteNames.put(index,name);
                 Sprite sprite = new Sprite(new Texture(spriteTile.getAbsolutePath()));
                 if(!indexedSprites.containsKey(index)){
