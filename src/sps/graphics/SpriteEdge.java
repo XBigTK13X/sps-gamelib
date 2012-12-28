@@ -5,6 +5,7 @@ import sps.core.Point2;
 import sps.entities.EntityManager;
 
 //Using this class requires 6 different sprites in this horizontal order:
+//Direction is the side on which a neighbor exists
 //None, Left, Up, LeftUp, LeftRight, and LeftUpRight, and All
 public enum SpriteEdge {
     None(0, 0, 0),
@@ -29,15 +30,23 @@ public enum SpriteEdge {
     public final int Rotation;
 
     private SpriteEdge(int bitwiseIndex, int frame, int rotation) {
+
         this.bitwiseIndex = bitwiseIndex;
         Frame = frame;
         Rotation = rotation;
     }
 
 
+    private static SpriteEdge[] edges = new SpriteEdge[16];
     private static int bIndex;
 
     public static SpriteEdge determine(EntityType type, Point2 location) {
+        if (edges[0] == null) {
+            for (SpriteEdge edge : values()) {
+                edges[edge.bitwiseIndex] = edge;
+            }
+        }
+
         bIndex = 0;
         if (EntityManager.get().anyAt(location.add(-1, 0), type)) {
             bIndex += 1;
@@ -51,6 +60,6 @@ public enum SpriteEdge {
         if (EntityManager.get().anyAt(location.add(0, 1), type)) {
             bIndex += 8;
         }
-        return SpriteEdge.values()[bIndex];
+        return edges[bIndex];
     }
 }
