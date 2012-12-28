@@ -39,6 +39,10 @@ public class Renderer {
         batch = new SpriteBatch();
     }
 
+    public void toggleFullScreen() {
+        Gdx.graphics.setDisplayMode(Gdx.graphics.getDesktopDisplayMode().width, Gdx.graphics.getDesktopDisplayMode().height, !Gdx.graphics.isFullscreen());
+    }
+
     public Point2 center() {
         return new Point2(VirtualWidth / 2, VirtualHeight / 2);
     }
