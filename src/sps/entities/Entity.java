@@ -118,7 +118,6 @@ public class Entity implements Comparable {
     }
 
     public boolean contains(Point2 target)
-
     {
         return target.GridX == getLocation().GridX && target.GridY == getLocation().GridY;
     }

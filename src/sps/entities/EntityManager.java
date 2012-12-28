@@ -4,10 +4,7 @@ import sps.bridge.ActorType;
 import sps.bridge.ActorTypes;
 import sps.bridge.EntityType;
 import sps.bridge.EntityTypes;
-import sps.core.Core;
-import sps.core.Point2;
-import sps.core.RNG;
-import sps.core.Settings;
+import sps.core.*;
 import sps.graphics.Renderer;
 
 import java.util.ArrayList;
@@ -36,43 +33,66 @@ public class EntityManager {
     private List<Entity> _contents = new ArrayList<Entity>();
     private HashMap<Point2, List<Entity>> _gridContents = new HashMap<Point2, List<Entity>>();
     private List<Entity> players = new ArrayList<Entity>();
+    private HashMap<EntityType, List<Entity>> entityBuckets = new HashMap<EntityType, List<Entity>>();
+    private HashMap<ActorType, List<IActor>> actorBuckets = new HashMap<ActorType, List<IActor>>();
 
-    public Entity addObject(Entity Entity) {
-        Entity.loadContent();
-        _contents.add(Entity);
+    public Entity addEntity(Entity entity) {
+        entity.loadContent();
+        _contents.add(entity);
         Collections.sort(_contents);
-        addToGrid(Entity);
-        addToBuckets(Entity);
-        return Entity;
+        addToGrid(entity);
+        addToBuckets(entity);
+        return entity;
     }
 
-    public void addObjects(List<Entity> cache) {
-        _contents.addAll(cache);
-        Collections.sort(_contents);
-    }
-
-    public Entity getObject(EntityType type) {
-        if (_contents != null) {
-            for (Entity entity : _contents) {
-                if (entity.getEntityType() == type) {
-                    return entity;
-                }
+    private void addToBuckets(Entity entity) {
+        if (entity.getEntityType() == EntityTypes.get(Core.Actor)) {
+            IActor actor = (IActor) entity;
+            if (actor.getActorType() == ActorTypes.get(Core.Player)) {
+                players.add(entity);
             }
+            if(!actorBuckets.containsKey(actor)){
+                actorBuckets.put(actor.getActorType(),new ArrayList<IActor>());
+            }
+            actorBuckets.get(actor.getActorType()).add(actor);
+        }
+        if(!entityBuckets.containsKey(entity)){
+            entityBuckets.put(entity.getEntityType(),new ArrayList<Entity>());
+        }
+        entityBuckets.get(entity.getEntityType()).add(entity);
+    }
+
+    private void addToGrid(Entity entity) {
+        if (!_gridContents.containsKey(entity.getLocation())) {
+            _gridContents.put(entity.getLocation(), new ArrayList<Entity>());
+        }
+        _gridContents.get(entity.getLocation()).add(entity);
+    }
+
+    public void addEntities(List<Entity> cache) {
+        for(Entity e:cache){
+            addEntity(e);
+        }
+    }
+
+    public Entity getEntity(EntityType type) {
+        if (_contents != null) {
+            return entityBuckets.get(type).get(0);
         }
         return null;
     }
 
     private final List<Entity> _gopResults = new ArrayList<Entity>();
-
+    private final List<Entity> _goResults = new ArrayList<Entity>();
     public List<Entity> getEntities(EntityType type, Point2 target)
-
     {
-        if (_contents != null) {
-            _goResults.clear();
-            _goResults.addAll(getObjects(type));
+        if (_contents != null)
+        {
             _gopResults.clear();
+            _goResults.clear();
+            _goResults.addAll(_gridContents.get(target));
             for (Entity goResult : _goResults) {
-                if (goResult.contains(target)) {
+                if (goResult.getEntityType() == type) {
                     _gopResults.add(goResult);
                 }
             }
@@ -81,16 +101,12 @@ public class EntityManager {
         return null;
     }
 
-    private final List<Entity> _goResults = new ArrayList<Entity>();
-
-    public List<Entity> getObjects(EntityType type) {
-        _goResults.clear();
-        for (Entity _content : _contents) {
-            if (_content.getEntityType() == type) {
-                _goResults.add(_content);
-            }
+    private List<Entity> empty = new ArrayList<Entity>();
+    public List<Entity> getEntities(EntityType type) {
+        if(entityBuckets.get(type) == null){
+            return empty;
         }
-        return _goResults;
+        return entityBuckets.get(type);
     }
 
     private final List<IActor> _creatures = new ArrayList<IActor>();
@@ -107,12 +123,8 @@ public class EntityManager {
             }
         }
         else {
-            for (Entity elem : _contents) {
-                if (elem.getEntityType() == EntityTypes.get(Core.Actor)) {
-                    if (((IActor) elem).getActorType() != ActorTypes.get(Core.Player)) {
-                        _creatures.add(((IActor) elem));
-                    }
-                }
+            if(actorBuckets.get(type) != null){
+                _creatures.addAll(actorBuckets.get(type));
             }
         }
         return _creatures;
@@ -138,20 +150,19 @@ public class EntityManager {
     }
 
     private final List<IActor> _creatures2 = new ArrayList<IActor>();
-    private Point2 buffer = new Point2(0,0);
+    private Point2 buffer = new Point2(0, 0);
 
-    public List<IActor> getActorsSurrounding(Point2 target, int distance)
-    {
+    public List<IActor> getActorsSurrounding(Point2 target, int distance) {
         _creatures2.clear();
         for (int ii = -distance; ii < distance + 1; ii++) {
             for (int jj = -distance; jj < distance + 1; jj++) {
                 if (ii != 0 || jj != 0) {
-		    buffer.copy(target.add(new Point2(ii, jj)));
-		    if(CoordVerifier.isValid(buffer)){
+                    buffer.copy(target.add(new Point2(ii, jj)));
+                    if (CoordVerifier.isValid(buffer)) {
                         for (IActor creature : getActorsAt(buffer, null)) {
                             _creatures2.add(creature);
                         }
-		    }
+                    }
                 }
             }
         }
@@ -168,8 +179,7 @@ public class EntityManager {
     }
 
     public boolean anyAt(Point2 target, EntityType type) {
-        if(CoordVerifier.isValid(target))
-        {
+        if (CoordVerifier.isValid(target)) {
             for (Entity entity : _gridContents.get(target)) {
                 if (entity.getEntityType() == type) {
                     return true;
@@ -179,17 +189,25 @@ public class EntityManager {
         return false;
     }
 
-    public void removeObject(Entity target) {
+    public void removeEntity(Entity target) {
         _contents.remove(target);
         _gridContents.get(target.getLocation()).remove(target);
-        if(target.getEntityType() == EntityTypes.get(Core.Player)){
-            players.add(target);
+        if (target.getEntityType() == EntityTypes.get(Core.Actor)) {
+            IActor actor = (IActor)target;
+            if(actor.getActorType() == ActorTypes.get(Core.Player)){
+                players.remove(target);
+            }
+            actorBuckets.remove(actor);
         }
+        entityBuckets.get(target.getEntityType()).remove(target);
+
     }
 
     public void clear() {
         _contents = new ArrayList<Entity>();
         _gridContents = new HashMap<Point2, List<Entity>>();
+        actorBuckets = new HashMap<ActorType,List<IActor>>();
+        entityBuckets = new HashMap<EntityType,List<Entity>>();
     }
 
     public void update() {
@@ -198,8 +216,7 @@ public class EntityManager {
                 return;
             }
             if (!_contents.get(ii).isActive()) {
-                _gridContents.get(_contents.get(ii).getLocation()).remove(_contents.get(ii));
-                _contents.remove(_contents.get(ii));
+                removeEntity(_contents.get(ii));
                 ii--;
                 continue;
             }
@@ -223,19 +240,6 @@ public class EntityManager {
         }
     }
 
-    private void addToBuckets(Entity entity){
-        if (entity.getEntityType() == EntityTypes.get(Core.Actor) && ((IActor) entity).getActorType() == ActorTypes.get(Core.Player)) {
-            players.add(entity);
-        }
-    }
-
-    private void addToGrid(Entity entity) {
-        if (!_gridContents.containsKey(entity.getLocation())) {
-            _gridContents.put(entity.getLocation(), new ArrayList<Entity>());
-        }
-        _gridContents.get(entity.getLocation()).add(entity);
-    }
-
     public void updateGridLocation(Entity Entity, Point2 oldLocation) {
         if (_gridContents != null && oldLocation != null) {
             _gridContents.get(oldLocation).remove(Entity);
@@ -244,7 +248,7 @@ public class EntityManager {
     }
 
     public List<Entity> getPlayers() {
-       return players;
+        return players;
     }
 
     public IActor getNearestPlayer(Entity target) {
