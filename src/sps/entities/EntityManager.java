@@ -35,13 +35,14 @@ public class EntityManager {
 
     private List<Entity> _contents = new ArrayList<Entity>();
     private HashMap<Point2, List<Entity>> _gridContents = new HashMap<Point2, List<Entity>>();
-    private HashMap<EntityType,List<Entity>> entityBuckets;
+    private List<Entity> players = new ArrayList<Entity>();
 
     public Entity addObject(Entity Entity) {
         Entity.loadContent();
         _contents.add(Entity);
         Collections.sort(_contents);
         addToGrid(Entity);
+        addToBuckets(Entity);
         return Entity;
     }
 
@@ -166,22 +167,6 @@ public class EntityManager {
         return false;
     }
 
-    public IActor getNearestPlayer(Entity target) {
-        List<IActor> actors = getActors(ActorTypes.get(Core.Player));
-        if (actors.size() > 0) {
-            Entity closest = (Entity) actors.get(0);
-            Entity player;
-            for (IActor actor : actors) {
-                player = (Entity) actor;
-                if (HitTest.getDistanceSquare(target, player) < HitTest.getDistanceSquare(target, closest)) {
-                    closest = player;
-                }
-            }
-            return (IActor) closest;
-        }
-        return null;
-    }
-
     public boolean anyAt(Point2 target, EntityType type) {
         if(CoordVerifier.isValid(target))
         {
@@ -196,6 +181,10 @@ public class EntityManager {
 
     public void removeObject(Entity target) {
         _contents.remove(target);
+        _gridContents.get(target.getLocation()).remove(target);
+        if(target.getEntityType() == EntityTypes.get(Core.Player)){
+            players.add(target);
+        }
     }
 
     public void clear() {
@@ -234,6 +223,12 @@ public class EntityManager {
         }
     }
 
+    private void addToBuckets(Entity entity){
+        if (entity.getEntityType() == EntityTypes.get(Core.Actor) && ((IActor) entity).getActorType() == ActorTypes.get(Core.Player)) {
+            players.add(entity);
+        }
+    }
+
     private void addToGrid(Entity entity) {
         if (!_gridContents.containsKey(entity.getLocation())) {
             _gridContents.put(entity.getLocation(), new ArrayList<Entity>());
@@ -248,16 +243,22 @@ public class EntityManager {
         }
     }
 
-    private final List<Entity> _players = new ArrayList<Entity>();
-
     public List<Entity> getPlayers() {
-        _players.clear();
-        for (Entity tile : _contents) {
-            if (tile.getEntityType() == EntityTypes.get(Core.Actor) && ((IActor) tile).getActorType() == ActorTypes.get(Core.Player)) {
-                _players.add(tile);
+       return players;
+    }
+
+    public IActor getNearestPlayer(Entity target) {
+        List<Entity> actors = getPlayers();
+        if (actors.size() > 0) {
+            Entity closest = actors.get(0);
+            for (Entity actor : actors) {
+                if (HitTest.getDistanceSquare(target, actor) < HitTest.getDistanceSquare(target, closest)) {
+                    closest = actor;
+                }
             }
+            return (IActor) closest;
         }
-        return _players;
+        return null;
     }
 
     public Point2 getEmptyLocation() {
