@@ -26,9 +26,6 @@ public class EntityTypes {
     }
 
     public EntityType resolve(String name) {
-        if (!EntityTypes.containsKey(name)) {
-            Logger.exception("The entityType " + name + " is not defined.", new Exception("Add it to bridge.cfg"));
-        }
         return EntityTypes.get(name);
     }
 

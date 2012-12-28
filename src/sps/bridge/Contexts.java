@@ -26,9 +26,6 @@ public class Contexts {
     }
 
     public Context resolve(String name) {
-        if (!contexts.containsKey(name)) {
-            Logger.exception("The context " + name + " is not defined.", new Exception("Add it to bridge.cfg"));
-        }
         return contexts.get(name);
     }
 

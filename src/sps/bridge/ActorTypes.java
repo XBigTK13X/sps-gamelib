@@ -29,9 +29,6 @@ public class ActorTypes {
     }
 
     public ActorType resolve(String name) {
-        if (!actorTypes.containsKey(name)) {
-            Logger.exception("The ActorType " + name + " is not defined.", new Exception("Add it to bridge.cfg"));
-        }
         return actorTypes.get(name);
     }
 

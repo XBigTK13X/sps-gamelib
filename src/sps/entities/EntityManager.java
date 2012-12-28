@@ -35,6 +35,7 @@ public class EntityManager {
 
     private List<Entity> _contents = new ArrayList<Entity>();
     private HashMap<Point2, List<Entity>> _gridContents = new HashMap<Point2, List<Entity>>();
+    private HashMap<EntityType,List<Entity>> entityBuckets;
 
     public Entity addObject(Entity Entity) {
         Entity.loadContent();

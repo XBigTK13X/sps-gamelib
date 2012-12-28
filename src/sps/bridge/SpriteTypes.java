@@ -33,9 +33,6 @@ public class SpriteTypes {
     }
 
     public SpriteType resolve(String name) {
-        if (!spriteTypes.containsKey(name)) {
-            Logger.exception("The spriteType " + name + " is not defined.", new Exception("Add it to bridge.cfg"));
-        }
         return spriteTypes.get(name);
     }
 

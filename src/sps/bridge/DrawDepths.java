@@ -26,9 +26,6 @@ public class DrawDepths {
     }
 
     public DrawDepth resolve(String name) {
-        if (!drawDepths.containsKey(name)) {
-            Logger.exception("The drawDepth " + name + " is not defined.", new Exception("Add it to bridge.cfg"));
-        }
         return drawDepths.get(name);
     }
 
