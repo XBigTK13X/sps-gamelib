@@ -4,7 +4,10 @@ import sps.bridge.ActorType;
 import sps.bridge.ActorTypes;
 import sps.bridge.EntityType;
 import sps.bridge.EntityTypes;
-import sps.core.*;
+import sps.core.Core;
+import sps.core.Point2;
+import sps.core.RNG;
+import sps.core.Settings;
 import sps.graphics.Renderer;
 
 import java.util.ArrayList;
@@ -51,13 +54,13 @@ public class EntityManager {
             if (actor.getActorType() == ActorTypes.get(Core.Player)) {
                 players.add(entity);
             }
-            if(!actorBuckets.containsKey(actor)){
-                actorBuckets.put(actor.getActorType(),new ArrayList<IActor>());
+            if (!actorBuckets.containsKey(actor)) {
+                actorBuckets.put(actor.getActorType(), new ArrayList<IActor>());
             }
             actorBuckets.get(actor.getActorType()).add(actor);
         }
-        if(!entityBuckets.containsKey(entity)){
-            entityBuckets.put(entity.getEntityType(),new ArrayList<Entity>());
+        if (!entityBuckets.containsKey(entity)) {
+            entityBuckets.put(entity.getEntityType(), new ArrayList<Entity>());
         }
         entityBuckets.get(entity.getEntityType()).add(entity);
     }
@@ -70,7 +73,7 @@ public class EntityManager {
     }
 
     public void addEntities(List<Entity> cache) {
-        for(Entity e:cache){
+        for (Entity e : cache) {
             addEntity(e);
         }
     }
@@ -84,10 +87,9 @@ public class EntityManager {
 
     private final List<Entity> _gopResults = new ArrayList<Entity>();
     private final List<Entity> _goResults = new ArrayList<Entity>();
-    public List<Entity> getEntities(EntityType type, Point2 target)
-    {
-        if (_contents != null)
-        {
+
+    public List<Entity> getEntities(EntityType type, Point2 target) {
+        if (_contents != null) {
             _gopResults.clear();
             _goResults.clear();
             _goResults.addAll(_gridContents.get(target));
@@ -102,8 +104,9 @@ public class EntityManager {
     }
 
     private List<Entity> empty = new ArrayList<Entity>();
+
     public List<Entity> getEntities(EntityType type) {
-        if(entityBuckets.get(type) == null){
+        if (entityBuckets.get(type) == null) {
             return empty;
         }
         return entityBuckets.get(type);
@@ -114,17 +117,17 @@ public class EntityManager {
     public List<IActor> getActors(ActorType type) {
         _creatures.clear();
         if (type != ActorTypes.get(Core.Non_Player)) {
-            for (Entity elem : _contents) {
-                if (elem.getEntityType() == EntityTypes.get(Core.Actor)) {
-                    if (((IActor) elem).getActorType() == type) {
-                        _creatures.add(((IActor) elem));
-                    }
-                }
+            if (actorBuckets.get(type) != null) {
+                _creatures.addAll(actorBuckets.get(type));
             }
         }
         else {
-            if(actorBuckets.get(type) != null){
-                _creatures.addAll(actorBuckets.get(type));
+            for (Entity elem : _contents) {
+                if (elem.getEntityType() == EntityTypes.get(Core.Actor)) {
+                    if (((IActor) elem).getActorType() != ActorTypes.get(Core.Player)) {
+                        _creatures.add(((IActor) elem));
+                    }
+                }
             }
         }
         return _creatures;
@@ -193,8 +196,8 @@ public class EntityManager {
         _contents.remove(target);
         _gridContents.get(target.getLocation()).remove(target);
         if (target.getEntityType() == EntityTypes.get(Core.Actor)) {
-            IActor actor = (IActor)target;
-            if(actor.getActorType() == ActorTypes.get(Core.Player)){
+            IActor actor = (IActor) target;
+            if (actor.getActorType() == ActorTypes.get(Core.Player)) {
                 players.remove(target);
             }
             actorBuckets.remove(actor);
@@ -206,8 +209,8 @@ public class EntityManager {
     public void clear() {
         _contents = new ArrayList<Entity>();
         _gridContents = new HashMap<Point2, List<Entity>>();
-        actorBuckets = new HashMap<ActorType,List<IActor>>();
-        entityBuckets = new HashMap<EntityType,List<Entity>>();
+        actorBuckets = new HashMap<ActorType, List<IActor>>();
+        entityBuckets = new HashMap<EntityType, List<Entity>>();
     }
 
     public void update() {

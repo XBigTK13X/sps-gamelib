@@ -76,7 +76,7 @@ public class AnimatedTexture {
     }
 
     public void setAlpha(float alpha) {
-        _color.set(_color.r, _color.g, _color.b, alpha);
+        _color = new Color(_color.r, _color.g, _color.b, alpha);
     }
 
     public void setDrawDepth(DrawDepth depth) {
