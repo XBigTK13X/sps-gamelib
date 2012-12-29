@@ -55,7 +55,7 @@ public class Path {
                 _t = Assets.get().sprite(0);
             }
             for (Point2 step : _steps) {
-                Renderer.get().draw(_t, new Point2(step.PosX, step.PosY), DrawDepths.get(Core.Debug), Color.ORANGE);
+                Renderer.get().draw(_t, new Point2(step.PosX, step.PosY), DrawDepths.get(Core.DrawDepths.Debug), Color.ORANGE);
             }
         }
     }

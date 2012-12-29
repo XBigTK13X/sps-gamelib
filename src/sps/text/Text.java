@@ -53,7 +53,7 @@ public class Text {
     }
 
     public void draw() {
-        Renderer.get().drawString(message, position, Color.WHITE, scale, DrawDepths.get(Core.Default_Text));
+        Renderer.get().drawString(message, position, Color.WHITE, scale, DrawDepths.get(Core.DrawDepths.Default_Text));
     }
 
     public boolean isVisible() {

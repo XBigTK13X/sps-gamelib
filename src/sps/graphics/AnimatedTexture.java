@@ -21,7 +21,7 @@ public class AnimatedTexture {
     protected Point2 _position = new Point2(0, 0);
 
     public AnimatedTexture() {
-        _depth = DrawDepths.get(Core.Animated_Texture);
+        _depth = DrawDepths.get(Core.DrawDepths.Animated_Texture);
         setEdge(SpriteEdge.None);
     }
 

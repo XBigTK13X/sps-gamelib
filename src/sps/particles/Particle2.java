@@ -37,7 +37,7 @@ public class Particle2 extends PEComponent {
 
     public void draw() {
         if (IsActive) {
-            Renderer.get().draw(_texture, Position, DrawDepths.get(Core.Particle), _color, Width, Height);
+            Renderer.get().draw(_texture, Position, DrawDepths.get(Core.DrawDepths.Particle), _color, Width, Height);
         }
     }
 
