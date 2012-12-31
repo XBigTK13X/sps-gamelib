@@ -36,7 +36,6 @@ public enum SpriteEdge {
         Rotation = rotation;
     }
 
-
     private static SpriteEdge[] edges = new SpriteEdge[16];
     private static int bIndex;
 

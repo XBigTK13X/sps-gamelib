@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import sps.bridge.DrawDepth;
 import sps.core.Point2;
 import sps.core.Settings;
@@ -28,15 +30,18 @@ public class Renderer {
     // This is the resolution used by the game internally
     public final int VirtualHeight;
     public final int VirtualWidth;
+    public final float VirtualAspectRatio;
     public final SpriteBatch batch;
     public final OrthographicCamera camera;
+    private Rectangle viewport;
 
     private Renderer(int width, int height) {
         VirtualWidth = width;
         VirtualHeight = height;
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, VirtualWidth, VirtualHeight);
+        VirtualAspectRatio = (float)width/(float)height;
+        camera = new OrthographicCamera(width, height);
         batch = new SpriteBatch();
+        resize(width,height);
     }
 
     public void toggleFullScreen() {
@@ -51,12 +56,36 @@ public class Renderer {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
         camera.update();
-        batch.setProjectionMatrix(camera.combined);
+        //camera.apply(Gdx.gl10);
+        Gdx.gl.glViewport((int) viewport.x, (int) viewport.y, (int) viewport.width, (int) viewport.height);
+        //batch.setProjectionMatrix(camera.combined);
         batch.begin();
     }
 
     public void end() {
         batch.end();
+    }
+
+    public void resize(int width, int height) {
+        float aspectRatio = (float) width / (float) height;
+        float scale = 1f;
+        Vector2 crop = new Vector2(0f, 0f);
+
+        if (aspectRatio > VirtualAspectRatio) {
+            scale = (float) height / (float) VirtualHeight;
+            crop.x = (width - VirtualWidth * scale) / 2f;
+        }
+        else if (aspectRatio < VirtualAspectRatio) {
+            scale = (float) width / (float) VirtualWidth;
+            crop.y = (height - VirtualHeight * scale) / 2f;
+        }
+        else {
+            scale = (float) width / (float) VirtualWidth;
+        }
+
+        float w = (float) VirtualWidth * scale;
+        float h = (float) VirtualHeight * scale;
+        viewport = new Rectangle(crop.x, crop.y, w, h);
     }
 
     // Sprite rendering
