@@ -1,7 +1,5 @@
 package sps.graphics;
 
-import com.badlogic.gdx.Files;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -9,13 +7,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import sps.bridge.SpriteType;
 import sps.bridge.SpriteTypes;
 import sps.core.Logger;
-import sps.core.Settings;
 import sps.util.Parse;
-import sun.rmi.rmic.iiop.DirectoryLoader;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Assets {
@@ -42,8 +37,8 @@ public class Assets {
     private Map<String, Texture> textures = new HashMap<String, Texture>();
     private Map<Sprites, Sprite> sprites = new HashMap<Sprites, Sprite>();
 
-    private final HashMap<Integer,HashMap<Integer,Sprite>> indexedSprites = new HashMap<Integer,HashMap<Integer,Sprite>>();
-    private final HashMap<Integer,String> spriteNames = new HashMap<Integer,String>();
+    private final HashMap<Integer, HashMap<Integer, Sprite>> indexedSprites = new HashMap<Integer, HashMap<Integer, Sprite>>();
+    private final HashMap<Integer, String> spriteNames = new HashMap<Integer, String>();
 
 
     private Assets() {
@@ -52,36 +47,46 @@ public class Assets {
 
 
         File spritesRoot = new File("assets/graphics/sprites");
-        for(File spriteTile:spritesRoot.listFiles()){
-            if(!spriteTile.isHidden()){
+        for (File spriteTile : spritesRoot.listFiles()) {
+            if (!spriteTile.isHidden()) {
                 String[] comps = spriteTile.getName().split("-");
                 int index = Parse.inte(comps[0]);
                 int frame = Parse.inte(comps[1]);
                 String name = "";
-                for(int ii = 2; ii < comps.length; ii++){
-                    String baseName = comps[ii].replace(".png","");
+                for (int ii = 2; ii < comps.length; ii++) {
+                    String baseName = comps[ii].replace(".png", "");
                     name += Character.toUpperCase(baseName.charAt(0)) + baseName.substring(1) + "_";
                 }
-                name = name.substring(0,name.length()-1);
-                spriteNames.put(index,name);
+                name = name.substring(0, name.length() - 1);
+                spriteNames.put(index, name);
                 Sprite sprite = new Sprite(new Texture(spriteTile.getAbsolutePath()));
-                if(!indexedSprites.containsKey(index)){
-                    indexedSprites.put(index,new HashMap<Integer,Sprite>());
+                if (!indexedSprites.containsKey(index)) {
+                    indexedSprites.put(index, new HashMap<Integer, Sprite>());
                 }
-                if(!indexedSprites.get(index).containsKey(frame)){
-                    indexedSprites.get(index).put(frame,sprite);
+                if (!indexedSprites.get(index).containsKey(frame)) {
+                    indexedSprites.get(index).put(frame, sprite);
                 }
             }
         }
 
-        for(Integer index:indexedSprites.keySet()){
+        for (Integer index : indexedSprites.keySet()) {
             int frames = indexedSprites.get(index).keySet().size();
             String id = spriteNames.get(index);
             SpriteTypes.add(new SpriteType(id, index, frames));
         }
 
-        sprites.put(Sprites.Particle, new Sprite(image(__particleSprite)));
-        sprites.put(Sprites.MenuBase, new Sprite(image(__menuBaseSprite)));
+        try {
+            sprites.put(Sprites.Particle, new Sprite(image(__particleSprite)));
+        }
+        catch (Exception e) {
+            Logger.exception("ERROR: Exception while loading the particle sprite. The particle engine will not be functional.", e, false);
+        }
+        try {
+            sprites.put(Sprites.MenuBase, new Sprite(image(__menuBaseSprite)));
+        }
+        catch (Exception e) {
+            Logger.exception("ERROR: Exception while loading the menu base sprite. The HUDs that use it might not be functional.", e, false);
+        }
     }
 
     public BitmapFont font() {
@@ -100,7 +105,7 @@ public class Assets {
     }
 
     public Sprite sprite(int frame, int index) {
-         return indexedSprites.get(index).get(frame);
+        return indexedSprites.get(index).get(frame);
     }
 
     public Sprite particle() {

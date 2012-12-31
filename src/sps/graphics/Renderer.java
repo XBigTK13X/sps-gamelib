@@ -33,7 +33,9 @@ public class Renderer {
     public final float VirtualAspectRatio;
     public final SpriteBatch batch;
     public final OrthographicCamera camera;
+
     private Rectangle viewport;
+    private Color bgColor;
 
     private Renderer(int width, int height) {
         VirtualWidth = width;
@@ -41,7 +43,12 @@ public class Renderer {
         VirtualAspectRatio = (float)width/(float)height;
         camera = new OrthographicCamera(width, height);
         batch = new SpriteBatch();
+        bgColor = Color.WHITE;
         resize(width,height);
+    }
+
+    public void setWindowsBackground(Color bgColor){
+        this.bgColor = bgColor;
     }
 
     public void toggleFullScreen() {
@@ -53,7 +60,7 @@ public class Renderer {
     }
 
     public void begin() {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(bgColor.r, bgColor.g, bgColor.b, bgColor.a);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
         camera.update();
         //camera.apply(Gdx.gl10);

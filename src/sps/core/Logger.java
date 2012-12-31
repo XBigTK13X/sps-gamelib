@@ -9,13 +9,13 @@ import java.io.IOException;
 public class Logger {
     private static File logFile;
 
-    public static void setLogFile(String name){
+    public static void setLogFile(String name) {
         logFile = new File(name);
         try {
-            if(logFile.exists()){
+            if (logFile.exists()) {
                 FileUtils.forceDelete(logFile);
             }
-            log("Logging to: "+logFile.getAbsolutePath());
+            log("Logging to: " + logFile.getAbsolutePath());
         }
         catch (IOException swallow) {
             swallow.printStackTrace();
@@ -32,7 +32,7 @@ public class Logger {
 
     private static void log(String message) {
         System.out.println(message);
-        if(logFile == null){
+        if (logFile == null) {
             setLogFile("sps-gamelib.log");
         }
         try {
@@ -50,6 +50,10 @@ public class Logger {
     }
 
     public static void exception(Exception e) {
+        exception(e, true);
+    }
+
+    public static void exception(Exception e, boolean exit) {
         log(e.toString());
         if (e.getCause() != null) {
             log(e.getCause().getMessage());
@@ -57,15 +61,23 @@ public class Logger {
         for (StackTraceElement el : e.getStackTrace()) {
             log("  " + el.toString());
         }
-        try{
-            Gdx.app.exit();
+        if (exit) {
+            try {
+                Gdx.app.exit();
+            }
+            catch (Exception swallow) {
+            }
+            System.exit(-1);
         }
-        catch(Exception swallow){}
-        System.exit(-1);
     }
 
     public static void exception(String s, Exception e) {
         log(s);
-        exception(e);
+        exception(e, true);
+    }
+
+    public static void exception(String s, Exception e, boolean exit) {
+        log(s);
+        exception(e, exit);
     }
 }
