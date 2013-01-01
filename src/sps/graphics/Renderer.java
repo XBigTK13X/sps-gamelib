@@ -110,7 +110,6 @@ public class Renderer {
     }
 
     private void render(Sprite sprite, Point2 position, DrawDepth depth, Color color, float scaleX, float scaleY) {
-        //Logger.info(position.toString());
         sprite.setColor(color);
         sprite.setSize(scaleX, scaleY);
         sprite.setPosition(position.X, position.Y);
