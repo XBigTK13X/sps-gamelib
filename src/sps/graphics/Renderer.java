@@ -1,5 +1,6 @@
 package sps.graphics;
 
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
@@ -15,6 +16,7 @@ public class Renderer {
 
     private static Renderer instance;
     private static RenderStrategy defaultStrategy = new StretchStrategy();
+    private ApplicationListener refreshInstance;
 
     public static Renderer get() {
         if (instance == null) {
@@ -30,6 +32,7 @@ public class Renderer {
     public static void setVirtualResolution(int width, int height) {
         instance = new Renderer(width, height);
         instance.setStrategy(defaultStrategy);
+
     }
 
     // This is the resolution used by the game internally
@@ -39,7 +42,7 @@ public class Renderer {
     private int Height;
     private int Width;
 
-    public final SpriteBatch batch;
+    public SpriteBatch batch;
     public OrthographicCamera camera;
     private RenderStrategy strategy;
     private Color bgColor;
@@ -50,10 +53,14 @@ public class Renderer {
         Height = height;
         Width = width;
         VirtualAspectRatio = (float) width / (float) height;
-        strategy = new StretchStrategy();
         batch = new SpriteBatch();
         bgColor = Color.WHITE;
+        strategy = new StretchStrategy();
         resize(width, height);
+    }
+
+    public void setRefreshInstance(ApplicationListener app) {
+        refreshInstance = app;
     }
 
     public void setWindowsBackground(Color bgColor) {
@@ -61,8 +68,15 @@ public class Renderer {
     }
 
     public void setStrategy(RenderStrategy strategy) {
+
         this.strategy = strategy;
         camera = strategy.createCamera();
+        if (refreshInstance != null) {
+            refreshInstance.resize(getWidth(), getHeight());
+        }
+        else {
+            Logger.info("If the app is registered with Renderer.get().setRefreshInstance(this); in the create method, then the screen will update without a manual resizing.");
+        }
     }
 
     public void toggleFullScreen() {

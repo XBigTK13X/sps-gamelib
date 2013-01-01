@@ -17,7 +17,6 @@ public class FrameStrategy implements RenderStrategy {
 
     @Override
     public void begin(OrthographicCamera camera, SpriteBatch batch) {
-        Gdx.gl.glViewport((int) viewport.x, (int) viewport.y, (int) viewport.width, (int) viewport.height);
         camera.setToOrtho(false, Renderer.get().VirtualWidth, Renderer.get().VirtualHeight);
         batch.setProjectionMatrix(camera.combined);
     }
@@ -26,6 +25,7 @@ public class FrameStrategy implements RenderStrategy {
 
     @Override
     public void resize(int width, int height) {
+
         float aspectRatio = (float) width / (float) height;
         float scale = 1f;
         crop.set(0, 0);
@@ -45,5 +45,6 @@ public class FrameStrategy implements RenderStrategy {
         float w = (float) Renderer.get().VirtualWidth * scale;
         float h = (float) Renderer.get().VirtualHeight * scale;
         viewport.set(crop.x, crop.y, w, h);
+        Gdx.gl.glViewport((int) viewport.x, (int) viewport.y, (int) viewport.width, (int) viewport.height);
     }
 }

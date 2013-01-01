@@ -3,17 +3,40 @@ import com.badlogic.gdx.graphics.Color;
 import sps.bridge.DrawDepths;
 import sps.bridge.Spx;
 import sps.core.Core;
+import sps.core.Logger;
 import sps.core.Point2;
-import sps.graphics.Assets;
-import sps.graphics.FrameStrategy;
-import sps.graphics.Renderer;
+import sps.graphics.*;
 
 public class TestGame implements ApplicationListener {
+
+    private long startTime = System.currentTimeMillis();
+
+    private RenderStrategy current;
+
+    private void toggleRenderStrategy() {
+        if (current == null || current.getClass() == StretchStrategy.class) {
+            current = new FrameStrategy();
+        }
+        else {
+            current = new StretchStrategy();
+        }
+        Logger.info("Setting to " + current.getClass());
+        Renderer.get().setStrategy(current);
+    }
+
     @Override
     public void create() {
         Spx.setup();
         Renderer.get().setStrategy(new FrameStrategy());
         Renderer.get().setWindowsBackground(Color.GRAY);
+        Renderer.get().setRefreshInstance(this);
+    }
+
+    private void testRenderStrats() {
+        if (System.currentTimeMillis() - startTime >= 1000) {
+            startTime = System.currentTimeMillis();
+            toggleRenderStrategy();
+        }
     }
 
     @Override
@@ -24,6 +47,7 @@ public class TestGame implements ApplicationListener {
     @Override
     public void render() {
         //Update
+        testRenderStrats();
 
         //Draw
         Renderer.get().begin();
