@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import sps.bridge.DrawDepth;
 import sps.core.Logger;
 import sps.core.Point2;
@@ -16,6 +14,7 @@ import sps.core.Settings;
 public class Renderer {
 
     private static Renderer instance;
+    private static RenderStrategy defaultStrategy = new StretchStrategy();
 
     public static Renderer get() {
         if (instance == null) {
@@ -23,30 +22,35 @@ public class Renderer {
             int height = Settings.get().spriteHeight * Settings.get().tileMapHeight;
             Logger.info("Virtual resolution: " + width + "W, " + height + "H");
             instance = new Renderer(width, height);
+            instance.setStrategy(defaultStrategy);
         }
         return instance;
     }
 
     public static void setVirtualResolution(int width, int height) {
         instance = new Renderer(width, height);
+        instance.setStrategy(defaultStrategy);
     }
 
     // This is the resolution used by the game internally
     public final int VirtualHeight;
     public final int VirtualWidth;
     public final float VirtualAspectRatio;
+    private int Height;
+    private int Width;
 
     public final SpriteBatch batch;
     public OrthographicCamera camera;
-    private boolean stretch = false;
-    private Rectangle viewport;
+    private RenderStrategy strategy;
     private Color bgColor;
 
     private Renderer(int width, int height) {
         VirtualWidth = width;
         VirtualHeight = height;
+        Height = height;
+        Width = width;
         VirtualAspectRatio = (float) width / (float) height;
-        camera = new OrthographicCamera(width, height);
+        strategy = new StretchStrategy();
         batch = new SpriteBatch();
         bgColor = Color.WHITE;
         resize(width, height);
@@ -56,15 +60,9 @@ public class Renderer {
         this.bgColor = bgColor;
     }
 
-    public void allowStretching(boolean stretch) {
-        this.stretch = stretch;
-        if (stretch) {
-            camera = new OrthographicCamera();
-            camera.setToOrtho(false, VirtualWidth, VirtualHeight);
-        }
-        else {
-            camera = new OrthographicCamera(VirtualWidth, VirtualHeight);
-        }
+    public void setStrategy(RenderStrategy strategy) {
+        this.strategy = strategy;
+        camera = strategy.createCamera();
     }
 
     public void toggleFullScreen() {
@@ -80,15 +78,7 @@ public class Renderer {
         Gdx.gl.glClearColor(bgColor.r, bgColor.g, bgColor.b, bgColor.a);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
         camera.update();
-        //camera.apply(Gdx.gl10.);
-        if (stretch) {
-            batch.setProjectionMatrix(camera.combined);
-        }
-        else {
-            Logger.info(viewport.x + "x, " + viewport.y + "y : " + viewport.width + "w, " + viewport.height + " h");
-            //camera.setToOrtho(false,viewport.width,viewport.height);
-            Gdx.gl.glViewport((int) viewport.x, (int) viewport.y, (int) viewport.width, (int) viewport.height);
-        }
+        strategy.begin(camera, batch);
         batch.begin();
     }
 
@@ -97,28 +87,17 @@ public class Renderer {
     }
 
     public void resize(int width, int height) {
-        if (!stretch) {
-            Logger.info("Scaling to: " + width + "W, " + height + "H");
-            float aspectRatio = (float) width / (float) height;
-            float scale = 1f;
-            Vector2 crop = new Vector2(0f, 0f);
+        Height = height;
+        Width = width;
+        strategy.resize(width, height);
+    }
 
-            if (aspectRatio > VirtualAspectRatio) {
-                scale = (float) height / (float) VirtualHeight;
-                crop.x = (width - VirtualWidth * scale) / 2f;
-            }
-            else if (aspectRatio < VirtualAspectRatio) {
-                scale = (float) width / (float) VirtualWidth;
-                crop.y = (height - VirtualHeight * scale) / 2f;
-            }
-            else {
-                scale = (float) width / (float) VirtualWidth;
-            }
+    public int getHeight() {
+        return Height;
+    }
 
-            float w = (float) VirtualWidth * scale;
-            float h = (float) VirtualHeight * scale;
-            viewport = new Rectangle(crop.x, crop.y, w, h);
-        }
+    public int getWidth() {
+        return Width;
     }
 
     // Sprite rendering
@@ -131,7 +110,7 @@ public class Renderer {
     }
 
     private void render(Sprite sprite, Point2 position, DrawDepth depth, Color color, float scaleX, float scaleY) {
-        Logger.info(position.toString());
+        //Logger.info(position.toString());
         sprite.setColor(color);
         sprite.setSize(scaleX, scaleY);
         sprite.setPosition(position.X, position.Y);
