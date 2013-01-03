@@ -66,13 +66,8 @@ public class Entity implements Comparable {
 
     private boolean facingLeft = true;
 
-    private void flip(float amount) {
-        if (amount > 0 && facingLeft) {
-            facingLeft = false;
-        }
-        if ((amount < 0 && !facingLeft)) {
-            facingLeft = true;
-        }
+    public void setFacingLeft(boolean value) {
+        facingLeft = value;
         _graphic.flip(!facingLeft, false);
     }
 
@@ -80,8 +75,13 @@ public class Entity implements Comparable {
         amountX = normalizeDistance(amountX);
         amountY = normalizeDistance(amountY);
         target.reset(_location.PosX + amountX, _location.PosY + amountY);
+        if (amountX > 0) {
+            setFacingLeft(false);
+        }
+        if (amountX < 0) {
+            setFacingLeft(true);
+        }
         if (CoordVerifier.isValid(target)) {
-            flip(amountX);
             updateLocation(target);
             return true;
         }

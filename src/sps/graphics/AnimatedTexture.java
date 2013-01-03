@@ -6,7 +6,6 @@ import sps.bridge.DrawDepth;
 import sps.bridge.DrawDepths;
 import sps.bridge.SpriteType;
 import sps.core.Core;
-import sps.core.Logger;
 import sps.core.Point2;
 
 public class AnimatedTexture {
@@ -45,9 +44,6 @@ public class AnimatedTexture {
             _sprite.setRotation(_rotation);
             _sprite = Assets.get().sprite(_currentFrame, _spriteInfo.SpriteIndex);
             updateAnimation();
-            if (_spriteInfo.SpriteIndex == 0) {
-                Logger.info("flipX: " + flipX + ", flipY: " + flipY);
-            }
             Renderer.get().draw(_sprite, _position, _depth, _color, flipX, flipY);
         }
     }

@@ -55,6 +55,10 @@ public class TestGame implements ApplicationListener {
         Renderer.get().draw(Assets.get().sprite(0, 1), new Point2(0, Renderer.get().VirtualHeight - 64), DrawDepths.get(Core.DrawDepths.Animated_Texture), Color.WHITE);
         Renderer.get().draw(Assets.get().sprite(0, 1), new Point2(Renderer.get().VirtualWidth - 64, 0), DrawDepths.get(Core.DrawDepths.Animated_Texture), Color.WHITE);
         Renderer.get().draw(Assets.get().sprite(0, 1), new Point2(Renderer.get().VirtualWidth - 64, Renderer.get().VirtualHeight - 64), DrawDepths.get(Core.DrawDepths.Animated_Texture), Color.WHITE);
+
+        Renderer.get().draw(Assets.get().sprite(0, 1), Renderer.get().center().add(-200, 0), DrawDepths.get(Core.DrawDepths.Animated_Texture), Color.WHITE, true, false);
+        Renderer.get().draw(Assets.get().sprite(0, 1), Renderer.get().center().add(200, 0), DrawDepths.get(Core.DrawDepths.Animated_Texture), Color.WHITE, false, false);
+
         Renderer.get().end();
     }
 

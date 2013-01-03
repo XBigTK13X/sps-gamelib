@@ -116,20 +116,21 @@ public class Renderer {
 
     // Sprite rendering
     public void draw(Sprite sprite, Point2 position, DrawDepth depth, Color color) {
-        render(sprite, position, depth, color, Settings.get().spriteWidth, Settings.get().spriteHeight);
+        render(sprite, position, depth, color, Settings.get().spriteWidth, Settings.get().spriteHeight, 1, 1);
     }
 
     public void draw(Sprite sprite, Point2 position, DrawDepth depth, Color color, boolean flipX, boolean flipY) {
-        render(sprite, position, depth, color, flipX ? -1 : 1 * Settings.get().spriteWidth, flipY ? -1 : 1 * Settings.get().spriteHeight);
+        render(sprite, position, depth, color, Settings.get().spriteWidth, Settings.get().spriteHeight, flipX ? -1 : 1, flipY ? -1 : 1);
     }
 
-    public void draw(Sprite sprite, Point2 position, DrawDepth depth, Color color, float scaleX, float scaleY) {
-        render(sprite, position, depth, color, scaleX, scaleY);
+    public void draw(Sprite sprite, Point2 position, DrawDepth depth, Color color, float width, float height) {
+        render(sprite, position, depth, color, width, height, 1, 1);
     }
 
-    private void render(Sprite sprite, Point2 position, DrawDepth depth, Color color, float scaleX, float scaleY) {
+    private void render(Sprite sprite, Point2 position, DrawDepth depth, Color color, float width, float height, float scaleX, float scaleY) {
         sprite.setColor(color);
-        sprite.setSize(scaleX, scaleY);
+        sprite.setSize(width, height);
+        sprite.setScale(scaleX, scaleY);
         sprite.setPosition(position.X, position.Y);
         sprite.draw(batch);
     }
