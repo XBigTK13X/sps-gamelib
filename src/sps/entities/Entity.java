@@ -64,11 +64,24 @@ public class Entity implements Comparable {
 
     private final Point2 target = new Point2(0, 0);
 
+    private boolean facingLeft = true;
+
+    private void flip(float amount) {
+        if (amount > 0 && facingLeft) {
+            facingLeft = false;
+        }
+        if ((amount < 0 && !facingLeft)) {
+            facingLeft = true;
+        }
+        _graphic.flip(!facingLeft, false);
+    }
+
     public boolean move(float amountX, float amountY) {
         amountX = normalizeDistance(amountX);
         amountY = normalizeDistance(amountY);
         target.reset(_location.PosX + amountX, _location.PosY + amountY);
         if (CoordVerifier.isValid(target)) {
+            flip(amountX);
             updateLocation(target);
             return true;
         }
@@ -117,8 +130,7 @@ public class Entity implements Comparable {
         return _graphic.getDepth();
     }
 
-    public boolean contains(Point2 target)
-    {
+    public boolean contains(Point2 target) {
         return target.GridX == getLocation().GridX && target.GridY == getLocation().GridY;
     }
 

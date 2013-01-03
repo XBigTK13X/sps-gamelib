@@ -119,6 +119,10 @@ public class Renderer {
         render(sprite, position, depth, color, Settings.get().spriteWidth, Settings.get().spriteHeight);
     }
 
+    public void draw(Sprite sprite, Point2 position, DrawDepth depth, Color color, boolean flipX, boolean flipY) {
+        render(sprite, position, depth, color, flipX ? -1 : 1 * Settings.get().spriteWidth, flipY ? -1 : 1 * Settings.get().spriteHeight);
+    }
+
     public void draw(Sprite sprite, Point2 position, DrawDepth depth, Color color, float scaleX, float scaleY) {
         render(sprite, position, depth, color, scaleX, scaleY);
     }

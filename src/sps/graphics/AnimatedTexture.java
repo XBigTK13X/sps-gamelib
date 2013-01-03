@@ -6,6 +6,7 @@ import sps.bridge.DrawDepth;
 import sps.bridge.DrawDepths;
 import sps.bridge.SpriteType;
 import sps.core.Core;
+import sps.core.Logger;
 import sps.core.Point2;
 
 public class AnimatedTexture {
@@ -17,6 +18,8 @@ public class AnimatedTexture {
     private DrawDepth _depth;
     private int _rotation = 0;
     private boolean animationEnabled = true;
+    private boolean flipX = false;
+    private boolean flipY = false;
 
     protected Point2 _position = new Point2(0, 0);
 
@@ -42,7 +45,10 @@ public class AnimatedTexture {
             _sprite.setRotation(_rotation);
             _sprite = Assets.get().sprite(_currentFrame, _spriteInfo.SpriteIndex);
             updateAnimation();
-            Renderer.get().draw(_sprite, _position, _depth, _color);
+            if (_spriteInfo.SpriteIndex == 0) {
+                Logger.info("flipX: " + flipX + ", flipY: " + flipY);
+            }
+            Renderer.get().draw(_sprite, _position, _depth, _color, flipX, flipY);
         }
     }
 
@@ -94,5 +100,10 @@ public class AnimatedTexture {
     public void setEdge(SpriteEdge edge) {
         _currentFrame = edge.Frame;
         _rotation = edge.Rotation;
+    }
+
+    public void flip(boolean x, boolean y) {
+        flipX = x;
+        flipY = y;
     }
 }
