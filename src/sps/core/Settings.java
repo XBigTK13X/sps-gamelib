@@ -25,7 +25,6 @@ public class Settings {
 
     public final int spriteHeight;
     public final int spriteWidth;
-    public final int spriteGap;
     public final int tileMapHeight;
     public final int tileMapWidth;
     public final int resolutionHeight;
@@ -64,7 +63,6 @@ public class Settings {
         // Display
         spriteHeight = Parse.inte(_settings.get("spriteHeight"));
         spriteWidth = Parse.inte(_settings.get("spriteWidth"));
-        spriteGap = Parse.inte(_settings.get("spriteGap"));
         tileMapHeight = Parse.inte(_settings.get("tileMapHeight"));
         tileMapWidth = Parse.inte(_settings.get("tileMapWidth"));
         resolutionHeight = Parse.inte(_settings.get("resolutionHeight"));
