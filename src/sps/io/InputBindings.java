@@ -1,6 +1,7 @@
 package sps.io;
 
 import sps.bridge.Commands;
+import sps.core.Loader;
 import sps.core.Logger;
 
 import java.io.BufferedReader;
@@ -9,8 +10,6 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 public class InputBindings {
-    private static final String __configPath = "assets/data/input.cfg";
-
     public static InputBindings __instance;
 
     public static void init() {
@@ -19,7 +18,7 @@ public class InputBindings {
 
     public InputBindings() {
         try {
-            FileInputStream fstream = new FileInputStream(__configPath);
+            FileInputStream fstream = new FileInputStream(Loader.get().inputConfig());
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String line;

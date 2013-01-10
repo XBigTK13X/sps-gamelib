@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import sps.bridge.SpriteType;
 import sps.bridge.SpriteTypes;
+import sps.core.Loader;
 import sps.core.Logger;
 import sps.util.Parse;
 
@@ -45,9 +46,7 @@ public class Assets {
         File fontFile = new File(fontAsset);
         _font = new BitmapFont(new FileHandle(fontFile.getAbsolutePath()), false);
 
-
-        File spritesRoot = new File("assets/graphics/sprites");
-        for (File spriteTile : spritesRoot.listFiles()) {
+        for (File spriteTile : Loader.get().sprites().listFiles()) {
             if (!spriteTile.isHidden()) {
                 String[] comps = spriteTile.getName().split("-");
                 int index = Parse.inte(comps[0]);
