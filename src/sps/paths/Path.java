@@ -3,9 +3,9 @@ package sps.paths;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import sps.bridge.DrawDepths;
-import sps.core.Core;
+import sps.bridge.Sps;
 import sps.core.Point2;
-import sps.core.Settings;
+import sps.core.SpsConfig;
 import sps.graphics.Assets;
 import sps.graphics.Renderer;
 
@@ -50,12 +50,12 @@ public class Path {
     private static Sprite _t;
 
     public void draw() {
-        if (Settings.get().viewPaths) {
+        if (SpsConfig.get().viewPaths) {
             if (_t == null) {
                 _t = Assets.get().sprite(0);
             }
             for (Point2 step : _steps) {
-                Renderer.get().draw(_t, new Point2(step.PosX, step.PosY), DrawDepths.get(Core.DrawDepths.Debug), Color.ORANGE);
+                Renderer.get().draw(_t, new Point2(step.PosX, step.PosY), DrawDepths.get(Sps.DrawDepths.Debug), Color.ORANGE);
             }
         }
     }

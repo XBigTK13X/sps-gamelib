@@ -1,10 +1,10 @@
 package sps.bridge;
 
-import sps.io.Buttons;
+import sps.io.ControllerInput;
 import sps.io.Keys;
 
-public class Command {
-    private Buttons _button;
+public class Command implements Comparable {
+    private ControllerInput _controllerInput;
     private Keys _key;
     private String _name;
     public Context Context;
@@ -18,13 +18,13 @@ public class Command {
         _name = name;
     }
 
-    public void bind(Buttons button, Keys key) {
-        _button = button;
+    public void bind(ControllerInput controllerInput, Keys key) {
+        _controllerInput = controllerInput;
         _key = key;
     }
 
-    public Buttons button() {
-        return _button;
+    public ControllerInput controllerInput() {
+        return _controllerInput;
     }
 
     public Keys key() {
@@ -46,5 +46,10 @@ public class Command {
             return false;
         }
         return obj.hashCode() == hashCode();
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return name().compareTo(((Command) o).name());
     }
 }

@@ -5,7 +5,13 @@ public interface State {
 
     void update();
 
+    void asyncUpdate();
+
     void load();
 
     void unload();
+
+    String getName();
+
+    void resize(int width, int height);
 }

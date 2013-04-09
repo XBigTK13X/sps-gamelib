@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import sps.bridge.DrawDepth;
 import sps.core.Logger;
 import sps.core.Point2;
-import sps.core.Settings;
+import sps.core.SpsConfig;
 
 public class Renderer {
 
@@ -20,8 +20,8 @@ public class Renderer {
 
     public static Renderer get() {
         if (instance == null) {
-            int width = Settings.get().spriteWidth * Settings.get().tileMapWidth;
-            int height = Settings.get().spriteHeight * Settings.get().tileMapHeight;
+            int width = SpsConfig.get().spriteWidth * SpsConfig.get().tileMapWidth;
+            int height = SpsConfig.get().spriteHeight * SpsConfig.get().tileMapHeight;
             Logger.info("Virtual resolution: " + width + "W, " + height + "H");
             instance = new Renderer(width, height);
             instance.setStrategy(defaultStrategy);
@@ -67,6 +67,8 @@ public class Renderer {
         this.bgColor = bgColor;
     }
 
+    private static boolean tipHasBeenDisplayed = false;
+
     public void setStrategy(RenderStrategy strategy) {
 
         this.strategy = strategy;
@@ -75,7 +77,10 @@ public class Renderer {
             refreshInstance.resize(getWidth(), getHeight());
         }
         else {
-            Logger.info("If the app is registered with Renderer.get().setRefreshInstance(this); in the create method, then the screen will update without a manual resizing.");
+            if (!tipHasBeenDisplayed) {
+                Logger.info("If the app is registered with Renderer.get().setRefreshInstance(this); in the create method, then the screen will update without a manual resizing.");
+                tipHasBeenDisplayed = true;
+            }
         }
     }
 
@@ -116,11 +121,16 @@ public class Renderer {
 
     // Sprite rendering
     public void draw(Sprite sprite, Point2 position, DrawDepth depth, Color color) {
-        render(sprite, position, depth, color, Settings.get().spriteWidth, Settings.get().spriteHeight, 1, 1);
+        render(sprite, position, depth, color, SpsConfig.get().spriteWidth, SpsConfig.get().spriteHeight, 1, 1);
     }
 
     public void draw(Sprite sprite, Point2 position, DrawDepth depth, Color color, boolean flipX, boolean flipY) {
-        render(sprite, position, depth, color, Settings.get().spriteWidth, Settings.get().spriteHeight, flipX ? -1 : 1, flipY ? -1 : 1);
+        try {
+            render(sprite, position, depth, color, sprite.getWidth(), sprite.getHeight(), flipX ? -1 : 1, flipY ? -1 : 1);
+        }
+        catch (Exception e) {
+            int x = 0;
+        }
     }
 
     public void draw(Sprite sprite, Point2 position, DrawDepth depth, Color color, float width, float height) {
@@ -136,7 +146,7 @@ public class Renderer {
     }
 
     // String rendering
-    public void drawString(String content, Point2 location, Color filter, float scale, DrawDepth depth) {
+    public void draw(String content, Point2 location, Color filter, float scale, DrawDepth depth) {
         renderString(content, location, filter, scale, depth);
     }
 

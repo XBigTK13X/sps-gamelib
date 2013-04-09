@@ -1,24 +1,24 @@
 package sps.particles;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import sps.bridge.DrawDepths;
-import sps.core.Core;
+import sps.bridge.SpriteType;
+import sps.bridge.SpriteTypes;
+import sps.bridge.Sps;
 import sps.core.Point2;
 import sps.core.RNG;
 import sps.entities.Entity;
-import sps.graphics.Assets;
-import sps.graphics.Renderer;
+import sps.graphics.Animation;
 import sps.util.MathHelper;
 
 public class Particle2 extends PEComponent {
     public static final int DefaultLife = 100;
+    public static final SpriteType DefaultSpriteType = SpriteTypes.get(Sps.Particle);
 
     public float Height = 1;
     public float Width = 1;
 
     private float _life = DefaultLife;
-    private final Sprite _texture = Assets.get().particle();
+    private final Animation _graphic = new Animation();
     private Color _color = Color.WHITE;
 
     public float MoveSpeed = 5f;
@@ -29,15 +29,21 @@ public class Particle2 extends PEComponent {
     public double Angle;
     public float Radius;
     public boolean Toggle;
+    private SpriteType _sprite = DefaultSpriteType;
 
     private ParticleBehavior _behavior;
 
-    public Particle2(Point2 position) {
+    public Particle2() {
+        IsActive = false;
     }
+
 
     public void draw() {
         if (IsActive) {
-            Renderer.get().draw(_texture, Position, DrawDepths.get(Core.DrawDepths.Particle), _color, Width, Height);
+            _graphic.setPosition(Position);
+            _graphic.setSize(Width, Height);
+            _graphic.setColor(_color);
+            _graphic.draw();
         }
     }
 
@@ -50,6 +56,9 @@ public class Particle2 extends PEComponent {
     }
 
     private void init(ParticleBehavior behavior, Point2 position, Entity entity, Color baseColor) {
+        _sprite = DefaultSpriteType;
+        _graphic.loadContent(DefaultSpriteType);
+        _graphic.gotoRandomFrame();
         _behavior = behavior;
         if (position != null) {
             Origin.reset(position.X, position.Y);
@@ -99,5 +108,10 @@ public class Particle2 extends PEComponent {
         _color.a = 0;
         _life = 0;
         IsActive = false;
+    }
+
+    public void setSprite(SpriteType sprite) {
+        _sprite = sprite;
+        _graphic.loadContent(sprite);
     }
 }

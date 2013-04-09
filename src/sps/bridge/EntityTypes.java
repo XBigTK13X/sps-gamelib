@@ -1,7 +1,5 @@
 package sps.bridge;
 
-import sps.core.Logger;
-
 import java.util.HashMap;
 import java.util.Map;
 

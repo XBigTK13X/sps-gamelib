@@ -5,28 +5,38 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import sps.bridge.DrawDepths;
 import sps.graphics.Assets;
 import sps.graphics.Renderer;
+import sps.text.Text;
 import sps.text.TextPool;
 
 public class DevConsole {
 
-    public static final int margin = 50;
+    public static final int margin = 70;
 
     private class ConsoleText {
         private Point2 position = new Point2(0, 0);
-        private String content;
+        private Text content;
+
 
         public ConsoleText(int x, int y, String content) {
-            this.position.reset(0, 0, false);
-            this.content = content;
+            this.position.reset(x, y, false);
+            this.content = TextPool.get().write(content, position);
+            this.content.setVisible(_isVisible);
         }
 
         public void draw() {
-            TextPool.get().write(content, position);
+            if (_isVisible) {
+                content.draw();
+            }
         }
 
-        public String getContent() {
+        public Text getContent() {
             return content;
         }
+
+        public void setContent(String content) {
+            this.content.setMessage(content);
+        }
+
     }
 
     private static DevConsole __instance;
@@ -41,7 +51,7 @@ public class DevConsole {
     private final int messageLimit = 20;
     private final ConsoleText[] _contents = new ConsoleText[messageLimit];
     private int _index = 0;
-    private boolean _isVisible = false;
+    private boolean _isVisible;
     private final Color _bgColor;
     private final Sprite _consoleBase;
 
@@ -49,6 +59,7 @@ public class DevConsole {
         _bgColor = Color.BLACK;
         _bgColor.a = (byte) 180;
         _consoleBase = Assets.get().baseMenu();
+        _isVisible = false;
         add("The development console has been started.");
     }
 
@@ -62,9 +73,9 @@ public class DevConsole {
         }
         else {
             for (int ii = 0; ii < _contents.length - 1; ii++) {
-                _contents[ii] = new ConsoleText(margin, getY(ii), _contents[ii + 1].getContent());
+                _contents[ii].setContent(_contents[ii + 1].getContent().getMessage());
             }
-            _contents[_contents.length - 1] = new ConsoleText(margin, getY(_contents.length - 1), message);
+            _contents[_contents.length - 1].setContent(message);
         }
     }
 
@@ -80,6 +91,13 @@ public class DevConsole {
     }
 
     public void toggle() {
-        _isVisible = !_isVisible;
+        if (SpsConfig.get().devConsoleEnabled) {
+            _isVisible = !_isVisible;
+            for (int ii = 0; ii < _contents.length; ii++) {
+                if (_contents[ii] != null) {
+                    _contents[ii].getContent().setVisible(_isVisible);
+                }
+            }
+        }
     }
 }

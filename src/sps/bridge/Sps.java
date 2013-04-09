@@ -1,6 +1,16 @@
-package sps.core;
+package sps.bridge;
 
-public class Core {
+import com.badlogic.gdx.utils.GdxNativesLoader;
+import sps.core.SpsConfig;
+import sps.graphics.Assets;
+
+public class Sps {
+    public static void setup() {
+        Bridge.get();
+        GdxNativesLoader.load();
+        Assets.get();
+    }
+
     public static class Entities {
         public static final String Actor = "Actor";
         public static final String Floor = "Floor";
@@ -28,6 +38,7 @@ public class Core {
         public static final String Animated_Texture = "Animated_Texture";
     }
 
-    public static final float SpriteRadius = (float) Math.sqrt(Math.pow(Settings.get().spriteHeight / 2, 2) + Math.pow(Settings.get().spriteWidth, 2));
+    public static final float SpriteRadius = (float) Math.sqrt(Math.pow(SpsConfig.get().spriteHeight / 2, 2) + Math.pow(SpsConfig.get().spriteWidth, 2));
     public static final int AnimationFps = 20;
+    public static final String Particle = "Particle";
 }

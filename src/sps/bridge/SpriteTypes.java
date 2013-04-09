@@ -1,6 +1,5 @@
 package sps.bridge;
 
-import sps.core.Logger;
 import sps.graphics.SpriteDefinition;
 
 import java.util.ArrayList;

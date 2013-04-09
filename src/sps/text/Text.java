@@ -3,7 +3,7 @@ package sps.text;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import sps.bridge.DrawDepths;
-import sps.core.Core;
+import sps.bridge.Sps;
 import sps.core.Point2;
 import sps.graphics.Renderer;
 
@@ -20,8 +20,10 @@ public class Text {
     private float yVel;
     private float dX;
     private float dY;
+    private Color _color;
 
     public Text() {
+        _color = Color.WHITE;
     }
 
     public void reset(Point2 position, String message, float scale, float lifeInSeconds, TextEffect effect) {
@@ -42,6 +44,10 @@ public class Text {
         visible = false;
     }
 
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
     public void update() {
         if (lifeInSeconds != NotTimed && (position.X != 0 || position.Y != 0)) {
             effect.update(this);
@@ -53,7 +59,7 @@ public class Text {
     }
 
     public void draw() {
-        Renderer.get().drawString(message, position, Color.WHITE, scale, DrawDepths.get(Core.DrawDepths.Default_Text));
+        Renderer.get().draw(message, position, _color, scale, DrawDepths.get(Sps.DrawDepths.Default_Text));
     }
 
     public boolean isVisible() {
@@ -75,4 +81,22 @@ public class Text {
         this.dX = dX;
         this.dY = dY;
     }
+
+    public void setColor(Color color) {
+        _color = color;
+    }
+
+    public void setScale(float scale) {
+        this.scale = scale;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+
 }

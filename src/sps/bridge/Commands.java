@@ -1,11 +1,6 @@
 package sps.bridge;
 
-import sps.core.Logger;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Commands {
     private static Commands instance;
@@ -58,9 +53,9 @@ public class Commands {
             for (String key : commands.keySet()) {
                 values.add(commands.get(key));
             }
+            Collections.sort(values);
         }
         return values;
     }
-
 
 }

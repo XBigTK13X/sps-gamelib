@@ -1,20 +1,16 @@
 package sps.core;
 
+import org.apache.commons.io.FileUtils;
 import sps.util.Parse;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 
-public class Settings {
-    private static final String __configPath = "assets/data/sps-gamelib.cfg";
-    private static Settings __instance;
+public class SpsConfig {
+    private static SpsConfig __instance;
 
-    public static Settings get() {
+    public static SpsConfig get() {
         if (__instance == null) {
-            __instance = new Settings();
+            __instance = new SpsConfig();
         }
         return __instance;
     }
@@ -35,13 +31,9 @@ public class Settings {
     public final boolean devConsoleEnabled;
 
 
-    private Settings() {
+    private SpsConfig() {
         try {
-            FileInputStream fstream = new FileInputStream(__configPath);
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            String line;
-            while ((line = br.readLine()) != null) {
+            for (String line : FileUtils.readLines(Loader.get().data("sps-gamelib.cfg"))) {
                 if (!line.contains("##") && line.length() > 1) {
                     String key = line.split("=")[0];
                     String value = line.split("=")[1];
@@ -51,9 +43,7 @@ public class Settings {
                     Logger.info("SETTINGS: Parsing section '" + line.replace("##", "") + "'");
                 }
             }
-            in.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Logger.exception(e);
         }
 

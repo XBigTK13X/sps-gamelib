@@ -1,13 +1,10 @@
 package sps.entities;
 
-import sps.bridge.ActorType;
-import sps.bridge.ActorTypes;
-import sps.bridge.EntityType;
-import sps.bridge.EntityTypes;
-import sps.core.Core;
+import aigilas.dungeons.EntityCache;
+import sps.bridge.*;
 import sps.core.Point2;
 import sps.core.RNG;
-import sps.core.Settings;
+import sps.core.SpsConfig;
 import sps.graphics.Renderer;
 
 import java.util.ArrayList;
@@ -48,10 +45,16 @@ public class EntityManager {
         return entity;
     }
 
+    public void addEntities(List<? extends Entity> cache) {
+        for (Entity e : cache) {
+            addEntity(e);
+        }
+    }
+
     private void addToBuckets(Entity entity) {
-        if (entity.getEntityType() == EntityTypes.get(Core.Entities.Actor)) {
+        if (entity.getEntityType() == EntityTypes.get(Sps.Entities.Actor)) {
             IActor actor = (IActor) entity;
-            if (actor.getActorType() == ActorTypes.get(Core.Actors.Player)) {
+            if (actor.getActorType() == ActorTypes.get(Sps.Actors.Player)) {
                 players.add(entity);
             }
             if (!actorBuckets.containsKey(actor)) {
@@ -72,12 +75,6 @@ public class EntityManager {
         _gridContents.get(entity.getLocation()).add(entity);
     }
 
-    public void addEntities(List<Entity> cache) {
-        for (Entity e : cache) {
-            addEntity(e);
-        }
-    }
-
     public Entity getEntity(EntityType type) {
         if (_contents != null) {
             return entityBuckets.get(type).get(0);
@@ -87,6 +84,10 @@ public class EntityManager {
 
     private final List<Entity> _gopResults = new ArrayList<Entity>();
     private final List<Entity> _goResults = new ArrayList<Entity>();
+
+    public List<Entity> getAllEntities() {
+        return _contents;
+    }
 
     public List<Entity> getEntities(EntityType type, Point2 target) {
         if (_contents != null) {
@@ -116,15 +117,15 @@ public class EntityManager {
 
     public List<IActor> getActors(ActorType type) {
         _creatures.clear();
-        if (type != ActorTypes.get(Core.ActorGroups.Non_Player)) {
+        if (type != ActorTypes.get(Sps.ActorGroups.Non_Player)) {
             if (actorBuckets.get(type) != null) {
                 _creatures.addAll(actorBuckets.get(type));
             }
         }
         else {
             for (Entity elem : _contents) {
-                if (elem.getEntityType() == EntityTypes.get(Core.Entities.Actor)) {
-                    if (((IActor) elem).getActorType() != ActorTypes.get(Core.Actors.Player)) {
+                if (elem.getEntityType() == EntityTypes.get(Sps.Entities.Actor)) {
+                    if (((IActor) elem).getActorType() != ActorTypes.get(Sps.Actors.Player)) {
                         _creatures.add(((IActor) elem));
                     }
                 }
@@ -137,11 +138,13 @@ public class EntityManager {
 
     public List<IActor> getActorsAt(Point2 target, ActorType actorType) {
         _creatures.clear();
-        for (Entity elem : _gridContents.get(target)) {
-            if (elem.getEntityType() == EntityTypes.get(Core.Entities.Actor)) {
-                _nextResult = (IActor) elem;
-                if (actorType == null || _nextResult.getActorType() == actorType || (actorType == ActorTypes.get(Core.ActorGroups.Non_Player) && _nextResult.getActorType() != ActorTypes.get(Core.Actors.Player))) {
-                    _creatures.add(_nextResult);
+        if (_gridContents.get(target) != null) {
+            for (Entity elem : _gridContents.get(target)) {
+                if (elem.getEntityType() == EntityTypes.get(Sps.Entities.Actor)) {
+                    _nextResult = (IActor) elem;
+                    if (actorType == null || _nextResult.getActorType() == actorType || (actorType == ActorTypes.get(Sps.ActorGroups.Non_Player) && _nextResult.getActorType() != ActorTypes.get(Sps.Actors.Player))) {
+                        _creatures.add(_nextResult);
+                    }
                 }
             }
         }
@@ -173,9 +176,11 @@ public class EntityManager {
     }
 
     public boolean isLocationBlocked(Point2 location) {
-        for (Entity elem : _gridContents.get(location)) {
-            if (elem.isBlocking()) {
-                return true;
+        if (_gridContents.get(location) != null) {
+            for (Entity elem : _gridContents.get(location)) {
+                if (elem.isBlocking()) {
+                    return true;
+                }
             }
         }
         return false;
@@ -184,7 +189,7 @@ public class EntityManager {
     public boolean anyAt(Point2 target, EntityType type) {
         if (CoordVerifier.isValid(target)) {
             for (Entity entity : _gridContents.get(target)) {
-                if (entity.getEntityType() == type) {
+                if (entity.getEntityType() == type && entity.isActive()) {
                     return true;
                 }
             }
@@ -195,22 +200,22 @@ public class EntityManager {
     public void removeEntity(Entity target) {
         _contents.remove(target);
         _gridContents.get(target.getLocation()).remove(target);
-        if (target.getEntityType() == EntityTypes.get(Core.Entities.Actor)) {
+        if (target.getEntityType() == EntityTypes.get(Sps.Entities.Actor)) {
             IActor actor = (IActor) target;
-            if (actor.getActorType() == ActorTypes.get(Core.Actors.Player)) {
+            if (actor.getActorType() == ActorTypes.get(Sps.Actors.Player)) {
                 players.remove(target);
             }
             actorBuckets.remove(actor);
         }
         entityBuckets.get(target.getEntityType()).remove(target);
-
     }
 
     public void clear() {
-        _contents = new ArrayList<Entity>();
-        _gridContents = new HashMap<Point2, List<Entity>>();
-        actorBuckets = new HashMap<ActorType, List<IActor>>();
-        entityBuckets = new HashMap<EntityType, List<Entity>>();
+        _contents.clear();
+        _gridContents.clear();
+        actorBuckets.clear();
+        entityBuckets.clear();
+        players.clear();
     }
 
     public void update() {
@@ -271,10 +276,10 @@ public class EntityManager {
     public Point2 getEmptyLocation() {
         List<Point2> emptyLocations = new ArrayList<Point2>();
         for (Point2 location : _gridContents.keySet()) {
-            if (location.GridX > 0 && location.GridY > 0 && location.GridX < Settings.get().tileMapWidth - 1 && location.GridY < Settings.get().tileMapHeight - 1) {
+            if (location.GridX > 0 && location.GridY > 0 && location.GridX < SpsConfig.get().tileMapWidth - 1 && location.GridY < SpsConfig.get().tileMapHeight - 1) {
                 boolean exclude = false;
                 for (int ii = 0; ii < _gridContents.get(location).size(); ii++) {
-                    if (_gridContents.get(location).get(ii).getEntityType() == EntityTypes.get(Core.Entities.Actor)) {
+                    if (_gridContents.get(location).get(ii).getEntityType() == EntityTypes.get(Sps.Entities.Actor)) {
                         exclude = true;
                     }
                 }
@@ -286,24 +291,28 @@ public class EntityManager {
         return emptyLocations.get(RNG.next(0, emptyLocations.size()));
     }
 
-    public List<Entity> getEntitiesToCache() {
-        List<Entity> results = new ArrayList<Entity>();
-        for (Entity _content : _contents) {
-            if (_content.getEntityType() != EntityTypes.get(Core.Entities.Floor)) {
-                results.add(_content);
-            }
-        }
-        return results;
-    }
-
     public IActor getTouchingCreature(Entity entity) {
         for (Entity _content : _contents) {
-            if (_content.getEntityType() == EntityTypes.get(Core.Entities.Actor)) {
+            if (_content.getEntityType() == EntityTypes.get(Sps.Entities.Actor)) {
                 if (_content.contains(entity.getLocation())) {
                     return (IActor) _content;
                 }
             }
         }
         return null;
+    }
+
+    public void removeFromPlay(Entity entity) {
+        EntityCache.get().addToCache(entity);
+        removeEntity(entity);
+    }
+
+    public void recalculateEdges() {
+        for (int ii = 0; ii < _contents.size(); ii++) {
+            if (ii >= _contents.size()) {
+                return;
+            }
+            _contents.get(ii).recalculateEdge();
+        }
     }
 }

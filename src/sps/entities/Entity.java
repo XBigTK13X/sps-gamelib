@@ -4,12 +4,13 @@ import sps.bridge.DrawDepth;
 import sps.bridge.EntityType;
 import sps.bridge.SpriteType;
 import sps.core.Point2;
-import sps.core.Settings;
-import sps.graphics.AnimatedTexture;
+import sps.core.SpsConfig;
+import sps.graphics.Animation;
+import sps.graphics.SpriteEdge;
 import sps.graphics.SpriteInfo;
 
 public class Entity implements Comparable {
-    protected final AnimatedTexture _graphic = new AnimatedTexture();
+    protected final Animation _graphic = new Animation();
 
     protected boolean _isActive = true;
     protected Boolean _isBlocking;
@@ -43,6 +44,7 @@ public class Entity implements Comparable {
         _location.copy(location);
         _graphic.setPosition(_location);
         _graphic.setDrawDepth(depth);
+        _graphic.loadContent(spriteType);
     }
 
     public void update() {
@@ -94,9 +96,9 @@ public class Entity implements Comparable {
     private static float normalizeDistance(float amount) {
         isNeg = (amount < 0) ? -1 : 1;
         amount = Math.abs(amount);
-        factorsOfSpriteHeight = (int) Math.floor(amount / Settings.get().spriteHeight);
+        factorsOfSpriteHeight = (int) Math.floor(amount / SpsConfig.get().spriteHeight);
         factorsOfSpriteHeight = (factorsOfSpriteHeight == 0 && amount != 0) ? 1 : factorsOfSpriteHeight;
-        return (Settings.get().spriteHeight * factorsOfSpriteHeight * isNeg);
+        return (SpsConfig.get().spriteHeight * factorsOfSpriteHeight * isNeg);
     }
 
     public boolean isActive() {
@@ -154,5 +156,11 @@ public class Entity implements Comparable {
     public int compareTo(Object o) {
         Entity e = (Entity) o;
         return getDepth().DrawDepth - e.getDepth().DrawDepth;
+    }
+
+    public void recalculateEdge() {
+        if (_graphic.hasDynamicEdges()) {
+            _graphic.setEdge(SpriteEdge.determine(_entityType, _location));
+        }
     }
 }
