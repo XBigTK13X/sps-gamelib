@@ -2,6 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <properties>
+        <libgdx-version>2013.03.20</libgdx-version>
+    </properties>
+
     <groupId>sps</groupId>
     <artifactId>sps-gamelib</artifactId>
     <version>0.1-SNAPSHOT</version>
@@ -28,45 +32,46 @@
 
     <dependencies>
         <!-- Local repo -->
+        <!-- Dependencies in the local lib repo-->
         <dependency>
             <groupId>com.badlogic</groupId>
             <artifactId>gdx</artifactId>
-            <version>0.9.7</version>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogic</groupId>
-            <artifactId>gdx-sources</artifactId>
-            <version>0.9.7</version>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogic</groupId>
-            <artifactId>gdx-natives</artifactId>
-            <version>0.9.7</version>
+            <version>${libgdx-version}</version>
         </dependency>
         <dependency>
             <groupId>com.badlogic</groupId>
             <artifactId>gdx-openal</artifactId>
-            <version>0.9.7</version>
+            <version>${libgdx-version}</version>
         </dependency>
         <dependency>
             <groupId>com.badlogic</groupId>
-            <artifactId>gdx-sources</artifactId>
-            <version>0.9.7</version>
+            <artifactId>gdx-natives</artifactId>
+            <version>${libgdx-version}</version>
         </dependency>
         <dependency>
             <groupId>com.badlogic</groupId>
             <artifactId>gdx-backend-lwjgl</artifactId>
-            <version>0.9.7</version>
+            <version>${libgdx-version}</version>
         </dependency>
         <dependency>
             <groupId>com.badlogic</groupId>
             <artifactId>gdx-backend-lwjgl-natives</artifactId>
-            <version>0.9.7</version>
+            <version>${libgdx-version}</version>
         </dependency>
         <dependency>
             <groupId>com.badlogic</groupId>
-            <artifactId>gdx-sources</artifactId>
-            <version>0.9.7</version>
+            <artifactId>gdx-controllers</artifactId>
+            <version>${libgdx-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogic</groupId>
+            <artifactId>gdx-controllers-desktop</artifactId>
+            <version>${libgdx-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogic</groupId>
+            <artifactId>gdx-controllers-desktop-natives</artifactId>
+            <version>${libgdx-version}</version>
         </dependency>
 
         <!-- Central repo -->
