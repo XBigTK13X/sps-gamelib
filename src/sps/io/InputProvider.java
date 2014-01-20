@@ -6,23 +6,21 @@ import sps.bridge.Context;
 public interface InputProvider {
     void setup(StateProvider stateProvider);
 
-    boolean detectState(Command command, int playerIndex);
+    boolean detectState(Command command, PlayerIndex playerIndex);
 
-    boolean isActive(Command command, int playerIndex, boolean failIfLocked);
+    boolean isActive(Command command, PlayerIndex playerIndex, boolean failIfLocked);
 
-    public boolean isActive(Command command);
+    public boolean isActive(Command command, PlayerIndex playerIndex);
 
-    public boolean isActive(Command command, int playerIndex);
+    void setContext(Context context, PlayerIndex playerIndex);
 
-    void setContext(Context context, int playerIndex);
+    boolean isContext(Context context, PlayerIndex playerIndex);
 
-    boolean isContext(Context context, int playerIndex);
+    boolean isLocked(Command command, PlayerIndex playerIndex);
 
-    boolean isLocked(Command command, int playerIndex);
+    void lock(Command command, PlayerIndex playerIndex);
 
-    void lock(Command command, int playerIndex);
-
-    void unlock(Command command, int playerIndex);
+    void unlock(Command command, PlayerIndex playerIndex);
 
     void update();
 

@@ -30,4 +30,8 @@ public class Players {
     public static List<PlayerIndex> getAll() {
         return _indices;
     }
+
+    public static PlayerIndex first() {
+        return _indices.get(0);
+    }
 }

@@ -3,11 +3,9 @@ package sps.io;
 import sps.bridge.Command;
 
 public interface StateProvider {
-    public boolean isActive(Command command, int playerIndex);
+    public boolean isActive(Command command, PlayerIndex playerIndex);
 
-    public int getFirstPlayerIndex();
-
-    public void setState(Command command, int playerIndex, boolean isActive);
+    public void setState(Command command, PlayerIndex playerIndex, boolean isActive);
 
     public void pollLocalState();
 }

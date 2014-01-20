@@ -97,6 +97,7 @@ public class SpsInitializer {
                 Window.setWindowBackground(Color.BLACK);
                 Window.get(false).screenEngine().setStrategy(new FrameStrategy());
                 Window.get(true).screenEngine().setStrategy(new FrameStrategy());
+                Players.init();
                 Input.get().setup(new DefaultStateProvider());
                 SpriteSheetManager.setup(SpriteTypes.getDefs());
             }

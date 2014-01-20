@@ -1,6 +1,7 @@
 package sps.util;
 
 import sps.io.Input;
+import sps.io.InputWrapper;
 import sps.states.GlobalStateResolver;
 import org.apache.commons.io.FileUtils;
 import sps.bridge.Commands;
@@ -41,7 +42,7 @@ public class CrashNotification implements State {
 
     @Override
     public void update() {
-        if (Input.get().isActive(Commands.get("Confirm"))) {
+        if (InputWrapper.isActive("Confirm")) {
             StateManager.get().push(GlobalStateResolver.get().createInitial());
         }
     }

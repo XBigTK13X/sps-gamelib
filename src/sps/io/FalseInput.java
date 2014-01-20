@@ -10,47 +10,42 @@ public class FalseInput implements InputProvider {
     }
 
     @Override
-    public boolean detectState(Command command, int playerIndex) {
+    public boolean detectState(Command command, PlayerIndex playerIndex) {
         return false;
     }
 
     @Override
-    public boolean isActive(Command command, int playerIndex, boolean failIfLocked) {
+    public boolean isActive(Command command, PlayerIndex playerIndex, boolean failIfLocked) {
         return false;
     }
 
     @Override
-    public boolean isActive(Command command) {
+    public boolean isActive(Command command, PlayerIndex playerIndex) {
         return false;
     }
 
     @Override
-    public boolean isActive(Command command, int playerIndex) {
+    public void setContext(Context context, PlayerIndex playerIndex) {
+
+    }
+
+    @Override
+    public boolean isContext(Context context, PlayerIndex playerIndex) {
         return false;
     }
 
     @Override
-    public void setContext(Context context, int playerIndex) {
-
-    }
-
-    @Override
-    public boolean isContext(Context context, int playerIndex) {
+    public boolean isLocked(Command command, PlayerIndex playerIndex) {
         return false;
     }
 
     @Override
-    public boolean isLocked(Command command, int playerIndex) {
-        return false;
-    }
-
-    @Override
-    public void lock(Command command, int playerIndex) {
+    public void lock(Command command, PlayerIndex playerIndex) {
 
     }
 
     @Override
-    public void unlock(Command command, int playerIndex) {
+    public void unlock(Command command, PlayerIndex playerIndex) {
 
     }
 

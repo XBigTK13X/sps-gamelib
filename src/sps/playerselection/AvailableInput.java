@@ -1,7 +1,7 @@
 package sps.playerselection;
 
-import com.badlogic.gdx.graphics.Color;
 import sps.bridge.Commands;
+import sps.color.Color;
 import sps.core.Point2;
 import sps.display.Screen;
 import sps.io.Input;

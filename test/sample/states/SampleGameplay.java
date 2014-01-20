@@ -7,6 +7,7 @@ import sps.display.Screen;
 import sps.display.Window;
 import sps.draw.BackgroundCache;
 import sps.io.Input;
+import sps.io.InputWrapper;
 import sps.states.State;
 import sps.text.TextEffects;
 import sps.text.TextPool;
@@ -37,7 +38,7 @@ public class SampleGameplay implements State {
         if (_timer.updateAndCheck()) {
             write();
         }
-        if (Input.get().isActive(Commands.get("Confirm"))) {
+        if (InputWrapper.isActive("Confirm")) {
             write();
         }
     }

@@ -8,6 +8,7 @@ import sps.color.Color;
 import sps.display.Window;
 import sps.entities.HitTest;
 import sps.io.Input;
+import sps.io.InputWrapper;
 import sps.states.StateManager;
 import sps.util.BoundingBox;
 
@@ -148,7 +149,7 @@ public class Buttons {
                 //FIXME Commands should only function for the highest, but that doesn't work.
                 // Without this ugly one-liner, the exit prompt wouldn't disable keyboard input on menus
                 // This has the downside of disabling keyboard controls for the exit menu
-                boolean commandActive = (!StateManager.get().isSuspended() && (user.getCommand() != null && Input.get().isActive(user.getCommand())));
+                boolean commandActive = (!StateManager.get().isSuspended() && (user.getCommand() != null && InputWrapper.isActive(user.getCommand())));
                 if ((_states.get(user) == State.Over && mouseOver && mouseDown) || commandActive) {
                     if (_highest == null) {
                         _highest = user;

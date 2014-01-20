@@ -1,6 +1,7 @@
 package sps.ui;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import sps.io.InputWrapper;
 import sps.io.Options;
 import org.apache.commons.lang3.StringUtils;
 import sps.audio.RandomSoundPlayer;
@@ -186,7 +187,7 @@ public abstract class UIButton {
     public void draw() {
         if (_visible) {
             if (_command != null) {
-                if (Input.get().isActive(_command)) {
+                if (InputWrapper.isActive(_command)) {
                     click();
                 }
             }

@@ -9,6 +9,7 @@ import sps.color.Colors;
 import sps.display.*;
 import sps.draw.SpriteMaker;
 import sps.io.Input;
+import sps.io.InputWrapper;
 import sps.states.StateManager;
 import sps.text.Text;
 import sps.text.TextPool;
@@ -99,7 +100,7 @@ public class Tutorial {
         if (_steps.size() > 0 && _display.getMessage().isEmpty()) {
             refreshDisplay();
         }
-        if (Input.get().isActive(Commands.get("AdvanceTutorial"))) {
+        if (InputWrapper.isActive("AdvanceTutorial")) {
             if (_currentStepIndex < _steps.size() - 1) {
                 _currentStepIndex++;
                 refreshDisplay();

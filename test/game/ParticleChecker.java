@@ -7,6 +7,7 @@ import sps.core.Logger;
 import sps.display.Screen;
 import sps.display.Window;
 import sps.io.Input;
+import sps.io.InputWrapper;
 import sps.particles.ParticleWrapper;
 
 public class ParticleChecker implements ApplicationListener {
@@ -32,7 +33,7 @@ public class ParticleChecker implements ApplicationListener {
     public void render() {
         Input.get().update();
 
-        if (Input.get().isActive(Commands.get("Confirm"))) {
+        if (InputWrapper.isActive("Confirm")) {
             Logger.info("Emitting...");
             ParticleEffect effect = ParticleWrapper.get().emit("vaporize", Screen.pos(30, 30));
             ParticleWrapper.setSquareBounds(effect, 50);

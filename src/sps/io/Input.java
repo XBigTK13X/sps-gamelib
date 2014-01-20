@@ -23,7 +23,7 @@ public class Input implements InputProvider {
     private final List<CommandLock> __locks = new ArrayList<CommandLock>();
     private StateProvider provider;
     // $$$ FIXME (Integer -> PlayerId) Maps a playerId to a context
-    private HashMap<Integer, Context> __contexts;
+    private HashMap<PlayerIndex, Context> __contexts;
     private boolean __isInputActive = false;
     private int mouseX;
     private int mouseY;
@@ -47,11 +47,10 @@ public class Input implements InputProvider {
 
     @Override
     public void setup(StateProvider stateProvider) {
-        __contexts = new HashMap<Integer, Context>();
-        __contexts.put(0, Contexts.get(Sps.Contexts.Free));
-        __contexts.put(1, Contexts.get(Sps.Contexts.Free));
-        __contexts.put(2, Contexts.get(Sps.Contexts.Free));
-        __contexts.put(3, Contexts.get(Sps.Contexts.Free));
+        __contexts = new HashMap<>();
+        for (PlayerIndex index : Players.getAll()) {
+            __contexts.put(index, Contexts.get(Sps.Contexts.Free));
+        }
 
         if (stateProvider == null) {
             provider = new DefaultStateProvider();
@@ -62,30 +61,36 @@ public class Input implements InputProvider {
     }
 
     @Override
-    public boolean detectState(Command command, int playerIndex) {
+    public boolean detectState(Command command, PlayerIndex playerIndex) {
         boolean gamepadActive = false;
-        if (SpsConfig.get().controllersEnabled && Controllers.getControllers().size > playerIndex) {
-            gamepadActive = command.controllerInput().isActive(Controllers.getControllers().get(playerIndex));
+        if (SpsConfig.get().controllersEnabled && playerIndex.ControllerIndex != null) {
+            if (command.controllerInput() != null) {
+                gamepadActive = command.controllerInput().isActive(Controllers.getControllers().get(playerIndex.ControllerIndex));
+            }
         }
-        boolean chordActive = true;
-        for (int ii = 0; ii < command.keys().length; ii++) {
-            chordActive = chordActive && Gdx.input.isKeyPressed(command.keys()[ii].getKeyCode());
+
+        boolean keyboardActive = false;
+        if (playerIndex.KeyboardIndex != null) {
+            boolean chordActive = true;
+            for (int ii = 0; ii < command.keys().length; ii++) {
+                chordActive = chordActive && Gdx.input.isKeyPressed(command.keys()[ii].getKeyCode());
+            }
+            keyboardActive = chordActive;
         }
-        boolean keyboardActive = (playerIndex == provider.getFirstPlayerIndex()) && chordActive;
 
         return gamepadActive || keyboardActive;
     }
 
-    private boolean isDown(Command command, int playerIndex) {
+    private boolean isDown(Command command, PlayerIndex playerIndex) {
         return provider.isActive(command, playerIndex);
     }
 
-    public boolean isActive(Command command, int playerIndex) {
+    public boolean isActive(Command command, PlayerIndex playerIndex) {
         return isActive(command, playerIndex, true);
     }
 
     @Override
-    public boolean isActive(Command command, int playerIndex, boolean failIfLocked) {
+    public boolean isActive(Command command, PlayerIndex playerIndex, boolean failIfLocked) {
         __isInputActive = isDown(command, playerIndex);
         if (!__isInputActive && shouldLock(command, playerIndex)) {
             unlock(command, playerIndex);
@@ -102,31 +107,26 @@ public class Input implements InputProvider {
         return __isInputActive;
     }
 
-    @Override
-    public boolean isActive(Command command) {
-        return isActive(command, 0);
-    }
-
     // If the key is marked to be locked on press and its lock context is
     // currently inactive
-    private boolean shouldLock(Command command, int playerIndex) {
+    private boolean shouldLock(Command command, PlayerIndex playerIndex) {
         return command.Context == __contexts.get(playerIndex) || (command.Context == Contexts.get(Sps.Contexts.Non_Free) && __contexts.get(playerIndex) != Contexts.get(Sps.Contexts.Free) || command.Context == Contexts.get(Sps.Contexts.All));
     }
 
     @Override
-    public void setContext(Context context, int playerIndex) {
+    public void setContext(Context context, PlayerIndex playerIndex) {
         __contexts.put(playerIndex, context);
     }
 
     @Override
-    public boolean isContext(Context context, int playerIndex) {
+    public boolean isContext(Context context, PlayerIndex playerIndex) {
         return __contexts.get(playerIndex) == context;
     }
 
     @Override
-    public boolean isLocked(Command command, int playerIndex) {
-        for (CommandLock pair : __locks) {
-            if (pair.Command == command && pair.PlayerIndex == playerIndex) {
+    public boolean isLocked(Command command, PlayerIndex playerIndex) {
+        for (CommandLock lock : __locks) {
+            if (lock.Command == command && lock.Index == playerIndex) {
                 return true;
             }
         }
@@ -134,26 +134,25 @@ public class Input implements InputProvider {
     }
 
     @Override
-    public void lock(Command command, int playerIndex) {
+    public void lock(Command command, PlayerIndex playerIndex) {
         __locks.add(new CommandLock(command, playerIndex));
     }
 
     @Override
-    public void unlock(Command command, int playerIndex) {
+    public void unlock(Command command, PlayerIndex playerIndex) {
         for (int ii = 0; ii < __locks.size(); ii++) {
-            if (__locks.get(ii).Command == command && __locks.get(ii).PlayerIndex == playerIndex) {
+            if (__locks.get(ii).Command == command && __locks.get(ii).Index == playerIndex) {
                 __locks.remove(__locks.get(ii));
                 ii--;
             }
         }
-        setMouseLock(false);
     }
 
     @Override
     public void update() {
         // Remove command locks if the associated key/button isn't being pressed
         for (int ii = 0; ii < __locks.size(); ii++) {
-            if (!isDown(__locks.get(ii).Command, __locks.get(ii).PlayerIndex)) {
+            if (!isDown(__locks.get(ii).Command, __locks.get(ii).Index)) {
                 __locks.remove(__locks.get(ii));
                 ii--;
             }

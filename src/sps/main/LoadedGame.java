@@ -2,6 +2,8 @@ package sps.main;
 
 import com.badlogic.gdx.Gdx;
 import sps.core.SpsEngineChainLink;
+import sps.io.InputWrapper;
+import sps.io.Players;
 import sps.prompts.ExitPrompt;
 import sps.prompts.PausePrompt;
 import sps.io.Options;
@@ -32,22 +34,22 @@ public class LoadedGame implements SpsEngineChainLink {
     private void handleUserInput() {
         Input.get().update();
 
-        if (Input.get().isActive(Commands.get("Pause")) && !DevConsole.get().isActive() && !Tutorials.get().isActive() && !ExitPrompt.get().isActive()) {
+        if (InputWrapper.isActive("Pause") && !DevConsole.get().isActive() && !Tutorials.get().isActive() && !ExitPrompt.get().isActive()) {
             PausePrompt.get().setActive(!PausePrompt.get().isActive());
         }
 
-        if (Input.get().isActive(Commands.get("ToggleFullScreen")) && !DevConsole.get().isActive()) {
+        if (InputWrapper.isActive("ToggleFullScreen") && !DevConsole.get().isActive()) {
             Options.get().FullScreen = !Gdx.graphics.isFullscreen();
             Options.get().apply();
             Options.get().save();
         }
 
         if (!DevConsole.get().isActive()) {
-            if (Input.get().isActive(Commands.get("Help"))) {
+            if (InputWrapper.isActive("Help")) {
                 Tutorials.get().show(true);
             }
 
-            if (Input.get().isActive(Commands.get("Exit"))) {
+            if (InputWrapper.isActive("Exit")) {
                 if (ExitPrompt.get().isActive()) {
                     ExitPrompt.get().close();
                 }
