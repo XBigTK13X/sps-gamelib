@@ -13,4 +13,5 @@ public class GameConfig {
     public static final int MeterOutlinePixelThickness = 2;
 
     public static boolean OptCollectMetaData = true;
+    public static int PlayersMax = 4;
 }
