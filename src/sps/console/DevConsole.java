@@ -48,9 +48,6 @@ public class DevConsole {
         _multiText.setTextDepth(DrawDepths.get("DevConsoleText"));
         _multiText.setVisible(false);
 
-
-        add("The development console has been started.");
-
         register(new DevConsoleAction("stop") {
             @Override
             public String act(int[] input) {
@@ -68,7 +65,7 @@ public class DevConsole {
             }
         });
 
-        DevConsole.get().register(new DevConsoleAction("fs") {
+        register(new DevConsoleAction("fs") {
             @Override
             public String act(int[] input) {
                 Options.get().FullScreen = !Options.get().FullScreen;
@@ -87,6 +84,9 @@ public class DevConsole {
                 return result;
             }
         });
+
+        Logger.info("The development console is initialized");
+        add("The development console has been started.");
     }
 
     public void setFont(String fontLabel, int pointSize) {

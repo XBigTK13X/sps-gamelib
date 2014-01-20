@@ -100,7 +100,7 @@ public class StateManager {
     }
 
     public void push(State state) {
-        if (GameConfig.TimeStates) {
+        if (DevConfig.TimeStates) {
             Logger.info("Pushing: " + state.getName() + ". Time since last: " + ((System.currentTimeMillis() - lastMil)) / 1000f);
             lastMil = System.currentTimeMillis();
         }

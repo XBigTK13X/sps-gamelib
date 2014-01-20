@@ -2,10 +2,9 @@ package sps.util;
 
 
 public class GameConfig {
-    //Options / Optimizations
-    //TODO Make these toggleable in the options menu,
-    //     helps with lots of creatures running on weaker computers
+    public static final int ThreadMaxStalledMilliseconds = 10000;
 
+    //Options / Optimizations
     public static boolean OptDisableCloudyTextures = false;
     public static boolean OptEnableFontOutlines = true;
 
@@ -14,5 +13,4 @@ public class GameConfig {
     public static final int MeterOutlinePixelThickness = 2;
 
     public static boolean OptCollectMetaData = true;
-    public static boolean TimeStates = true;
 }

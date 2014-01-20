@@ -14,7 +14,7 @@
     <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Munchoid</name>
+    <name>sps-gamelib</name>
 
     <dependencies>
         <!-- Dependencies in maven central -->

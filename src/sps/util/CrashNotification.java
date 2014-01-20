@@ -42,7 +42,7 @@ public class CrashNotification implements State {
     @Override
     public void update() {
         if (Input.get().isActive(Commands.get("Confirm"))) {
-            StateManager.get().push(GlobalStateResolver.create());
+            StateManager.get().push(GlobalStateResolver.get().createInitial());
         }
     }
 

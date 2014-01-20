@@ -2,6 +2,8 @@ package sps.preload;
 
 import sps.color.Color;
 import sps.color.Colors;
+import sps.core.Logger;
+import sps.core.SpsEngineChainLink;
 import sps.display.Screen;
 import sps.text.Text;
 import sps.text.TextPool;
@@ -11,7 +13,7 @@ import sps.ui.MultiText;
 import java.text.NumberFormat;
 import java.util.LinkedList;
 
-public abstract class PreloadChain {
+public abstract class PreloadChain implements SpsEngineChainLink {
     private LinkedList<PreloadChainLink> _preloadChain;
     private boolean processStep = false;
     private int _preloadedItemsTarget = 0;
@@ -58,6 +60,12 @@ public abstract class PreloadChain {
                         _lastMessage = link.getMessage();
                     }
                     _percentDisplay.setMessage(getProgress());
+                }
+                else {
+                    if (_lastMessage == null || !_lastMessage.equals(link.getMessage())) {
+                        Logger.info(link.getMessage());
+                        _lastMessage = link.getMessage();
+                    }
                 }
             }
         }

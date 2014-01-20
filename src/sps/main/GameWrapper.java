@@ -3,23 +3,46 @@ package sps.main;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import sps.io.Options;
 import sps.audio.MusicPlayer;
 import sps.audio.SoundPlayer;
 import sps.core.Logger;
 import sps.core.SpsConfig;
+import sps.core.SpsEngineChain;
 import sps.display.Window;
+import sps.io.Options;
+import sps.preload.*;
+import sps.states.GlobalStateResolver;
+import sps.states.StateManager;
+import sps.states.StateResolver;
 import sps.util.CoolDown;
 
 public class GameWrapper implements ApplicationListener {
-    private SpsLoader _loader;
-    private SpsGame _game;
+    private SpsEngineChain _engineChain;
+
     private CoolDown _persistResizeOperation;
     private boolean _firstResizeCall = true;
 
-    public GameWrapper(SpsLoader loader, SpsGame game) {
-        _loader = loader;
-        _game = game;
+    public GameWrapper(final DelayedPreloader delayedPreloader, final StateResolver resolver) {
+        PreloadChain kickstart = new PreloadChain(false) {
+            @Override
+            public void finish() {
+
+            }
+        };
+        kickstart.add(new PreloadChainLink("Launching initial game state.") {
+            @Override
+            public void process() {
+                GlobalStateResolver.set(resolver);
+                StateManager.get().push(GlobalStateResolver.get().createInitial());
+            }
+        });
+
+        _engineChain = new SpsEngineChain();
+        _engineChain.add(new SpsBootstrap());
+        _engineChain.add(SpsInitializer.getChain());
+        _engineChain.add(delayedPreloader);
+        _engineChain.add(kickstart);
+        _engineChain.add(new LoadedGame());
     }
 
     @Override
@@ -59,13 +82,9 @@ public class GameWrapper implements ApplicationListener {
     public void render() {
         try {
             handleWindowQuirks();
-            if (_loader.isFinished()) {
-                _game.update();
-                _game.draw();
-            }
-            else {
-                _loader.update();
-                _loader.draw();
+            if (_engineChain.isLinkAvailable()) {
+                _engineChain.update();
+                _engineChain.draw();
             }
         }
         catch (Exception e) {

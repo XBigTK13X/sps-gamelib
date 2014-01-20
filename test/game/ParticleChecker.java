@@ -42,7 +42,7 @@ public class ParticleChecker implements ApplicationListener {
         ParticleWrapper.get().update();
         ParticleWrapper.get().draw();
 
-        Window.get().processScheduledApiCalls();
+        Window.processDrawCalls();
     }
 
     @Override

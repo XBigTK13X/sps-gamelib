@@ -47,7 +47,7 @@ public class KeyboardTest implements ApplicationListener {
         //Macair screen was garbled without this clearing
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-        Window.get().processScheduledApiCalls();
+        Window.processDrawCalls();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package sps.main;
 
 import com.badlogic.gdx.Gdx;
+import sps.core.SpsEngineChainLink;
 import sps.prompts.ExitPrompt;
 import sps.prompts.PausePrompt;
 import sps.io.Options;
@@ -16,7 +17,7 @@ import sps.text.TextPool;
 import sps.ui.UiElements;
 import sps.util.GameMonitor;
 
-public class LoadedGame extends SpsGame {
+public class LoadedGame implements SpsEngineChainLink {
     private State _preUpdateState;
     private boolean _firstUpdateOptionsLoaded = false;
 
@@ -95,5 +96,10 @@ public class LoadedGame extends SpsGame {
 
             Window.processDrawCalls();
         }
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;
     }
 }

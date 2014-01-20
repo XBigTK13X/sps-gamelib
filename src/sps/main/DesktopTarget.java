@@ -5,21 +5,36 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import sps.core.Logger;
 import sps.core.SpsConfig;
+import sps.io.UserFiles;
+import sps.preload.DelayedPreloader;
+import sps.states.StateResolver;
 import sps.util.DevConfig;
 
 import java.util.UUID;
 
 public class DesktopTarget {
-    private static LwjglApplication instance;
+    private static LwjglApplication __instance;
+
+    public static Application get() {
+        return __instance;
+    }
+
+    public static void start(String title, DelayedPreloader preloader, StateResolver resolver, String[] args) {
+        UserFiles.setGameId(title);
+        GameWrapper wrapper = new GameWrapper(preloader, resolver);
+        DesktopTarget target = new DesktopTarget(title, wrapper);
+        target.start(args);
+    }
 
     private String _title;
     private GameWrapper _game;
-    public DesktopTarget(String title, GameWrapper game){
+
+    private DesktopTarget(String title, GameWrapper game) {
         _title = title;
         _game = game;
     }
 
-    public void start(String[] args) {
+    private void start(String[] args) {
         if (args.length > 0) {
             for (String s : args) {
                 if (s.equalsIgnoreCase("--play-as-bot")) {
@@ -47,10 +62,6 @@ public class DesktopTarget {
         }
         cfg.vSyncEnabled = SpsConfig.get().vSyncEnabled;
         cfg.useGL20 = true;
-        instance = new LwjglApplication(_game, cfg);
-    }
-
-    public static Application get(){
-        return instance;
+        __instance = new LwjglApplication(_game, cfg);
     }
 }

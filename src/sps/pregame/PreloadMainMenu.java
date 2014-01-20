@@ -47,7 +47,7 @@ public class PreloadMainMenu extends PreloaderState {
         _preloadChain.add(new PreloadChainLink("Preparing the logo.") {
             @Override
             public void process() {
-                _payload.Logo = SpriteMaker.fromGraphic("munchoid_logo.png");
+                _payload.Logo = SpriteMaker.fromGraphic("game_logo.png");
             }
         });
 

@@ -66,7 +66,7 @@ public class MainMenu implements State {
             _load = new UIButton("Continue", Commands.get("Menu1")) {
                 @Override
                 public void click() {
-                    StateManager.get().push(GlobalStateResolver.loadGame());
+                    StateManager.get().push(GlobalStateResolver.get().loadGame());
                 }
             };
             style.apply(_load, 0, 3);
@@ -86,7 +86,7 @@ public class MainMenu implements State {
     }
 
     private void start() {
-        StateManager.get().push(GlobalStateResolver.newGame());
+        StateManager.get().push(GlobalStateResolver.get().newGame());
     }
 
     @Override

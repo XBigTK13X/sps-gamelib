@@ -1,37 +1,36 @@
-package sps.main;
+package sps.preload;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import org.lwjgl.opengl.Display;
 import sps.bridge.Sps;
 import sps.core.RNG;
+import sps.core.SpsEngineChainLink;
 import sps.draw.SpriteMaker;
 import sps.preload.PreloadChain;
 import sps.preload.PreloadChainLink;
 
-public class SpsLoader {
+public class SpsBootstrap implements SpsEngineChainLink{
     private SpriteBatch _batch;
     private PreloadChain _bootstrap;
-    private PreloadChain _preload;
     private Sprite _logo;
     private int _windowWidth;
     private int _windowHeight;
 
-    public SpsLoader(PreloadChain preload) {
-        _preload = preload;
+    public SpsBootstrap() {
         _bootstrap = new PreloadChain(false) {
             @Override
             public void finish() {
 
             }
         };
-        _bootstrap.add(new PreloadChainLink() {
+        _bootstrap.add(new PreloadChainLink("Bootstrap spritebatch") {
             @Override
             public void process() {
                 _batch = new SpriteBatch();
             }
         });
-        _bootstrap.add(new PreloadChainLink() {
+        _bootstrap.add(new PreloadChainLink("Bootstrap logo") {
             @Override
             public void process() {
                 _logo = SpriteMaker.fromGraphic("sps-gamelib-logo.png");
@@ -40,26 +39,14 @@ public class SpsLoader {
                 _logo.setPosition((_windowWidth - _logo.getWidth()) / 2, (_windowHeight - _logo.getHeight()) / 2);
             }
         });
-        _bootstrap.add(new PreloadChainLink() {
-            @Override
-            public void process() {
-                RNG.naturalReseed();
-                Sps.setup(DesktopTarget.get(),true);
-            }
-        });
     }
 
     public boolean isFinished() {
-        return _preload.isFinished();
+        return _bootstrap.isFinished();
     }
 
     public void update() {
-        if (_bootstrap.isFinished()) {
-            _preload.update();
-        }
-        else {
-            _bootstrap.update();
-        }
+        _bootstrap.update();
     }
 
     public void draw() {
