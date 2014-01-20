@@ -3,18 +3,140 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <libgdx-version>2013.03.20</libgdx-version>
+        <libgdx-version>12.09.2013</libgdx-version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
 
-    <groupId>sps</groupId>
+    <groupId>simplepathstudios</groupId>
     <artifactId>sps-gamelib</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-    <name>sps-gamelib</name>
-    <url>http://maven.apache.org</url>
+
+    <name>Munchoid</name>
+
+    <dependencies>
+        <!-- Dependencies in maven central -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+        </dependency>
+
+        <!-- Dependencies in local repo-->
+        <dependency>
+            <groupId>com.badlogicgames.libgdx</groupId>
+            <artifactId>gdx</artifactId>
+            <version>${libgdx-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogicgames.libgdx</groupId>
+            <artifactId>gdx-openal</artifactId>
+            <version>${libgdx-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogicgames.libgdx</groupId>
+            <artifactId>gdx-natives</artifactId>
+            <version>${libgdx-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogicgames.libgdx</groupId>
+            <artifactId>gdx-backend-lwjgl</artifactId>
+            <version>${libgdx-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogicgames.libgdx</groupId>
+            <artifactId>gdx-backend-lwjgl-natives</artifactId>
+            <version>${libgdx-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogicgames.libgdx</groupId>
+            <artifactId>gdx-controllers</artifactId>
+            <version>${libgdx-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogicgames.libgdx</groupId>
+            <artifactId>gdx-controllers-desktop</artifactId>
+            <version>${libgdx-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogicgames.libgdx</groupId>
+            <artifactId>gdx-controllers-desktop-natives</artifactId>
+            <version>${libgdx-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogicgames.libgdx</groupId>
+            <artifactId>gdx-freetype-natives</artifactId>
+            <version>${libgdx-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogicgames.libgdx</groupId>
+            <artifactId>gdx-freetype</artifactId>
+            <version>${libgdx-version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>game</finalName>
+        <sourceDirectory>${basedir}/src</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <compilerVersion>1.7</compilerVersion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.13</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>targets.DesktopGame</mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <repositories>
         <repository>
@@ -29,91 +151,4 @@
             <url>file://${project.basedir}/lib</url>
         </repository>
     </repositories>
-
-    <dependencies>
-        <!-- Local repo -->
-        <!-- Dependencies in the local lib repo-->
-        <dependency>
-            <groupId>com.badlogic</groupId>
-            <artifactId>gdx</artifactId>
-            <version>${libgdx-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogic</groupId>
-            <artifactId>gdx-openal</artifactId>
-            <version>${libgdx-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogic</groupId>
-            <artifactId>gdx-natives</artifactId>
-            <version>${libgdx-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogic</groupId>
-            <artifactId>gdx-backend-lwjgl</artifactId>
-            <version>${libgdx-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogic</groupId>
-            <artifactId>gdx-backend-lwjgl-natives</artifactId>
-            <version>${libgdx-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogic</groupId>
-            <artifactId>gdx-controllers</artifactId>
-            <version>${libgdx-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogic</groupId>
-            <artifactId>gdx-controllers-desktop</artifactId>
-            <version>${libgdx-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogic</groupId>
-            <artifactId>gdx-controllers-desktop-natives</artifactId>
-            <version>${libgdx-version}</version>
-        </dependency>
-
-        <!-- Central repo -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.4</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <finalName>sps-gamelib</finalName>
-        <sourceDirectory>${basedir}/src</sourceDirectory>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.1</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <descriptorRefs>
-                                <descriptorRef>jar-with-dependencies</descriptorRef>
-                            </descriptorRefs>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
