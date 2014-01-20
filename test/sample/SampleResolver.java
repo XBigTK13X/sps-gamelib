@@ -4,7 +4,7 @@ import sample.states.SampleGameplay;
 import sps.states.State;
 import sps.states.StateResolver;
 
-public class SampleGameStateResolver implements StateResolver {
+public class SampleResolver implements StateResolver {
     @Override
     public State createInitial() {
         return new SampleGameplay();

@@ -5,12 +5,12 @@ import sps.preload.DelayedPreloader;
 import sps.preload.PreloadChain;
 import sps.preload.PreloadChainLink;
 
-public class SampleGamePreload {
+public class SamplePreload {
     public static DelayedPreloader getDelayedPreloader() {
         DelayedPreloader preloader = new DelayedPreloader() {
             @Override
             public PreloadChain createChain() {
-                return SampleGamePreload.getChain();
+                return SamplePreload.getChain();
             }
         };
         return preloader;
