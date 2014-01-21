@@ -1,6 +1,6 @@
 package sps.tutorial;
 
-import sps.io.Options;
+import sps.data.Options;
 import sps.states.StateManager;
 
 import java.util.HashMap;

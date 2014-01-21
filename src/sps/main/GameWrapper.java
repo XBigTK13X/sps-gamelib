@@ -9,12 +9,12 @@ import sps.core.Logger;
 import sps.core.SpsConfig;
 import sps.core.SpsEngineChain;
 import sps.display.Window;
-import sps.io.Options;
+import sps.data.Options;
 import sps.preload.*;
 import sps.states.GlobalStateResolver;
 import sps.states.StateManager;
 import sps.states.StateResolver;
-import sps.util.CoolDown;
+import sps.time.CoolDown;
 
 public class GameWrapper implements ApplicationListener {
     private SpsEngineChain _engineChain;

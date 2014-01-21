@@ -1,17 +1,18 @@
 package sample.states;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import sps.bridge.Commands;
 import sps.bridge.DrawDepths;
 import sps.display.Screen;
 import sps.display.Window;
 import sps.draw.BackgroundCache;
-import sps.io.Input;
+import sps.draw.BackgroundMaker;
+import sps.draw.ProcTextures;
+import sps.draw.SpriteMaker;
 import sps.io.InputWrapper;
 import sps.states.State;
 import sps.text.TextEffects;
 import sps.text.TextPool;
-import sps.util.CoolDown;
+import sps.time.CoolDown;
 
 public class SampleGameplay implements State {
     private CoolDown _timer;
@@ -24,7 +25,7 @@ public class SampleGameplay implements State {
     @Override
     public void create() {
         _timer = new CoolDown(.3f);
-        _background = BackgroundCache.getRandom();
+        _background = BackgroundMaker.radialDark();
 
     }
 

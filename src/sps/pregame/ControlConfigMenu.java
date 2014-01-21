@@ -1,7 +1,7 @@
 package sps.pregame;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import sps.io.UserFiles;
+import sps.data.UserFiles;
 import org.apache.commons.io.FileUtils;
 import sps.bridge.Command;
 import sps.bridge.Commands;
@@ -15,7 +15,7 @@ import sps.text.Text;
 import sps.text.TextPool;
 import sps.ui.ButtonStyle;
 import sps.ui.UIButton;
-import sps.util.CoolDown;
+import sps.time.CoolDown;
 
 import java.util.HashMap;
 import java.util.LinkedList;

@@ -2,7 +2,7 @@ package sps.prompts;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import sps.io.Options;
+import sps.data.Options;
 import sps.pregame.MainMenu;
 import sps.pregame.PreloadMainMenu;
 import sps.bridge.Commands;

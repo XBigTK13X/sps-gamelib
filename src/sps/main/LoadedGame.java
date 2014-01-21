@@ -3,12 +3,10 @@ package sps.main;
 import com.badlogic.gdx.Gdx;
 import sps.core.SpsEngineChainLink;
 import sps.io.InputWrapper;
-import sps.io.Players;
 import sps.prompts.ExitPrompt;
 import sps.prompts.PausePrompt;
-import sps.io.Options;
+import sps.data.Options;
 import sps.tutorial.Tutorials;
-import sps.bridge.Commands;
 import sps.console.DevConsole;
 import sps.display.Window;
 import sps.io.Input;
@@ -17,7 +15,7 @@ import sps.states.State;
 import sps.states.StateManager;
 import sps.text.TextPool;
 import sps.ui.UiElements;
-import sps.util.GameMonitor;
+import sps.thread.GameMonitor;
 
 public class LoadedGame implements SpsEngineChainLink {
     private State _preUpdateState;

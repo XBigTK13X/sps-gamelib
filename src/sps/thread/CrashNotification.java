@@ -1,4 +1,4 @@
-package sps.util;
+package sps.thread;
 
 import sps.io.Input;
 import sps.io.InputWrapper;

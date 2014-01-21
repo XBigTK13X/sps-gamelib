@@ -2,7 +2,7 @@ package sps.ui;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import sps.io.InputWrapper;
-import sps.io.Options;
+import sps.data.Options;
 import org.apache.commons.lang3.StringUtils;
 import sps.audio.RandomSoundPlayer;
 import sps.bridge.Command;
@@ -15,7 +15,6 @@ import sps.display.Window;
 import sps.draw.Outline;
 import sps.draw.ProcTextures;
 import sps.draw.SpriteMaker;
-import sps.io.Input;
 import sps.text.Text;
 import sps.text.TextPool;
 

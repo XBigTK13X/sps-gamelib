@@ -39,7 +39,6 @@ public class Sps {
     }
 
     public static class DrawDepths {
-        public static final String Debug = "Debug";
         public static final String DefaultText = "DefaultText";
         public static final String AnimatedTexture = "AnimatedTexture";
     }

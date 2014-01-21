@@ -15,7 +15,7 @@ import sps.display.Screen;
 import sps.draw.DrawAPI;
 import sps.entities.HitTest;
 import sps.particles.ParticleLease;
-import sps.util.GameConfig;
+import sps.data.GameConfig;
 import sps.util.Maths;
 
 //TODO Handle multiple shaders. ie: Text shader, sprite shader

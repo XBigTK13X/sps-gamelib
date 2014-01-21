@@ -9,6 +9,8 @@ import sps.color.Color;
 import sps.console.DevConsole;
 import sps.core.Loader;
 import sps.core.RNG;
+import sps.data.Options;
+import sps.data.UserFiles;
 import sps.display.Assets;
 import sps.display.SpriteSheetManager;
 import sps.display.Window;
@@ -16,9 +18,9 @@ import sps.display.render.FrameStrategy;
 import sps.io.*;
 import sps.main.DesktopTarget;
 import sps.ui.MultiText;
-import sps.util.DevConfig;
-import sps.util.GameConfig;
-import sps.util.GameMonitor;
+import sps.data.DevConfig;
+import sps.data.GameConfig;
+import sps.thread.GameMonitor;
 
 import java.io.File;
 

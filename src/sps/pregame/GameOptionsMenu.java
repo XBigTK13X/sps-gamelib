@@ -1,7 +1,7 @@
 package sps.pregame;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import sps.io.Options;
+import sps.data.Options;
 import sps.bridge.Commands;
 import sps.states.StateManager;
 import sps.ui.ButtonStyle;

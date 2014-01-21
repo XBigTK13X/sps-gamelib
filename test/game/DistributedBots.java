@@ -1,7 +1,7 @@
 package game;
 
 import sps.core.Logger;
-import sps.util.Commander;
+import sps.thread.Commander;
 
 import java.util.ArrayList;
 import java.util.List;

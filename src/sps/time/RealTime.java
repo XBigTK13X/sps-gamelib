@@ -1,4 +1,4 @@
-package sps.util;
+package sps.time;
 
 public class RealTime {
     private static RealTime instance = new RealTime();

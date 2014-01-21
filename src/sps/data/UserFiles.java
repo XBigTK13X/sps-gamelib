@@ -1,4 +1,4 @@
-package sps.io;
+package sps.data;
 
 import sps.core.Loader;
 

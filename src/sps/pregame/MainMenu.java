@@ -2,20 +2,20 @@ package sps.pregame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import sps.io.Persistence;
-import sps.states.GlobalStateResolver;
-import sps.tutorial.Tutorials;
 import sps.bridge.Commands;
 import sps.bridge.DrawDepths;
+import sps.data.DevConfig;
+import sps.data.Persistence;
 import sps.display.Screen;
 import sps.display.Window;
+import sps.states.GlobalStateResolver;
 import sps.states.State;
 import sps.states.StateManager;
 import sps.text.Text;
 import sps.text.TextPool;
+import sps.tutorial.Tutorials;
 import sps.ui.ButtonStyle;
 import sps.ui.UIButton;
-import sps.util.DevConfig;
 
 public class MainMenu implements State {
     private Sprite _background;
@@ -97,7 +97,7 @@ public class MainMenu implements State {
 
     @Override
     public void update() {
-        if (Persistence.get().isSaveBad() && !_corruptSave.isVisible()) {
+        if (Persistence.get() != null && Persistence.get().isSaveBad() && !_corruptSave.isVisible()) {
             _corruptSave.setVisible(true);
             _load.setVisible(false);
         }

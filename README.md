@@ -30,6 +30,14 @@ Currently it provides:
  - Fixed and moveable rendering viewports
  - Lightweight UI elements with straightforward styling
  - On-the-fly font cache generation, no more ugly stretched and squished bitmap fonts
+ - Multifaceted timers
+ - Thread monitoring and game-freeze prevention
+ - Game save/load framework
+ - Immutable colors
+ - Color format translation
+ - Color manipulation
+ - Lightweight file and console logging
+ - Developer console with support for in-game commands
 
 
 This framework uses the MIT license. See LICENSE.txt for terms of that license.

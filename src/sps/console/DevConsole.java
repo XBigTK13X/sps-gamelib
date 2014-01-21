@@ -2,7 +2,7 @@ package sps.console;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import sps.io.Options;
+import sps.data.Options;
 import sps.prompts.PausePrompt;
 import sps.bridge.DrawDepths;
 import sps.color.Color;

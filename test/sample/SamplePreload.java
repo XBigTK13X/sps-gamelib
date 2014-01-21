@@ -1,6 +1,9 @@
 package sample;
 
-import sps.draw.BackgroundCache;
+import sps.data.GameState;
+import sps.data.GameStateHandler;
+import sps.data.Persistence;
+import sps.pregame.ConfigurableCommands;
 import sps.preload.DelayedPreloader;
 import sps.preload.PreloadChain;
 import sps.preload.PreloadChainLink;
@@ -24,17 +27,14 @@ public class SamplePreload {
             }
         };
 
-        chain.add(new PreloadChainLink("Generating background sprites.", 3) {
+        chain.add(new PreloadChainLink() {
             @Override
             public void process() {
-                BackgroundCache.cacheScreenSize();
-            }
-        });
-
-        chain.add(new PreloadChainLink("Doing other important things", 30) {
-            @Override
-            public void process() {
-                int i = 0;
+                ConfigurableCommands.get().add("Confirm", "Confirm");
+                ConfigurableCommands.get().add("Exit", "Exit Game");
+                ConfigurableCommands.get().add("Pause", "Pause Game");
+                ConfigurableCommands.get().add("Help", "Show Tutorial");
+                ConfigurableCommands.get().add("AdvanceTutorial", "Advance Tutorial");
             }
         });
 

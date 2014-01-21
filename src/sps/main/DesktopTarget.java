@@ -5,10 +5,10 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import sps.core.Logger;
 import sps.core.SpsConfig;
-import sps.io.UserFiles;
+import sps.data.UserFiles;
 import sps.preload.DelayedPreloader;
 import sps.states.StateResolver;
-import sps.util.DevConfig;
+import sps.data.DevConfig;
 
 import java.util.UUID;
 

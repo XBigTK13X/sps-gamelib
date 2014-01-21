@@ -1,4 +1,4 @@
-package sps.util;
+package sps.time;
 
 public class SimpleTimer {
     private long _elapsedTime;

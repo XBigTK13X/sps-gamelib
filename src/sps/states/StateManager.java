@@ -10,8 +10,8 @@ import sps.text.TextPool;
 import sps.ui.Buttons;
 import sps.ui.Tooltips;
 import sps.ui.UiElements;
-import sps.util.DevConfig;
-import sps.util.GameConfig;
+import sps.data.DevConfig;
+import sps.data.GameConfig;
 
 import java.util.HashMap;
 import java.util.Map;

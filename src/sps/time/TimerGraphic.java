@@ -1,4 +1,4 @@
-package sps.util;
+package sps.time;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import sps.bridge.DrawDepths;

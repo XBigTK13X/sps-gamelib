@@ -1,13 +1,15 @@
 package sps.pregame;
 
-import sps.draw.BackgroundCache;
-import sps.preload.PreloaderState;
-import sps.io.Persistence;
 import org.apache.commons.io.FileUtils;
+import sps.color.Color;
 import sps.core.Loader;
 import sps.core.Logger;
+import sps.data.Persistence;
+import sps.draw.BackgroundCache;
+import sps.draw.ProcTextures;
 import sps.draw.SpriteMaker;
 import sps.preload.PreloadChainLink;
+import sps.preload.PreloaderState;
 import sps.states.StateManager;
 
 import java.io.File;
@@ -41,13 +43,20 @@ public class PreloadMainMenu extends PreloaderState {
         _preloadChain.add(new PreloadChainLink("Checking for existing save file.") {
             @Override
             public void process() {
-                _payload.SaveFilePresent = Persistence.get().saveFileExists();
+                if (Persistence.get() != null) {
+                    _payload.SaveFilePresent = Persistence.get().saveFileExists();
+                }
             }
         });
         _preloadChain.add(new PreloadChainLink("Preparing the logo.") {
             @Override
             public void process() {
-                _payload.Logo = SpriteMaker.fromGraphic("game_logo.png");
+                if (Loader.get().graphics("game_logo.png").exists()) {
+                    _payload.Logo = SpriteMaker.fromGraphic("game_logo.png");
+                }
+                else {
+                    _payload.Logo = SpriteMaker.fromColors(ProcTextures.gradient(300, 100, Color.BLACK, Color.WHITE, false));
+                }
             }
         });
 

@@ -1,4 +1,4 @@
-package sps.io;
+package sps.data;
 
 public interface GameStateHandler {
     String getPersistable();

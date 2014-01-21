@@ -146,6 +146,7 @@ public class Input implements InputProvider {
                 ii--;
             }
         }
+        setMouseLock(false);
     }
 
     @Override

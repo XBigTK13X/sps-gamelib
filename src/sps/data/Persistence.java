@@ -1,4 +1,4 @@
-package sps.io;
+package sps.data;
 
 import org.apache.commons.io.FileUtils;
 import sps.core.Logger;

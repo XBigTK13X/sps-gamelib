@@ -3,7 +3,7 @@ package sps.playerselection;
 import sps.io.PlayerIndex;
 import sps.io.Players;
 import sps.states.State;
-import sps.util.GameConfig;
+import sps.data.GameConfig;
 
 import java.util.ArrayList;
 import java.util.List;

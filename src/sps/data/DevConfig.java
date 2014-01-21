@@ -1,4 +1,4 @@
-package sps.util;
+package sps.data;
 
 public class DevConfig {
     public static boolean EndToEndStateTest = false;

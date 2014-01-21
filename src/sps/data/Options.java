@@ -1,10 +1,11 @@
-package sps.io;
+package sps.data;
 
 import org.apache.commons.io.FileUtils;
 import sps.core.Loader;
 import sps.core.Logger;
 import sps.core.SpsConfig;
 import sps.display.Window;
+import sps.io.InputBindings;
 import sps.util.Maths;
 import sps.util.Parse;
 

@@ -8,7 +8,7 @@ import sps.io.Input;
 import sps.io.PlayerIndex;
 import sps.text.Text;
 import sps.text.TextPool;
-import sps.util.GameConfig;
+import sps.data.GameConfig;
 
 public class AvailableInput {
     private static int __columnMax = GameConfig.PlayersMax + 1;

@@ -5,7 +5,7 @@ import sps.color.Colors;
 import sps.core.Point2;
 import sps.core.RNG;
 import sps.entities.HitTest;
-import sps.util.GameConfig;
+import sps.data.GameConfig;
 import sps.util.Maths;
 
 public class ProcTextures {

@@ -1,6 +1,7 @@
-package sps.util;
+package sps.time;
 
 import com.badlogic.gdx.Gdx;
+import sps.util.Maths;
 
 public class CoolDown {
     private float _coolDown;
