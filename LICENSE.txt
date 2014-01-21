@@ -12,7 +12,7 @@ All images (and associated project files) are licensed under CC BYSA 3.0.
 More information about this license can be found here: http://creativecommons.org/licenses/bysa/3.0/
 
 ## Font Licenses ##
-See specific licenses under https://github.com/XBigTK13X/Munchoid/tree/master/game/assets/font .
+See specific licenses under the assets/graphics/font/
 
 ## Contributor Licenses ##
 All contributions that are accepted into the project will also be listed under the MIT or CC BYSA 3.0 license, depending on the type of contribution.

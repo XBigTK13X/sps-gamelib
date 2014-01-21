@@ -1,7 +1,6 @@
 package sample;
 
 import sample.states.SampleGameplay;
-import sps.pregame.MainMenu;
 import sps.pregame.PreloadMainMenu;
 import sps.states.State;
 import sps.states.StateResolver;
