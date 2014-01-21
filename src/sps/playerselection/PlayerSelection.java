@@ -77,11 +77,11 @@ public class PlayerSelection implements State {
                     _playerConfig.addPlayer(aInput.getPlayerColumn(), aInput.getPlayerIndex());
                 }
             }
-            _handler.anyReady();
+            _handler.anyReady(_playerConfig);
         }
 
         else if (_allReady) {
-            _handler.allReady();
+            _handler.allReady(_playerConfig);
         }
     }
 
