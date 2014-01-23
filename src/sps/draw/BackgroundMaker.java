@@ -6,9 +6,6 @@ import sps.color.Colors;
 import sps.core.Point2;
 import sps.core.RNG;
 import sps.display.Screen;
-import sps.draw.ProcTextures;
-import sps.draw.SpriteMaker;
-import sps.draw.TextureManipulation;
 import sps.entities.HitTest;
 
 import java.util.ArrayList;
@@ -51,13 +48,13 @@ public class BackgroundMaker {
 
     private static Color[][] radialBrightBase(int w, int h) {
         Color c1 = Colors.randomPleasant();
-        Color c2 = new Color(1f, 1f, 1f, 1f);
+        Color c2 = Color.WHITE;
         return ProcTextures.smoothRadial(w, h, c1, c2);
     }
 
     private static Color[][] radialDarkBase(int w, int h) {
         Color c1 = Colors.brightnessShift(Colors.randomPleasant(), -50);
-        Color c2 = Colors.brightnessShift(Colors.randomPleasant(), -50);
+        Color c2 = Color.BLACK;
         return ProcTextures.smoothRadial(w, h, c1, c2);
     }
 
