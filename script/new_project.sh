@@ -4,8 +4,9 @@ if [[ $# -eq 0 ]] ; then
     exit 0
 fi
 
-cd ..
+GIT_VERSION=$(git log -n 1 --pretty=format:"%H")
 
+cd ..
 if [ -d "$NAME" ]; then
     echo "Project $NAME already exists."
     exit
@@ -21,5 +22,5 @@ cd $NAME
 rm -rf logs
 rm -rf target
 git add -A .
-git commit -qam "Copy latest sps-gamelib for new prototype."
+git commit -qam "Copy sps-gamelib [$GIT_VERSION] for new project."
 echo "Git repo setup for new project."
