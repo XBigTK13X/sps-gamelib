@@ -1,6 +1,7 @@
 package sps.main;
 
 import com.badlogic.gdx.Gdx;
+import sps.console.DevShortcuts;
 import sps.core.SpsEngineChainLink;
 import sps.entities.EntityManager;
 import sps.entities.LightEntities;
@@ -70,6 +71,7 @@ public class LoadedGame implements SpsEngineChainLink {
         ExitPrompt.get().updateAndDraw();
         Tutorials.get().update();
         DevConsole.get().updateAndDraw();
+        DevShortcuts.handle();
     }
 
     @Override

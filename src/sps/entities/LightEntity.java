@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import sps.bridge.DrawDepth;
 import sps.bridge.DrawDepths;
-import sps.core.Logger;
 import sps.core.Point2;
 import sps.display.Window;
 
@@ -29,8 +28,11 @@ public class LightEntity {
         _active = active;
     }
 
-    public void setPosition(Point2 position) {
-        _position.reset(position.X, position.Y);
+    public void setPosition(float x, float y) {
+        _position.reset(x, y);
+        if (_sprite != null) {
+            _sprite.setPosition(x, y);
+        }
     }
 
     public Point2 getPosition() {
@@ -59,8 +61,7 @@ public class LightEntity {
         amountX *= Gdx.graphics.getDeltaTime();
         amountY *= Gdx.graphics.getDeltaTime();
         if (amountX != 0 || amountY != 0) {
-            _position.reset(_position.X + amountX, _position.Y + amountY);
-            _sprite.setPosition(_position.X, _position.Y);
+            setPosition(_position.X + amountX, _position.Y + amountY);
             return true;
         }
         return false;
