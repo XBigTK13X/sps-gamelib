@@ -18,6 +18,7 @@ cd $NAME
 git init -q
 cd ..
 rsync -a --exclude=".*" sgl/ $NAME/
+cp sgl/.gitignore $NAME/.gitignore
 cd $NAME
 rm -rf logs
 rm -rf target
