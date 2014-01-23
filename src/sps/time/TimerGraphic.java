@@ -17,15 +17,15 @@ public class TimerGraphic {
     private static final Sprite[] _frames = new Sprite[101];
 
     private int _percent;
-    private boolean _fillUp;
+    private boolean _startAnimationFull;
     private Point2 _position;
     private boolean _finished;
     private boolean _visible;
     private Color _color;
     private boolean _moveable = true;
+    private CoolDown _timer;
 
-
-    public TimerGraphic(boolean fillUp, Point2 position, Color color) {
+    public TimerGraphic(boolean fillUp, Point2 position, Color color, float timeInSeconds) {
         if (_frames[0] == null) {
             int radiusPixels = (int) Screen.width(5);
             Color[][] base;
@@ -39,25 +39,26 @@ public class TimerGraphic {
                 _frames[ii].setRotation(-90);
             }
         }
+        _timer = new CoolDown(timeInSeconds);
         _color = color;
-        _fillUp = fillUp;
+        _startAnimationFull = !fillUp;
         _visible = true;
         reset();
         _position = position;
     }
 
     public void setPercent(int percent) {
-        _percent = _fillUp ? percent : 100 - percent;
+        _percent = _startAnimationFull ? percent : 100 - percent;
         _percent = Maths.clamp(_percent, 0, 100);
-        _finished = (_fillUp ? (_percent == 100) : (_percent == 0));
+        _finished = (_startAnimationFull ? (_percent == 100) : (_percent == 0));
     }
 
     public int getPercent() {
-        return _fillUp ? _percent : 100 - _percent;
+        return _startAnimationFull ? _percent : 100 - _percent;
     }
 
     public void reset() {
-        _percent = _fillUp ? 0 : 100;
+        _percent = _startAnimationFull ? 0 : 100;
         _finished = false;
     }
 
@@ -70,11 +71,22 @@ public class TimerGraphic {
     }
 
 
+    public boolean update() {
+        boolean cooled = _timer.updateAndCheck();
+        setPercent(_timer.getPercentCompletion());
+        return cooled;
+    }
+
+    public CoolDown getTimer() {
+        setPercent(_timer.getPercentCompletion());
+        return _timer;
+    }
+
     public void draw() {
         if (_visible && _percent != 0) {
             _frames[_percent].setColor(_color.getGdxColor());
             _frames[_percent].setPosition(_position.X, _position.Y);
-            Window.get(!_moveable).schedule(_frames[_percent], DrawDepths.get("BattleCoolDown"));
+            Window.get(!_moveable).schedule(_frames[_percent], DrawDepths.get("TimerGraphic"));
         }
     }
 
