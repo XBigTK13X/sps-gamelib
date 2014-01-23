@@ -4,7 +4,7 @@ import sps.core.Loader;
 
 public class DevConfig {
     private static Boolean __canEnable;
-    private static boolean canEnable() {
+    public static boolean canEnable() {
         if (__canEnable == null) {
             __canEnable = !Loader.get().data("release_build").exists();
         }
