@@ -61,6 +61,15 @@ public class BoundingBox {
         return left && right && top && bottom;
     }
 
+    public boolean isTouching(BoundingBox b) {
+        boolean left = HitTest.inBox(b.X, b.Y, this);
+        boolean top = HitTest.inBox(b.X, b.Y2, this);
+        boolean right = HitTest.inBox(b.X2, b.Y, this);
+        boolean bottom = HitTest.inBox(b.X2, b.Y2, this);
+
+        return left || right || top || bottom;
+    }
+
     public String debug() {
         return "(" + X + "," + Y + ")>(" + X2 + "," + Y2 + ")";
     }
