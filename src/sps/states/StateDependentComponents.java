@@ -1,6 +1,7 @@
 package sps.states;
 
 import sps.entities.EntityManager;
+import sps.entities.LightEntities;
 import sps.particles.ParticleEngine;
 import sps.text.TextPool;
 import sps.ui.Buttons;
@@ -12,8 +13,10 @@ public class StateDependentComponents {
     public final TextPool TextPool;
     public final Tooltips Tooltips;
     public final Buttons Buttons;
+    public final LightEntities LightEntities;
 
-    public StateDependentComponents(EntityManager entityManager, ParticleEngine particleEngine, TextPool textPool, Tooltips tooltips, Buttons buttons) {
+    public StateDependentComponents(LightEntities lightEntities, EntityManager entityManager, ParticleEngine particleEngine, TextPool textPool, Tooltips tooltips, Buttons buttons) {
+        LightEntities = lightEntities;
         EntityManager = entityManager;
         ParticleEngine = particleEngine;
         TextPool = textPool;

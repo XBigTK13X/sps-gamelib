@@ -2,6 +2,8 @@ package sps.main;
 
 import com.badlogic.gdx.Gdx;
 import sps.core.SpsEngineChainLink;
+import sps.entities.EntityManager;
+import sps.entities.LightEntities;
 import sps.io.InputWrapper;
 import sps.prompts.ExitPrompt;
 import sps.prompts.PausePrompt;
@@ -77,6 +79,8 @@ public class LoadedGame implements SpsEngineChainLink {
         if (!PausePrompt.get().isActive() && !ExitPrompt.get().isActive()) {
             _preUpdateState = StateManager.get().current();
             StateManager.get().asyncUpdate();
+            EntityManager.get().update();
+            LightEntities.get().update();
             StateManager.get().update();
             ParticleWrapper.get().update();
             TextPool.get().update();
@@ -89,6 +93,8 @@ public class LoadedGame implements SpsEngineChainLink {
         if (_preUpdateState == StateManager.get().current()) {
             if (!PausePrompt.get().isActive() && !ExitPrompt.get().isActive()) {
                 StateManager.get().draw();
+                EntityManager.get().draw();
+                LightEntities.get().draw();
                 UiElements.get().draw();
                 TextPool.get().draw();
                 ParticleWrapper.get().draw();

@@ -2,16 +2,17 @@ package sps.states;
 
 import sps.audio.MusicPlayer;
 import sps.core.Logger;
+import sps.data.DevConfig;
+import sps.data.GameConfig;
 import sps.display.Window;
 import sps.entities.EntityManager;
+import sps.entities.LightEntities;
 import sps.particles.ParticleEngine;
 import sps.particles.ParticleWrapper;
 import sps.text.TextPool;
 import sps.ui.Buttons;
 import sps.ui.Tooltips;
 import sps.ui.UiElements;
-import sps.data.DevConfig;
-import sps.data.GameConfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -84,12 +85,14 @@ public class StateManager {
         if (_components.containsKey(current())) {
             StateDependentComponents components = _components.get(current());
             EntityManager.set(components.EntityManager);
+            LightEntities.set(components.LightEntities);
             ParticleEngine.set(components.ParticleEngine);
             TextPool.set(components.TextPool);
             Tooltips.set(components.Tooltips);
             Buttons.set(components.Buttons);
         }
         else {
+            LightEntities.reset();
             EntityManager.reset();
             ParticleEngine.reset();
             TextPool.reset();
@@ -116,7 +119,7 @@ public class StateManager {
         Window.get().screenEngine().resetCamera();
         boolean isNewState = false;
         if (_states.size() > 0) {
-            _components.put(current(), new StateDependentComponents(EntityManager.get(), ParticleEngine.get(), TextPool.get(), Tooltips.get(), Buttons.get()));
+            _components.put(current(), new StateDependentComponents(LightEntities.get(), EntityManager.get(), ParticleEngine.get(), TextPool.get(), Tooltips.get(), Buttons.get()));
         }
         if (!_states.contains(state)) {
             isNewState = true;

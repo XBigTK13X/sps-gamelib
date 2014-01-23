@@ -31,10 +31,20 @@ public class EntityManager {
     private EntityManager() {
     }
 
-    private List<Entity> _contents = new ArrayList<Entity>();
-    private List<Entity> players = new ArrayList<Entity>();
-    private HashMap<EntityType, List<Entity>> entityBuckets = new HashMap<EntityType, List<Entity>>();
-    private HashMap<ActorType, List<IActor>> actorBuckets = new HashMap<ActorType, List<IActor>>();
+    private List<Entity> _contents = new ArrayList<>();
+    private List<Entity> players = new ArrayList<>();
+    private HashMap<EntityType, List<Entity>> entityBuckets = new HashMap<>();
+    private HashMap<ActorType, List<IActor>> actorBuckets = new HashMap<>();
+    private IActor _nextResult;
+
+    private final List<IActor> _creatures2 = new ArrayList<>();
+    private Point2 buffer = new Point2(0, 0);
+
+    private final List<Entity> _gopResults = new ArrayList<>();
+    private final List<Entity> _goResults = new ArrayList<>();
+
+    private List<Entity> empty = new ArrayList<>();
+    private final List<IActor> _creatures = new ArrayList<>();
 
     public Entity addEntity(Entity entity) {
         entity.loadContent();
@@ -74,9 +84,6 @@ public class EntityManager {
         return null;
     }
 
-    private final List<Entity> _gopResults = new ArrayList<Entity>();
-    private final List<Entity> _goResults = new ArrayList<Entity>();
-
     public List<Entity> getAllEntities() {
         return _contents;
     }
@@ -95,16 +102,12 @@ public class EntityManager {
         return null;
     }
 
-    private List<Entity> empty = new ArrayList<Entity>();
-
     public List<Entity> getEntities(EntityType type) {
         if (entityBuckets.get(type) == null) {
             return empty;
         }
         return entityBuckets.get(type);
     }
-
-    private final List<IActor> _creatures = new ArrayList<IActor>();
 
     public List<IActor> getActors(ActorType type) {
         _creatures.clear();
@@ -124,11 +127,6 @@ public class EntityManager {
         }
         return _creatures;
     }
-
-    private IActor _nextResult;
-
-    private final List<IActor> _creatures2 = new ArrayList<IActor>();
-    private Point2 buffer = new Point2(0, 0);
 
     public void removeEntity(Entity target) {
         _contents.remove(target);
