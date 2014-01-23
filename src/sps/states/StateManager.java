@@ -102,6 +102,10 @@ public class StateManager {
         current().load();
     }
 
+    public void push(Class type) {
+        push(GlobalStateResolver.get().get(type));
+    }
+
     public void push(State state) {
         if (DevConfig.TimeStates) {
             Logger.info("Pushing: " + state.getName() + ". Time since last: " + ((System.currentTimeMillis() - lastMil)) / 1000f);

@@ -61,13 +61,21 @@ public class BoundingBox {
         return left && right && top && bottom;
     }
 
-    public boolean isTouching(BoundingBox b) {
+    public boolean containsAnyCorner(BoundingBox b) {
         boolean left = HitTest.inBox(b.X, b.Y, this);
         boolean top = HitTest.inBox(b.X, b.Y2, this);
         boolean right = HitTest.inBox(b.X2, b.Y, this);
         boolean bottom = HitTest.inBox(b.X2, b.Y2, this);
 
         return left || right || top || bottom;
+    }
+
+    public boolean overlaps(BoundingBox b) {
+        boolean left = b.X >= X2;
+        boolean right = b.X2 <= X;
+        boolean top = b.Y >= Y2;
+        boolean bottom = b.Y2 <= Y;
+        return !(left || right || top || bottom);
     }
 
     public String debug() {

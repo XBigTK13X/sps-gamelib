@@ -1,24 +1,24 @@
 package sps.main;
 
 import com.badlogic.gdx.Gdx;
+import sps.console.DevConsole;
 import sps.console.DevShortcuts;
 import sps.core.SpsEngineChainLink;
+import sps.data.Options;
+import sps.display.Window;
 import sps.entities.EntityManager;
 import sps.entities.LightEntities;
+import sps.io.Input;
 import sps.io.InputWrapper;
+import sps.particles.ParticleWrapper;
 import sps.prompts.ExitPrompt;
 import sps.prompts.PausePrompt;
-import sps.data.Options;
-import sps.tutorial.Tutorials;
-import sps.console.DevConsole;
-import sps.display.Window;
-import sps.io.Input;
-import sps.particles.ParticleWrapper;
 import sps.states.State;
 import sps.states.StateManager;
 import sps.text.TextPool;
-import sps.ui.UiElements;
 import sps.thread.GameMonitor;
+import sps.tutorial.Tutorials;
+import sps.ui.UiElements;
 
 public class LoadedGame implements SpsEngineChainLink {
     private State _preUpdateState;
