@@ -170,7 +170,7 @@ public enum Keys {
         return _keyCode;
     }
 
-    public static Keys get(String s) {
+    public static Keys fromName(String s) {
         for (Keys key : values()) {
             if (key.name().equalsIgnoreCase(s)) {
                 return key;
@@ -179,7 +179,7 @@ public enum Keys {
         return null;
     }
 
-    public static Keys find(int keyCode) {
+    public static Keys fromCode(int keyCode) {
         if (keyCode == 16) {
             return NUM_9;
         }
@@ -189,5 +189,143 @@ public enum Keys {
             }
         }
         return null;
+    }
+
+    public static Keys fromChar(char key){
+        switch(key){
+            case 'a':
+            case 'A':
+                return Keys.A;
+            case 'b':
+            case 'B':
+                return Keys.B;
+            case 'c':
+            case 'C':
+                return Keys.C;
+            case 'd':
+            case 'D':
+                return Keys.D;
+            case 'e':
+            case 'E':
+                return Keys.E;
+            case 'f':
+            case 'F':
+                return Keys.F;
+            case 'g':
+            case 'G':
+                return Keys.G;
+            case 'h':
+            case 'H':
+                return Keys.H;
+            case 'i':
+            case 'I':
+                return Keys.I;
+            case 'j':
+            case 'J':
+                return Keys.J;
+            case 'k':
+            case 'K':
+                return Keys.K;
+            case 'l':
+            case 'L':
+                return Keys.L;
+            case 'm':
+            case 'M':
+                return Keys.M;
+            case 'n':
+            case 'N':
+                return Keys.N;
+            case 'o':
+            case 'O':
+                return Keys.O;
+            case 'p':
+            case 'P':
+                return Keys.P;
+            case 'q':
+            case 'Q':
+                return Keys.Q;
+            case 'r':
+            case 'R':
+                return Keys.R;
+            case 's':
+            case 'S':
+                return Keys.S;
+            case 't':
+            case 'T':
+                return Keys.T;
+            case 'u':
+            case 'U':
+                return Keys.U;
+            case 'v':
+            case 'V':
+                return Keys.V;
+            case 'w':
+            case 'W':
+                return Keys.W;
+            case 'x':
+            case 'X':
+                return Keys.X;
+            case 'y':
+            case 'Y':
+                return Keys.Y;
+            case 'z':
+            case 'Z':
+                return Keys.Z;
+            case '0':
+                return Keys.NUM_0;
+            case '1':
+                return Keys.NUM_1;
+            case '2':
+                return Keys.NUM_2;
+            case '3':
+                return Keys.NUM_3;
+            case '4':
+                return Keys.NUM_4;
+            case '5':
+                return Keys.NUM_5;
+            case '6':
+                return Keys.NUM_6;
+            case '7':
+                return Keys.NUM_7;
+            case '8':
+                return Keys.NUM_8;
+            case '9':
+                return Keys.NUM_9;
+            case '`':
+            case '~':
+                return Keys.GRAVE;
+            case '-':
+            case '_':
+                return Keys.MINUS;
+            case '=':
+            case '+':
+                return Keys.EQUALS;
+            case '[':
+            case '{':
+                return Keys.LEFT_BRACKET;
+            case ']':
+            case '}':
+                return Keys.RIGHT_BRACKET;
+            case ';':
+            case ':':
+                return Keys.SEMICOLON;
+            case '\'':
+            case '"':
+                return Keys.APOSTROPHE;
+            case ',':
+            case '<':
+                return Keys.COMMA;
+            case '.':
+            case '>':
+                return Keys.PERIOD;
+            case '/':
+            case '?':
+                return Keys.SLASH;
+            case '\\':
+            case '|':
+                return Keys.BACKSLASH;
+            default:
+                return null;
+        }
     }
 }

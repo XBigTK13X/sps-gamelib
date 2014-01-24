@@ -2,13 +2,12 @@ package game;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-import sps.bridge.Commands;
 import sps.core.Logger;
 import sps.display.Screen;
 import sps.display.Window;
-import sps.io.Input;
-import sps.io.InputWrapper;
-import sps.particles.ParticleWrapper;
+import sps.input.Input;
+import sps.input.InputWrapper;
+import sps.particle.ParticleWrapper;
 
 public class ParticleChecker implements ApplicationListener {
     private static DummyApp _context;

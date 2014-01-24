@@ -3,11 +3,12 @@ package game;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
+import sps.core.Logger;
 import sps.display.Screen;
 import sps.display.Window;
-import sps.io.Input;
-import sps.io.KeyCatcher;
-import sps.io.Keys;
+import sps.input.Input;
+import sps.input.KeyCatcher;
+import sps.input.Keys;
 import sps.text.Text;
 import sps.text.TextPool;
 
@@ -28,7 +29,8 @@ public class KeyboardTest implements ApplicationListener {
         _catcher = new KeyCatcher() {
             @Override
             public void onDown(int keyCode) {
-                _display.setMessage("Down: " + keyCode + ", " + Keys.find(keyCode));
+                _display.setMessage("Down: " + keyCode + ", " + Keys.fromCode(keyCode));
+                Logger.info("Down: " + keyCode + ", " + Keys.fromCode(keyCode));
             }
         };
         _catcher.setActive(true);

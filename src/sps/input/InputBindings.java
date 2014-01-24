@@ -73,7 +73,7 @@ public class InputBindings {
                     Keys[] chord = new Keys[rawChord.length];
                     String keyNotFound = "";
                     for (int ii = 0; ii < rawChord.length; ii++) {
-                        chord[ii] = Keys.get(rawChord[ii]);
+                        chord[ii] = Keys.fromName(rawChord[ii]);
                         if (chord[ii] == null) {
                             keyNotFound = "[" + rawChord[ii] + "] was not listed as any KeyID.";
                         }

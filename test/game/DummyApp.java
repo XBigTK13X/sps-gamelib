@@ -13,8 +13,9 @@ import sps.display.Assets;
 import sps.display.SpriteSheetManager;
 import sps.display.Window;
 import sps.display.render.FrameStrategy;
-import sps.io.DefaultStateProvider;
-import sps.io.Input;
+import sps.input.Input;
+import sps.input.Players;
+import sps.input.provider.DefaultStateProvider;
 
 public class DummyApp {
     private ApplicationListener _appListener;
@@ -36,6 +37,7 @@ public class DummyApp {
         Window.setWindowBackground(Color.BLACK);
         Window.get(false).screenEngine().setStrategy(new FrameStrategy());
         Window.get(true).screenEngine().setStrategy(new FrameStrategy());
+        Players.init();
         Input.get().setup(new DefaultStateProvider());
         SpriteSheetManager.setup(SpriteTypes.getDefs());
     }

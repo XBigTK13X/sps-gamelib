@@ -64,13 +64,13 @@ public class ControlConfigMenu extends OptionsState {
                     }
                 }
             }
-            _chord += Keys.find(keyCode) + "+";
+            _chord += Keys.fromCode(keyCode) + "+";
             updateUI();
         }
 
         @Override
         public void onUp(int keyCode) {
-            _chord = _chord.replace(Keys.find(keyCode) + "+", "");
+            _chord = _chord.replace(Keys.fromCode(keyCode) + "+", "");
             updateUI();
         }
     };
@@ -111,7 +111,7 @@ public class ControlConfigMenu extends OptionsState {
                         Keys[] keys = new Keys[keyIds.length];
                         int ii = 0;
                         for (String id : keyIds) {
-                            keys[ii++] = Keys.get(id);
+                            keys[ii++] = Keys.fromName(id);
                         }
                         command.bind(command.controllerInput(), keys);
                     }

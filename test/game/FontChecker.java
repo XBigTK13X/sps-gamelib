@@ -6,7 +6,7 @@ import sps.core.Point2;
 import sps.display.Assets;
 import sps.display.Screen;
 import sps.display.Window;
-import sps.io.Input;
+import sps.input.Input;
 import sps.text.Text;
 import sps.text.TextEffects;
 import sps.text.TextPool;

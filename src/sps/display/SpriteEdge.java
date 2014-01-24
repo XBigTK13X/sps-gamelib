@@ -1,8 +1,5 @@
 package sps.display;
 
-import sps.bridge.EntityType;
-import sps.core.Point2;
-
 //Using this class requires 6 different sprites in this horizontal order:
 //Direction is the side on which a neighbor exists
 //None, Left, Up, LeftUp, LeftRight, and LeftUpRight, and All
