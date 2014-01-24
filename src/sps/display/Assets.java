@@ -42,7 +42,7 @@ public class Assets {
                 String name = "";
                 for (int ii = 2; ii < comps.length; ii++) {
                     String baseName = comps[ii].replace(".png", "");
-                    name += Character.toUpperCase(baseName.charAt(0)) + baseName.substring(1) + "_";
+                    name += Character.toUpperCase(baseName.charAt(0)) + baseName.substring(1) + " ";
                 }
                 name = name.substring(0, name.length() - 1);
                 spriteNames.put(index, name);

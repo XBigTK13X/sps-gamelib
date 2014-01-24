@@ -1,9 +1,6 @@
 package sps.preload;
 
-import sps.core.Logger;
-import sps.core.SpsEngineChainLink;
 import sps.display.Window;
-import sps.preload.PreloadChain;
 import sps.text.TextPool;
 
 public abstract class DelayedPreloader implements SpsEngineChainLink {

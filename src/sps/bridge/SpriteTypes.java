@@ -26,12 +26,15 @@ public class SpriteTypes {
         return instance.getDefinitions();
     }
 
-    private Map<String, SpriteType> spriteTypes = new HashMap<String, SpriteType>();
+    private Map<String, SpriteType> spriteTypes = new HashMap<>();
 
     private SpriteTypes() {
     }
 
     public SpriteType resolve(String name) {
+        if (!spriteTypes.containsKey(name)) {
+            return null;
+        }
         return spriteTypes.get(name);
     }
 

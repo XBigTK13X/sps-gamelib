@@ -8,7 +8,7 @@ import sps.display.Screen;
 import sps.display.Window;
 import sps.draw.ProcTextures;
 import sps.draw.SpriteMaker;
-import sps.io.Input;
+import sps.input.Input;
 import sps.text.Text;
 import sps.text.TextPool;
 

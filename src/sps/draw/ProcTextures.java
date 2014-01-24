@@ -4,7 +4,7 @@ import sps.color.Color;
 import sps.color.Colors;
 import sps.core.Point2;
 import sps.core.RNG;
-import sps.entities.HitTest;
+import sps.util.HitTest;
 import sps.data.GameConfig;
 import sps.util.Maths;
 

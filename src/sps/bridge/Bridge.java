@@ -39,21 +39,6 @@ public class Bridge {
                         if (name.equalsIgnoreCase("EndDrawDepths")) {
                             processDrawDepths = false;
                         }
-                        if (name.equals("entityType")) {
-                            String id = values[1];
-                            EntityTypes.add(new EntityType(id));
-                        }
-                        if (name.equals("actorType")) {
-                            String id = values[1];
-                            String spriteType = values[2];
-                            boolean generatable = false;
-                            if (values.length == 4) {
-                                generatable = values[3].equals("true");
-                            }
-                            if (enableGraphics) {
-                                ActorTypes.add(new ActorType(id, SpriteTypes.get(spriteType), generatable));
-                            }
-                        }
                     }
                 }
             }

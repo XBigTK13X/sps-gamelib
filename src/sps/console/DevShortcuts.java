@@ -2,7 +2,7 @@ package sps.console;
 
 import sps.data.DevConfig;
 import sps.data.Options;
-import sps.io.InputWrapper;
+import sps.input.InputWrapper;
 import sps.pregame.PreloadMainMenu;
 import sps.states.GlobalStateResolver;
 import sps.states.StateManager;

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import sps.bridge.DrawDepth;
 import sps.color.Color;
 import sps.core.Point2;
-import sps.particles.ParticleLease;
+import sps.particle.ParticleLease;
 
 public class RenderApiCall implements Comparable<RenderApiCall> {
     public String Content;

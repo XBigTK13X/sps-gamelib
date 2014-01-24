@@ -7,7 +7,7 @@ import sps.audio.MusicPlayer;
 import sps.audio.SoundPlayer;
 import sps.core.Logger;
 import sps.core.SpsConfig;
-import sps.core.SpsEngineChain;
+import sps.preload.SpsEngineChain;
 import sps.display.Window;
 import sps.data.Options;
 import sps.preload.*;

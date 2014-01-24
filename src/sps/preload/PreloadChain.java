@@ -3,7 +3,6 @@ package sps.preload;
 import sps.color.Color;
 import sps.color.Colors;
 import sps.core.Logger;
-import sps.core.SpsEngineChainLink;
 import sps.display.Screen;
 import sps.text.Text;
 import sps.text.TextPool;

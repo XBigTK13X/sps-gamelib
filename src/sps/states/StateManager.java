@@ -5,10 +5,9 @@ import sps.core.Logger;
 import sps.data.DevConfig;
 import sps.data.GameConfig;
 import sps.display.Window;
-import sps.entities.EntityManager;
-import sps.entities.LightEntities;
-import sps.particles.ParticleEngine;
-import sps.particles.ParticleWrapper;
+import sps.entity.Entities;
+import sps.particle.simple.ParticleEngine;
+import sps.particle.ParticleWrapper;
 import sps.text.TextPool;
 import sps.ui.Buttons;
 import sps.ui.Tooltips;
@@ -84,16 +83,14 @@ public class StateManager {
         //$$$ Logger.info("=== Loading new state: " + state.getName());
         if (_components.containsKey(current())) {
             StateDependentComponents components = _components.get(current());
-            EntityManager.set(components.EntityManager);
-            LightEntities.set(components.LightEntities);
+            Entities.set(components.LightEntities);
             ParticleEngine.set(components.ParticleEngine);
             TextPool.set(components.TextPool);
             Tooltips.set(components.Tooltips);
             Buttons.set(components.Buttons);
         }
         else {
-            LightEntities.reset();
-            EntityManager.reset();
+            Entities.reset();
             ParticleEngine.reset();
             TextPool.reset();
             UiElements.reset();
@@ -123,7 +120,7 @@ public class StateManager {
         Window.get().screenEngine().resetCamera();
         boolean isNewState = false;
         if (_states.size() > 0) {
-            _components.put(current(), new StateDependentComponents(LightEntities.get(), EntityManager.get(), ParticleEngine.get(), TextPool.get(), Tooltips.get(), Buttons.get()));
+            _components.put(current(), new StateDependentComponents(Entities.get(), ParticleEngine.get(), TextPool.get(), Tooltips.get(), Buttons.get()));
         }
         if (!_states.contains(state)) {
             isNewState = true;

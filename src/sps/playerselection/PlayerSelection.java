@@ -1,7 +1,7 @@
 package sps.playerselection;
 
-import sps.io.PlayerIndex;
-import sps.io.Players;
+import sps.input.PlayerIndex;
+import sps.input.Players;
 import sps.states.State;
 import sps.data.GameConfig;
 

@@ -1,6 +1,6 @@
 package sps.playerselection;
 
-import sps.io.PlayerIndex;
+import sps.input.PlayerIndex;
 
 import java.util.HashMap;
 import java.util.Map;

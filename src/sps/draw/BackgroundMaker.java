@@ -6,7 +6,7 @@ import sps.color.Colors;
 import sps.core.Point2;
 import sps.core.RNG;
 import sps.display.Screen;
-import sps.entities.HitTest;
+import sps.util.HitTest;
 
 import java.util.ArrayList;
 import java.util.List;

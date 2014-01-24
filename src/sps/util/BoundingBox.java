@@ -1,7 +1,5 @@
 package sps.util;
 
-import sps.entities.HitTest;
-
 public class BoundingBox {
     public int X;
     public int Y;
@@ -71,14 +69,11 @@ public class BoundingBox {
     }
 
     public boolean overlaps(BoundingBox b) {
-        boolean left = b.X >= X2;
-        boolean right = b.X2 <= X;
-        boolean top = b.Y >= Y2;
-        boolean bottom = b.Y2 <= Y;
-        return !(left || right || top || bottom);
+        return !(X2 < b.X || X > b.X2 || Y2 < b.Y || Y > b.Y2);
     }
 
-    public String debug() {
+    @Override
+    public String toString() {
         return "(" + X + "," + Y + ")>(" + X2 + "," + Y2 + ")";
     }
 }

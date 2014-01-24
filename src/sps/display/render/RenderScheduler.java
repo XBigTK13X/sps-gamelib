@@ -6,7 +6,7 @@ import sps.color.Color;
 import sps.core.Point2;
 import sps.display.Assets;
 import sps.display.DrawApiCall;
-import sps.particles.ParticleLease;
+import sps.particle.ParticleLease;
 
 import java.util.ArrayList;
 import java.util.Collections;

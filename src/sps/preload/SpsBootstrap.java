@@ -3,12 +3,7 @@ package sps.preload;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import org.lwjgl.opengl.Display;
-import sps.bridge.Sps;
-import sps.core.RNG;
-import sps.core.SpsEngineChainLink;
 import sps.draw.SpriteMaker;
-import sps.preload.PreloadChain;
-import sps.preload.PreloadChainLink;
 
 public class SpsBootstrap implements SpsEngineChainLink{
     private SpriteBatch _batch;

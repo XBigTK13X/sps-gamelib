@@ -1,7 +1,7 @@
 package sps.bridge;
 
-import sps.io.ControllerInput;
-import sps.io.Keys;
+import sps.input.gamepad.ControllerInput;
+import sps.input.Keys;
 
 public class Command implements Comparable<Command> {
     private ControllerInput _controllerInput;

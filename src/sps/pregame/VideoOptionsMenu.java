@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import sps.data.Options;
 import sps.bridge.Commands;
 import sps.display.Screen;
-import sps.entities.HitTest;
+import sps.util.HitTest;
 import sps.states.StateManager;
 import sps.text.TextPool;
 import sps.ui.ButtonStyle;

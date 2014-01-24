@@ -5,7 +5,7 @@ import sps.core.Loader;
 import sps.core.Logger;
 import sps.core.SpsConfig;
 import sps.display.Window;
-import sps.io.InputBindings;
+import sps.input.InputBindings;
 import sps.util.Maths;
 import sps.util.Parse;
 

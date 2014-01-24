@@ -6,9 +6,9 @@ import sps.bridge.DrawDepth;
 import sps.bridge.DrawDepths;
 import sps.color.Color;
 import sps.display.Window;
-import sps.entities.HitTest;
-import sps.io.Input;
-import sps.io.InputWrapper;
+import sps.util.HitTest;
+import sps.input.Input;
+import sps.input.InputWrapper;
 import sps.states.StateManager;
 import sps.util.BoundingBox;
 

@@ -2,7 +2,6 @@ package sps.display;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import sps.bridge.DrawDepth;
-import sps.bridge.DrawDepths;
 import sps.bridge.SpriteType;
 import sps.bridge.Sps;
 import sps.color.Color;
@@ -32,17 +31,14 @@ public class Animation {
     private SpriteEdge _edge = null;
     private boolean _dynamicEdges = false;
 
-    public Animation() {
-        _depth = DrawDepths.get(Sps.DrawDepths.AnimatedTexture);
+    public Animation(SpriteType assetName, DrawDepth depth) {
+        _depth = depth;
+        _spriteInfo = SpriteSheetManager.getSpriteInfo(assetName);
+        _animationTimer = Sps.AnimationFps;
     }
 
     public void setAnimationEnabled(boolean value) {
         animationEnabled = value;
-    }
-
-    public void loadContent(SpriteType assetName) {
-        _spriteInfo = SpriteSheetManager.getSpriteInfo(assetName);
-        _animationTimer = Sps.AnimationFps;
     }
 
     public void draw() {
@@ -101,8 +97,8 @@ public class Animation {
         }
     }
 
-    public void setPosition(Point2 position) {
-        _position.reset(position.X, position.Y);
+    public void setPosition(float x, float y) {
+        _position.reset(x, y);
     }
 
     public Color getColor() {

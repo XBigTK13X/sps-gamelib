@@ -3,7 +3,7 @@ package sps.ui;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import sps.color.Color;
 import sps.core.Point2;
-import sps.io.Input;
+import sps.input.Input;
 
 public abstract class UISlider {
     private Meter _meter;

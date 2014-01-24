@@ -13,8 +13,8 @@ import sps.display.Assets;
 import sps.display.DrawApiCall;
 import sps.display.Screen;
 import sps.draw.DrawAPI;
-import sps.entities.HitTest;
-import sps.particles.ParticleLease;
+import sps.util.HitTest;
+import sps.particle.ParticleLease;
 import sps.data.GameConfig;
 import sps.util.Maths;
 

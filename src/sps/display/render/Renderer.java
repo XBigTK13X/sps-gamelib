@@ -6,7 +6,7 @@ import sps.color.Color;
 import sps.core.Logger;
 import sps.core.Point2;
 import sps.display.DrawApiCall;
-import sps.particles.ParticleLease;
+import sps.particle.ParticleLease;
 
 public class Renderer {
     private ScreenRenderEngine _screenEngine;

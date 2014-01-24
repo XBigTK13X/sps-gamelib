@@ -37,7 +37,7 @@ public enum SpriteEdge {
     private static SpriteEdge[] edges = new SpriteEdge[16];
     private static int bIndex;
 
-    public static SpriteEdge determine(EntityType type, Point2 location) {
+    public static SpriteEdge determine() {
         if (edges[0] == null) {
             for (SpriteEdge edge : values()) {
                 edges[edge.bitwiseIndex] = edge;

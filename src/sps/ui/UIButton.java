@@ -1,7 +1,7 @@
 package sps.ui;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import sps.io.InputWrapper;
+import sps.input.InputWrapper;
 import sps.data.Options;
 import org.apache.commons.lang3.StringUtils;
 import sps.audio.RandomSoundPlayer;

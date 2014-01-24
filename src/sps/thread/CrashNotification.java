@@ -1,7 +1,6 @@
 package sps.thread;
 
-import sps.io.Input;
-import sps.io.InputWrapper;
+import sps.input.InputWrapper;
 import sps.states.GlobalStateResolver;
 import org.apache.commons.io.FileUtils;
 import sps.bridge.Commands;
