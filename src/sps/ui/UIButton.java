@@ -15,6 +15,7 @@ import sps.display.Window;
 import sps.draw.Outline;
 import sps.draw.ProcTextures;
 import sps.draw.SpriteMaker;
+import sps.states.Systems;
 import sps.text.Text;
 import sps.text.TextPool;
 
@@ -65,10 +66,10 @@ public abstract class UIButton {
         _position = new Point2(0, 0);
 
         if (_command != null && Options.get().GUIButtonKeyboardLabelsEnabled) {
-            _commandMessage = TextPool.get().write(_command.toString(), new Point2(0, 0));
+            _commandMessage = Systems.get(TextPool.class).write(_command.toString(), new Point2(0, 0));
         }
 
-        _message = TextPool.get().write(text, new Point2(0, 0));
+        _message = Systems.get(TextPool.class).write(text, new Point2(0, 0));
         setFont("UIButton", 60);
         _message.setDepth(_depth);
 
@@ -94,7 +95,7 @@ public abstract class UIButton {
             }
         };
         _buttonUser.setCommand(command);
-        Buttons.get().add(_buttonUser);
+        Systems.get(Buttons.class).add(_buttonUser);
 
         setMessage(text);
         setXY(x, y);

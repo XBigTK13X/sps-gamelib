@@ -10,6 +10,7 @@ import sps.core.Logger;
 import sps.core.Point2;
 import sps.core.SpsConfig;
 import sps.display.Screen;
+import sps.states.Systems;
 import sps.text.Text;
 import sps.text.TextPool;
 import sps.ui.MultiText;
@@ -40,7 +41,7 @@ public class DevConsole {
         _active = false;
 
         _actions = new HashMap<>();
-        _input = TextPool.get().write("", new Point2(50, Screen.get().VirtualHeight - 50));
+        _input = Systems.get(TextPool.class).write("", new Point2(50, Screen.get().VirtualHeight - 50));
         _input.setDepth(DrawDepths.get("DevConsoleText"));
 
         _multiText = new MultiText(new Point2(0, 0), __consoleBufferSize, Color.BLACK.newAlpha(.75f), Screen.get().VirtualWidth, Screen.get().VirtualHeight - 100);

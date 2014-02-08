@@ -18,20 +18,6 @@ public class Sps {
         Bridge.setup(enableGraphics);
     }
 
-    public static class Entities {
-        public static final String Actor = "Actor";
-        public static final String Floor = "Floor";
-    }
-
-    public static class Actors {
-        public static final String Player = "Player";
-    }
-
-    public static class ActorGroups {
-        public static final String Non_Player = "Non_Player";
-        public static final String Friendly = "Friendly";
-    }
-
     public static class Contexts {
         public static final String Non_Free = "Non_Free";
         public static final String Free = "Free";

@@ -13,11 +13,12 @@ import sps.display.Window;
 import sps.draw.SpriteMaker;
 import sps.states.State;
 import sps.states.StateManager;
+import sps.states.Systems;
 import sps.text.Text;
 import sps.text.TextPool;
 import sps.ui.ButtonStyle;
+import sps.ui.Buttons;
 import sps.ui.UIButton;
-import sps.ui.UiElements;
 
 public class ExitPrompt {
     private Color _bg;
@@ -102,7 +103,7 @@ public class ExitPrompt {
         style.apply(_toggleFullScreen, 0, 2);
         style.apply(_cancel, 0, 0);
 
-        _display = TextPool.get().write("", Screen.pos(25, 80));
+        _display = Systems.get(TextPool.class).write("", Screen.pos(25, 80));
         _display.setDepth(DrawDepths.get("ExitText"));
 
         _display.setMoveable(false);
@@ -135,7 +136,7 @@ public class ExitPrompt {
 
     public void updateAndDraw() {
         if (_active) {
-            UiElements.get().update();
+            Systems.get(Buttons.class).update();
             Window.get(true).schedule(_background, DrawDepths.get("ExitBackground"));
             _display.draw();
             _desktop.draw();

@@ -9,13 +9,15 @@ import sps.display.Window;
 import sps.draw.ProcTextures;
 import sps.draw.SpriteMaker;
 import sps.input.Input;
+import sps.states.GameSystem;
+import sps.states.Systems;
 import sps.text.Text;
 import sps.text.TextPool;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tooltips {
+public class Tooltips implements GameSystem {
     public interface User {
         boolean isActive();
 
@@ -25,23 +27,6 @@ public class Tooltips {
     private static final Point2 __tooltipOffset = Screen.pos(1, 1);
     private static Sprite __bg;
 
-    private static Tooltips __instance;
-
-    public static Tooltips get() {
-        if (__instance == null) {
-            __instance = new Tooltips();
-        }
-        return __instance;
-    }
-
-    public static void set(Tooltips tooltips) {
-        __instance = tooltips;
-    }
-
-    public static void reset() {
-        __instance = new Tooltips();
-    }
-
     private Text _message;
     private Point2 _position;
     private boolean _active;
@@ -50,13 +35,13 @@ public class Tooltips {
 
     private List<User> _users;
 
-    private Tooltips() {
+    public Tooltips() {
         if (__bg == null) {
             Color[][] tbg = ProcTextures.monotone(2, 2, new Color(.1f, .1f, .1f, .85f));
             __bg = SpriteMaker.fromColors(tbg);
         }
         _position = new Point2(0, 0);
-        _message = TextPool.get().write("NOTHING", _position);
+        _message = Systems.get(TextPool.class).write("NOTHING", _position);
         _message.setDepth(DrawDepths.get("TooltipBackground"));
         _message.hide();
         _users = new ArrayList<>();
@@ -71,6 +56,7 @@ public class Tooltips {
         _message.setPosition((int) _position.X, (int) _position.Y);
     }
 
+    @Override
     public void draw() {
         if (_active) {
             int fontWidthOffset = 0;//-__fontWidth / 2
@@ -81,6 +67,7 @@ public class Tooltips {
         }
     }
 
+    @Override
     public void update() {
         _active = false;
         for (User user : _users) {

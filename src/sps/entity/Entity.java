@@ -6,6 +6,7 @@ import sps.bridge.DrawDepth;
 import sps.bridge.DrawDepths;
 import sps.core.Point2;
 import sps.display.Window;
+import sps.states.Systems;
 import sps.util.BoundingBox;
 
 public class Entity {
@@ -16,7 +17,7 @@ public class Entity {
     private BoundingBox _bounds;
 
     public Entity() {
-        Entities.get().add(this);
+        Systems.get(Entities.class).add(this);
         _position = new Point2(0, 0);
         _depth = DrawDepths.get("Default");
         _active = true;
@@ -32,6 +33,10 @@ public class Entity {
     public void setSprite(Sprite sprite) {
         _sprite = sprite;
         resetBounds();
+    }
+
+    public Sprite getSprite(){
+        return _sprite;
     }
 
     public void setActive(boolean active) {

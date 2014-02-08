@@ -3,6 +3,7 @@ package sps.particle.simple;
 import sps.color.Color;
 import sps.core.Point2;
 import sps.entity.Entity;
+import sps.states.Systems;
 
 public class Emitter extends PEComponent {
     private Particle2[] _particles = new Particle2[10];
@@ -40,7 +41,7 @@ public class Emitter extends PEComponent {
             _particles = new Particle2[behavior.getParticleCount()];
         }
         while (_index < behavior.getParticleCount()) {
-            _particles[_index] = ParticleEngine.get().createParticle(behavior, position, baseColor);
+            _particles[_index] = Systems.get(ParticleEngine.class).createParticle(behavior, position, baseColor);
             _index++;
         }
     }
@@ -53,7 +54,7 @@ public class Emitter extends PEComponent {
             _particles = new Particle2[behavior.getParticleCount()];
         }
         while (_index < behavior.getParticleCount()) {
-            _particles[_index] = ParticleEngine.get().createParticle(behavior, entity, baseColor);
+            _particles[_index] = Systems.get(ParticleEngine.class).createParticle(behavior, entity, baseColor);
             _index++;
         }
     }

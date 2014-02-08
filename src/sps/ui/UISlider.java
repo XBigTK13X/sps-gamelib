@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import sps.color.Color;
 import sps.core.Point2;
 import sps.input.Input;
+import sps.states.Systems;
 
 public abstract class UISlider {
     private Meter _meter;
@@ -54,7 +55,7 @@ public abstract class UISlider {
             }
         };
         buttonUser.setShouldDraw(false);
-        Buttons.get().add(buttonUser);
+        Systems.get(Buttons.class).add(buttonUser);
     }
 
     public abstract void onSlide();

@@ -1,4 +1,4 @@
-package sps.core;
+package sps.util;
 
 import java.awt.*;
 import java.io.File;

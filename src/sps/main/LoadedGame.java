@@ -13,11 +13,12 @@ import sps.particle.ParticleWrapper;
 import sps.prompts.ExitPrompt;
 import sps.prompts.PausePrompt;
 import sps.states.State;
+import sps.states.Systems;
 import sps.states.StateManager;
+import sps.task.GameTasks;
 import sps.text.TextPool;
 import sps.thread.GameMonitor;
 import sps.tutorial.Tutorials;
-import sps.ui.UiElements;
 
 public class LoadedGame implements SpsEngineChainLink {
     private State _preUpdateState;
@@ -80,11 +81,8 @@ public class LoadedGame implements SpsEngineChainLink {
         if (!PausePrompt.get().isActive() && !ExitPrompt.get().isActive()) {
             _preUpdateState = StateManager.get().current();
             StateManager.get().asyncUpdate();
-            Entities.get().update();
             StateManager.get().update();
-            ParticleWrapper.get().update();
-            TextPool.get().update();
-            UiElements.get().update();
+            Systems.update();
         }
     }
 
@@ -93,10 +91,7 @@ public class LoadedGame implements SpsEngineChainLink {
         if (_preUpdateState == StateManager.get().current()) {
             if (!PausePrompt.get().isActive() && !ExitPrompt.get().isActive()) {
                 StateManager.get().draw();
-                Entities.get().draw();
-                UiElements.get().draw();
-                TextPool.get().draw();
-                ParticleWrapper.get().draw();
+                Systems.draw();
             }
 
             Window.processDrawCalls();

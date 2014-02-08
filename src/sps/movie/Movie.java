@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import sps.bridge.DrawDepths;
 import sps.display.Screen;
 import sps.display.Window;
+import sps.states.Systems;
 import sps.text.Text;
 import sps.text.TextPool;
 
@@ -40,7 +41,7 @@ public class Movie {
 
     public Movie() {
         _strips = new ArrayList<>();
-        _subtitle = TextPool.get().write("", Screen.pos(5, 50));
+        _subtitle = Systems.get(TextPool.class).write("", Screen.pos(5, 50));
         _subtitle.setDepth(DrawDepths.get("MovieSubtitle"));
     }
 

@@ -11,6 +11,7 @@ import sps.display.Window;
 import sps.states.GlobalStateResolver;
 import sps.states.State;
 import sps.states.StateManager;
+import sps.states.Systems;
 import sps.text.Text;
 import sps.text.TextPool;
 import sps.tutorial.Tutorials;
@@ -70,18 +71,18 @@ public class MainMenu implements State {
                 }
             };
             style.apply(_load, 0, 3);
-            _corruptSave = TextPool.get().write("\t\t\t\t\tUnable to load the save file.\n It is most likely from an older version of the game.", Screen.pos(20, 70));
+            _corruptSave = Systems.get(TextPool.class).write("\t\t\t\t\tUnable to load the save file.\n It is most likely from an older version of the game.", Screen.pos(20, 70));
             _corruptSave.setVisible(false);
         }
 
 
-        Text versionDisplay = TextPool.get().write("Version " + _version, Screen.pos(5, 5));
+        Text versionDisplay = Systems.get(TextPool.class).write("Version " + _version, Screen.pos(5, 5));
         versionDisplay.setFont("Console", 24);
 
-        Text developedDisplay = TextPool.get().write("Developed by Simple Path Studios", Screen.pos(40, 5));
+        Text developedDisplay = Systems.get(TextPool.class).write("Developed by Simple Path Studios", Screen.pos(40, 5));
         developedDisplay.setFont("Console", 24);
 
-        Text twitterDisplay = TextPool.get().write("Twitter @XBigTK13X", Screen.pos(80, 5));
+        Text twitterDisplay = Systems.get(TextPool.class).write("Twitter @XBigTK13X", Screen.pos(80, 5));
         twitterDisplay.setFont("Console", 24);
     }
 

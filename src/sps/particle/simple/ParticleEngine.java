@@ -3,27 +3,10 @@ package sps.particle.simple;
 import sps.color.Color;
 import sps.core.Point2;
 import sps.entity.Entity;
+import sps.states.GameSystem;
 
-public class ParticleEngine {
-
-    private static ParticleEngine __instance;
-
-    public static ParticleEngine get() {
-        if (__instance == null) {
-            __instance = new ParticleEngine();
-        }
-        return __instance;
-    }
-
-    public static void set(ParticleEngine particleEngine) {
-        __instance = particleEngine;
-    }
-
-    public static void reset() {
-        __instance = new ParticleEngine();
-    }
-
-    private ParticleEngine() {
+public class ParticleEngine implements GameSystem {
+    public ParticleEngine() {
         for (int ii = 0; ii < __particles.length; ii++) {
             __particles[ii] = new Particle2();
 
@@ -56,12 +39,14 @@ public class ParticleEngine {
         return __emitters[__emitterIndex];
     }
 
+    @Override
     public void update() {
         for (Emitter __emitter : __emitters) {
             __emitter.update();
         }
     }
 
+    @Override
     public void draw() {
         for (Emitter __emitter : __emitters) {
             __emitter.draw();

@@ -1,6 +1,7 @@
 package sps.preload;
 
 import sps.display.Window;
+import sps.states.Systems;
 import sps.text.TextPool;
 
 public abstract class DelayedPreloader implements SpsEngineChainLink {
@@ -20,7 +21,7 @@ public abstract class DelayedPreloader implements SpsEngineChainLink {
             return;
         }
         _chain.draw();
-        TextPool.get().draw();
+        Systems.get(TextPool.class).draw();
         Window.processDrawCalls();
     }
 

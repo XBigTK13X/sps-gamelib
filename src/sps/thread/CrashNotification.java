@@ -7,6 +7,7 @@ import sps.bridge.Commands;
 import sps.display.Screen;
 import sps.states.State;
 import sps.states.StateManager;
+import sps.states.Systems;
 import sps.text.Text;
 import sps.text.TextPool;
 
@@ -30,7 +31,7 @@ public class CrashNotification implements State {
             message = "A previous crash was detected, but a reason for the crash was not found.";
         }
         String proceed = "\n\nPress " + Commands.get("Confirm") + " to continue";
-        Text display = TextPool.get().write(message + proceed, Screen.pos(10, 80));
+        Text display = Systems.get(TextPool.class).write(message + proceed, Screen.pos(10, 80));
         display.setFont("Console", 30);
     }
 

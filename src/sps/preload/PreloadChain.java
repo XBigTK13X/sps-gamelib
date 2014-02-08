@@ -4,6 +4,7 @@ import sps.color.Color;
 import sps.color.Colors;
 import sps.core.Logger;
 import sps.display.Screen;
+import sps.states.Systems;
 import sps.text.Text;
 import sps.text.TextPool;
 import sps.ui.Meter;
@@ -27,7 +28,7 @@ public abstract class PreloadChain implements SpsEngineChainLink {
         _showGUI = showGUI;
         _preloadChain = new LinkedList<>();
         if (showGUI) {
-            _percentDisplay = TextPool.get().write("", Screen.pos(40, 20));
+            _percentDisplay = Systems.get(TextPool.class).write("", Screen.pos(40, 20));
             _loadingMessage = new MultiText(Screen.pos(10, 50), 6, Color.GRAY.newAlpha(.5f), (int) Screen.width(80), (int) Screen.height(20));
             _loadingMeter = new Meter(90, 9, Colors.randomPleasant(), Screen.pos(5, 30), false);
         }

@@ -11,6 +11,7 @@ import sps.input.InputBindings;
 import sps.input.KeyCatcher;
 import sps.input.Keys;
 import sps.states.StateManager;
+import sps.states.Systems;
 import sps.text.Text;
 import sps.text.TextPool;
 import sps.ui.ButtonStyle;
@@ -83,7 +84,7 @@ public class ControlConfigMenu extends OptionsState {
         _delay = new CoolDown(.1f);
         _delay.zeroOut();
 
-        _prompt = TextPool.get().write("", Screen.pos(20, 13));
+        _prompt = Systems.get(TextPool.class).write("", Screen.pos(20, 13));
         _prompt.setVisible(false);
 
         ButtonStyle style = new ButtonStyle(20, 18, 15, 10, 15);

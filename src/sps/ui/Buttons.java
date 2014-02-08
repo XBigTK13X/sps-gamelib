@@ -6,6 +6,7 @@ import sps.bridge.DrawDepth;
 import sps.bridge.DrawDepths;
 import sps.color.Color;
 import sps.display.Window;
+import sps.states.GameSystem;
 import sps.util.HitTest;
 import sps.input.Input;
 import sps.input.InputWrapper;
@@ -17,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Buttons {
+public class Buttons implements GameSystem {
     public static abstract class User {
         private BoundingBox _bounds = BoundingBox.empty();
         private DrawDepth _depth;
@@ -97,28 +98,10 @@ public class Buttons {
         Clicked
     }
 
-    private static Buttons __instance;
-
-
-    public static Buttons get() {
-        if (__instance == null) {
-            __instance = new Buttons();
-        }
-        return __instance;
-    }
-
-    public static void set(Buttons buttons) {
-        __instance = buttons;
-    }
-
-    public static void reset() {
-        __instance = new Buttons();
-    }
-
     private List<User> _users;
     private Map<User, State> _states;
 
-    private Buttons() {
+    public Buttons() {
         _states = new HashMap<>();
         _users = new ArrayList<>();
     }
@@ -130,6 +113,7 @@ public class Buttons {
 
     private User _highest;
 
+    @Override
     public void update() {
         for (User user : _users) {
             if (user.isActive()) {
@@ -171,6 +155,7 @@ public class Buttons {
         }
     }
 
+    @Override
     public void draw() {
         for (User user : _users) {
             if (user.shouldDraw() && user.isActive()) {

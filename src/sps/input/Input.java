@@ -2,10 +2,7 @@ package sps.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controllers;
-import sps.bridge.Command;
-import sps.bridge.Context;
-import sps.bridge.Contexts;
-import sps.bridge.Sps;
+import sps.bridge.*;
 import sps.core.SpsConfig;
 import sps.display.Screen;
 import sps.display.Window;
@@ -77,6 +74,29 @@ public class Input implements InputProvider {
             boolean chordActive = true;
             for (int ii = 0; ii < command.keys().length; ii++) {
                 chordActive = chordActive && Gdx.input.isKeyPressed(command.keys()[ii].getKeyCode());
+            }
+            if (chordActive) {
+                for (Command otherCommand : Commands.values()) {
+                    if (otherCommand != command) {
+                        boolean anyCommonKeys = false;
+                        for(int ii = 0;ii<command.keys().length;ii++){
+                            for(int jj = 0;jj< otherCommand.keys().length;jj++){
+                                if(command.keys()[ii] == otherCommand.keys()[jj]){
+                                    anyCommonKeys = true;
+                                }
+                            }
+                        }
+                        if (anyCommonKeys && otherCommand.keys().length > command.keys().length) {
+                            boolean secondChordActive = true;
+                            for (int ii = 0; ii < otherCommand.keys().length; ii++) {
+                                secondChordActive = secondChordActive && Gdx.input.isKeyPressed(otherCommand.keys()[ii].getKeyCode());
+                            }
+                            if(secondChordActive){
+                                chordActive = false;
+                            }
+                        }
+                    }
+                }
             }
             keyboardActive = chordActive;
         }

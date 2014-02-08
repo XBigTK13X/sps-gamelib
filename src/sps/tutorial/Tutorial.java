@@ -10,6 +10,7 @@ import sps.display.*;
 import sps.draw.SpriteMaker;
 import sps.input.InputWrapper;
 import sps.states.StateManager;
+import sps.states.Systems;
 import sps.text.Text;
 import sps.text.TextPool;
 
@@ -43,7 +44,7 @@ public class Tutorial {
 
     public void load() {
         StateManager.get().setSuspend(true);
-        _display = TextPool.get().write("", Screen.pos(10, 30));
+        _display = Systems.get(TextPool.class).write("", Screen.pos(10, 30));
         _display.setDepth(DrawDepths.get("TutorialText"));
         _display.setMoveable(false);
         _currentStepIndex = 0;

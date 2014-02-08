@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import sps.data.Options;
 import sps.bridge.Commands;
 import sps.display.Screen;
+import sps.states.Systems;
 import sps.util.HitTest;
 import sps.states.StateManager;
 import sps.text.TextPool;
@@ -68,11 +69,11 @@ public class VideoOptionsMenu extends OptionsState {
                 setBrightnessPercent(100, true);
             }
         };
-        TextPool.get().write("Brightness", Screen.pos(15, 77));
+        Systems.get(TextPool.class).write("Brightness", Screen.pos(15, 77));
 
         brightnessReset.setSize(5, 5);
         brightnessReset.setScreenPercent(3, 73);
-        Tooltips.get().add(new Tooltips.User() {
+        Systems.get(Tooltips.class).add(new Tooltips.User() {
             @Override
             public boolean isActive() {
                 return HitTest.mouseInside(brightnessReset.getSprite());

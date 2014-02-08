@@ -2,35 +2,17 @@ package sps.text;
 
 import sps.color.Color;
 import sps.core.Point2;
+import sps.states.GameSystem;
 import sps.states.State;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TextPool {
-
-    private static TextPool __instance;
-
-    public static TextPool get() {
-        if (__instance == null) {
-            __instance = new TextPool();
-        }
-        return __instance;
-    }
-
-    public static void set(TextPool textPool) {
-        __instance = textPool;
-    }
-
-    public static void reset() {
-        __instance = new TextPool();
-    }
-
-
+public class TextPool implements GameSystem {
     private List<Text> texts = new ArrayList<Text>();
     private int index = 0;
 
-    private TextPool() {
+    public TextPool() {
         for (int ii = 0; ii < 10000; ii++) {
             texts.add(new Text());
         }
@@ -76,6 +58,7 @@ public class TextPool {
         return write(message, position, lifeInSeconds, effect, Color.WHITE, 1f);
     }
 
+    @Override
     public void draw() {
         for (Text text : texts) {
             if (text.isVisible()) {
@@ -84,6 +67,7 @@ public class TextPool {
         }
     }
 
+    @Override
     public void update() {
         for (Text text : texts) {
             if (text.isVisible()) {

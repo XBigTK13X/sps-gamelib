@@ -6,6 +6,7 @@ import sps.core.Point2;
 import sps.display.Screen;
 import sps.input.Input;
 import sps.input.PlayerIndex;
+import sps.states.Systems;
 import sps.text.Text;
 import sps.text.TextPool;
 import sps.data.GameConfig;
@@ -23,7 +24,7 @@ public class AvailableInput {
     public AvailableInput(PlayerIndex index, int inputCount) {
         _playerIndex = index;
         _inputCount = inputCount;
-        _display = TextPool.get().write(getMessage(), getPosition(_inputCount));
+        _display = Systems.get(TextPool.class).write(getMessage(), getPosition(_inputCount));
     }
 
     private Point2 getPosition(int inputCount) {

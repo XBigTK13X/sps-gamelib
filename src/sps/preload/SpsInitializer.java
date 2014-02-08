@@ -15,13 +15,21 @@ import sps.display.Assets;
 import sps.display.SpriteSheetManager;
 import sps.display.Window;
 import sps.display.render.FrameStrategy;
+import sps.entity.Entities;
 import sps.input.*;
 import sps.input.provider.DefaultStateProvider;
 import sps.main.DesktopTarget;
+import sps.particle.ParticleWrapper;
+import sps.particle.simple.ParticleEngine;
+import sps.states.Systems;
+import sps.task.GameTasks;
+import sps.text.TextPool;
+import sps.ui.Buttons;
 import sps.ui.MultiText;
 import sps.data.DevConfig;
 import sps.data.GameConfig;
 import sps.thread.GameMonitor;
+import sps.ui.Tooltips;
 
 import java.io.File;
 
@@ -124,6 +132,19 @@ public class SpsInitializer {
             @Override
             public void process() {
                 MultiText.setDefaultFont("Console", 24);
+            }
+        });
+
+        preload.add(new PreloadChainLink("Register state instanced game systems") {
+            @Override
+            public void process() {
+                Systems.register(GameTasks.class);
+                Systems.register(Entities.class);
+                Systems.register(ParticleEngine.class);
+                Systems.register(TextPool.class);
+                Systems.register(Tooltips.class);
+                Systems.register(Buttons.class);
+                Systems.newInstances();
             }
         });
 

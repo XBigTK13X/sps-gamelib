@@ -9,6 +9,7 @@ import sps.display.Window;
 import sps.draw.ProcTextures;
 import sps.draw.SpriteMaker;
 import sps.states.StateManager;
+import sps.states.Systems;
 import sps.text.Text;
 import sps.text.TextPool;
 
@@ -30,7 +31,7 @@ public class PausePrompt {
         Color[][] tbg = ProcTextures.monotone((int) Screen.width(50), (int) Screen.height(50), new Color(.5f, .1f, .5f, .7f));
         __pausedScreen = SpriteMaker.fromColors(tbg);
         __pausedScreen.setPosition(Screen.width(25), Screen.height(25));
-        __pausedText = TextPool.get().write("     PAUSED\n" + Commands.get("Pause") + " to continue", Screen.pos(45, 55));
+        __pausedText = Systems.get(TextPool.class).write("     PAUSED\n" + Commands.get("Pause") + " to continue", Screen.pos(45, 55));
         __pausedText.setDepth(DrawDepths.get("PauseText"));
         __pausedText.setVisible(false);
         __pausedText.setMoveable(false);

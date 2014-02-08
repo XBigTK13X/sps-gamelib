@@ -9,6 +9,7 @@ import sps.display.Window;
 import sps.draw.Outline;
 import sps.draw.ProcTextures;
 import sps.draw.SpriteMaker;
+import sps.states.Systems;
 import sps.text.Text;
 import sps.text.TextPool;
 
@@ -60,7 +61,7 @@ public class MultiText {
 
     private void add(String message, boolean checkDoubleSpaced) {
         if (_index < _contents.length) {
-            _contents[_index] = TextPool.get().write(message, new Point2(_position.X + _pointSize / 2, getY(_index)));
+            _contents[_index] = Systems.get(TextPool.class).write(message, new Point2(_position.X + _pointSize / 2, getY(_index)));
             _contents[_index].setFont(_fontLabel, _pointSize);
             _contents[_index].setMoveable(false);
             _contents[_index].setVisible(_active);
