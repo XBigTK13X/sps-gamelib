@@ -324,6 +324,8 @@ public enum Keys {
             case '\\':
             case '|':
                 return Keys.BACKSLASH;
+            case ' ':
+                return Keys.SPACE;
             default:
                 return null;
         }

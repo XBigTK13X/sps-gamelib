@@ -74,6 +74,9 @@ public class InputBindings {
                     String keyNotFound = "";
                     for (int ii = 0; ii < rawChord.length; ii++) {
                         chord[ii] = Keys.fromName(rawChord[ii]);
+                        if (chord[ii] == null && rawChord[ii].length() == 1) {
+                            chord[ii] = Keys.fromChar(rawChord[ii].charAt(0));
+                        }
                         if (chord[ii] == null) {
                             keyNotFound = "[" + rawChord[ii] + "] was not listed as any KeyID.";
                         }
@@ -85,7 +88,7 @@ public class InputBindings {
                     }
 
                     //Unless otherwise defined in bridge.cfg already,
-                    // init a new binding to always lock after 1 pressF
+                    // init a new binding to always lock after 1 press
                     if (Commands.get(key) == null) {
                         Commands.add(new Command(key, Contexts.get(Sps.Contexts.All)));
                     }
