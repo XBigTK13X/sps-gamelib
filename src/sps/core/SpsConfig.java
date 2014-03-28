@@ -31,8 +31,12 @@ public class SpsConfig {
     public final boolean fullScreen;
     public final boolean vSyncEnabled;
     public final boolean displayLoggingEnabled;
+    public final boolean taskLoggingEnabled;
 
     public final boolean entityGridEnabled;
+
+    public final float gameTasksTimeDilation;
+    public final boolean gameTasksTimeDilationEnabled;
 
     public final boolean viewPaths;
     public final boolean devConsoleEnabled;
@@ -75,7 +79,15 @@ public class SpsConfig {
         vSyncEnabled = Parse.bool(_settings.get("vSyncEnabled"));
         displayLoggingEnabled = Parse.bool(_settings.get("displayLoggingEnabled"));
 
+
         entityGridEnabled = Parse.bool(_settings.get("entityGridEnabled"));
+
+        gameTasksTimeDilation = Parse.floa(_settings.get("gameTasksTimeDilation"));
+        gameTasksTimeDilationEnabled = Math.abs(gameTasksTimeDilation - 1.0f) > .0004f;
+        if (gameTasksTimeDilationEnabled) {
+            Logger.info("WARNING: GameTask time dilation does not equal 1.0! All game task lengths will be multiplied by " + gameTasksTimeDilation);
+        }
+        taskLoggingEnabled = Parse.bool(_settings.get("taskLoggingEnabled"));
 
         particleEffectPoolLimit = Parse.inte(_settings.get("particleEffectPoolLimit"));
         particleEffectPoolStartSize = Parse.inte(_settings.get("particleEffectPoolStartSize"));

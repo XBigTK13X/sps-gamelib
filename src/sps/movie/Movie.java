@@ -1,69 +1,42 @@
 package sps.movie;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import sps.bridge.DrawDepths;
-import sps.display.Screen;
-import sps.display.Window;
-import sps.states.Systems;
-import sps.text.Text;
-import sps.text.TextPool;
+import com.badlogic.gdx.audio.Music;
+import sps.audio.MusicPlayer;
+import sps.entity.Entity;
 
-import java.util.ArrayList;
-import java.util.List;
+public class Movie extends Entity {
+    private Video _video;
+    private Music _music;
+    private String _musicId;
 
-public class Movie {
-    private class Strip {
-        private Sprite _image;
-        private float _seconds;
-        private String _message;
+    public Movie(String musicId) {
+        super();
+        _music = MusicPlayer.get().music(musicId);
+        _musicId = musicId;
+        _video = new Video();
+    }
 
-        public Strip(float seconds, String message, Sprite image) {
-            _message = message;
-            _seconds = seconds;
-            _image = image;
-        }
+    public Video getVideo() {
+        return _video;
+    }
 
-        public Strip(float seconds, String message) {
-            this(seconds, message, null);
-        }
+    public Music getMusic() {
+        return _music;
+    }
 
-        public String getMessage() {
-            return _message;
-        }
+    public String getMusicId() {
+        return _musicId;
+    }
 
-        public boolean onScreen(float timeSecs) {
-            return timeSecs >= _seconds;
+    @Override
+    public void update() {
+        _video.play(_music.getPosition());
+        if (!_music.isPlaying()) {
+            setActive(false);
         }
     }
 
-    private List<Strip> _strips;
-    private Text _subtitle;
-
-    public Movie() {
-        _strips = new ArrayList<>();
-        _subtitle = Systems.get(TextPool.class).write("", Screen.pos(5, 50));
-        _subtitle.setDepth(DrawDepths.get("MovieSubtitle"));
-    }
-
-    public void addStrip(float timeSeconds, String message) {
-        _strips.add(new Strip(timeSeconds, message));
-    }
-
-    private boolean _firstFrame = true;
-    private Sprite _current;
-
-    public void play(float timeSecs) {
-        for (int ii = 0; ii < _strips.size(); ii++) {
-            if (ii == 0 && _firstFrame || _strips.get(ii).onScreen(timeSecs)) {
-                _current = _strips.get(ii)._image;
-                _subtitle.setMessage(_strips.get(ii).getMessage());
-                _strips.remove(ii);
-                ii--;
-                _firstFrame = false;
-            }
-        }
-        if (_current != null) {
-            Window.get().schedule(_current, DrawDepths.get("MovieImage"));
-        }
+    @Override
+    public void draw() {
     }
 }

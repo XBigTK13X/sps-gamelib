@@ -79,4 +79,14 @@ public class FalseInput implements InputProvider {
     public boolean isMouseDown(boolean failIfLocked) {
         return false;
     }
+
+    @Override
+    public void setValidCommands(Command... commands) {
+
+    }
+
+    @Override
+    public void removeValidCommands() {
+
+    }
 }

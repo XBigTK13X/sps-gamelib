@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import sps.color.Color;
 import sps.core.Loader;
 
+import java.io.File;
+
 public class SpriteMaker {
     private static Color co;
 
@@ -32,6 +34,10 @@ public class SpriteMaker {
     }
 
     public static Sprite fromGraphic(String graphicsPath) {
+        File target = Loader.get().graphics(graphicsPath);
+        if (!target.exists()) {
+            return null;
+        }
         return new Sprite(new Texture(new FileHandle(Loader.get().graphics(graphicsPath))));
     }
 }

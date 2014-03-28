@@ -51,6 +51,10 @@ public class Entity {
         resetBounds();
     }
 
+    public void setPosition(Point2 position){
+        setPosition(position.X,position.Y);
+    }
+
     public Point2 getPosition() {
         return _position;
     }

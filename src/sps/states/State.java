@@ -3,17 +3,17 @@ package sps.states;
 public interface State {
     void create();
 
+    void update();
+
     void draw();
 
-    void update();
+    String getName();
 
     void asyncUpdate();
 
     void load();
 
     void unload();
-
-    String getName();
 
     void pause();
 }

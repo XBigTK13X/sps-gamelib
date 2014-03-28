@@ -21,6 +21,7 @@ public class Color {
     public static final Color YELLOW = new Color(1, 1, 0, 1);
     public static final Color MAGENTA = new Color(1, 0, 1, 1);
     public static final Color CYAN = new Color(0, 1, 1, 1);
+    public static final Color PURPLE = new Color(.627f, .125f, .941f, 1f);
 
     public final float r;
     public final float g;
@@ -83,8 +84,12 @@ public class Color {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Color color = (Color) o;
         return rgba8888() == color.rgba8888();
     }

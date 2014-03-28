@@ -1,7 +1,7 @@
 package sps.states;
 
-import sps.util.GenericFactory;
 import sps.core.Logger;
+import sps.util.GenericFactory;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -33,16 +33,19 @@ public class Systems {
         __instances = new HashMap<>();
         for (Class type : __registeredSystems) {
             try {
-                __instances.put(type, GenericFactory.newInstance(type));
-            }
-            catch (Exception e) {
+                __instances.put(type, GenericFactory.newGameSystem(type));
+            } catch (Exception e) {
                 Logger.exception(e, false);
             }
         }
     }
 
     public static List<GameSystem> getAll() {
-        return (List) __instances.values();
+        List result = new LinkedList<GameSystem>();
+        for(GameSystem system:__instances.values()){
+            result.add(system);
+        }
+        return result;
     }
 
     public static void update() {

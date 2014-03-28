@@ -35,4 +35,8 @@ public interface InputProvider {
     void setMouseLock(boolean locked);
 
     boolean isMouseDown(boolean failIfLocked);
+
+    void setValidCommands(Command... commands);
+
+    void removeValidCommands();
 }

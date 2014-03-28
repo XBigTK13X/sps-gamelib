@@ -77,7 +77,7 @@ public class Logger {
     }
 
     public static void error(String message) {
-        Handler.Error.log(message);
+        Handler.Error.log("ERROR: " +message);
     }
 
     public static void info(String message) {

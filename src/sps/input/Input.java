@@ -3,6 +3,7 @@ package sps.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controllers;
 import sps.bridge.*;
+import sps.core.Logger;
 import sps.core.SpsConfig;
 import sps.display.Screen;
 import sps.display.Window;
@@ -28,6 +29,8 @@ public class Input implements InputProvider {
     private int mouseX;
     private int mouseY;
     private boolean _mouseLocked = false;
+
+    private Command[] _validCommands;
 
     public static InputProvider get() {
         return isDisabled() ? falseInstance : instance;
@@ -62,6 +65,22 @@ public class Input implements InputProvider {
 
     @Override
     public boolean detectState(Command command, PlayerIndex playerIndex) {
+        if(_validCommands != null){
+            boolean found = false;
+            //TODO Force system commands (Exit, Pause, FullScreen, etc)
+            for(Command vC: _validCommands){
+                if(vC == command){
+                    found = true;
+                }
+            }
+            if(!found){
+                if(command == Commands.get("DialogueAdvance")){
+                    Logger.info("Didn't work");
+                }
+                return false;
+            }
+        }
+
         boolean gamepadActive = false;
         if (SpsConfig.get().controllersEnabled && playerIndex.ControllerIndex != null) {
             if (command.controllerInput() != null) {
@@ -215,6 +234,16 @@ public class Input implements InputProvider {
             return false;
         }
         return Gdx.input.isButtonPressed(com.badlogic.gdx.Input.Buttons.LEFT);
+    }
+
+    @Override
+    public void setValidCommands(Command... commands) {
+        _validCommands = commands;
+    }
+
+    @Override
+    public void removeValidCommands() {
+        _validCommands = null;
     }
 
     @Override

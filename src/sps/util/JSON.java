@@ -1,8 +1,15 @@
 package sps.util;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.lang.reflect.Field;
 
 public class JSON {
+    private static JsonParser __parser;
+
     public static String pad(String key, String value) {
         return "\"" + key + "\":\"" + value + "\"";
     }
@@ -44,5 +51,13 @@ public class JSON {
         }
         config += "}";
         return config;
+    }
+
+    public static JsonObject getObject(String raw) {
+        if (__parser == null) {
+            __parser = new JsonParser();
+        }
+        JsonElement element = __parser.parse(raw);
+        return element.getAsJsonObject();
     }
 }
