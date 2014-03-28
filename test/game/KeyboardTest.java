@@ -9,6 +9,7 @@ import sps.display.Window;
 import sps.input.Input;
 import sps.input.KeyCatcher;
 import sps.input.Keys;
+import sps.states.Systems;
 import sps.text.Text;
 import sps.text.TextPool;
 
@@ -25,7 +26,7 @@ public class KeyboardTest implements ApplicationListener {
     @Override
     public void create() {
         _context.create();
-        _display = TextPool.get().write("Loaded", Screen.pos(5, 25));
+        _display = Systems.get(TextPool.class).write("Loaded", Screen.pos(5, 25));
         _catcher = new KeyCatcher() {
             @Override
             public void onDown(int keyCode) {
@@ -44,8 +45,8 @@ public class KeyboardTest implements ApplicationListener {
     @Override
     public void render() {
         Input.get().update();
-        TextPool.get().update();
-        TextPool.get().draw();
+        Systems.get(TextPool.class).update();
+        Systems.get(TextPool.class).draw();
         //Macair screen was garbled without this clearing
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);

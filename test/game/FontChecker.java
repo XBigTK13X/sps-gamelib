@@ -7,6 +7,7 @@ import sps.display.Assets;
 import sps.display.Screen;
 import sps.display.Window;
 import sps.input.Input;
+import sps.states.Systems;
 import sps.text.Text;
 import sps.text.TextEffects;
 import sps.text.TextPool;
@@ -52,8 +53,8 @@ public class FontChecker implements ApplicationListener {
 
         Point2 pos = Screen.pos(5, 50);
         String ids = "ABCDEFGHIJKL\nMNOPQRSTUVWXYZ\nabcdefghijkl\nmnopqrstuvwxyz\n1234567890";
-        TextPool.get().write(ids, pos, Text.NotTimed, "default", defaultSize, TextEffects.None, Color.WHITE, 1);
-        TextPool.get().write(ids + "", pos.add(Screen.pos(0, 30)), Text.NotTimed, "keys", defaultSize, TextEffects.None, Color.WHITE, 1);
+        Systems.get(TextPool.class).write(ids, pos, Text.NotTimed, "default", defaultSize, TextEffects.None, Color.WHITE, 1);
+        Systems.get(TextPool.class).write(ids + "", pos.add(Screen.pos(0, 30)), Text.NotTimed, "keys", defaultSize, TextEffects.None, Color.WHITE, 1);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class FontChecker implements ApplicationListener {
     public void render() {
         Input.get().update();
 
-        TextPool.get().draw();
+        Systems.get(TextPool.class).draw();
 
         Window.processDrawCalls();
     }

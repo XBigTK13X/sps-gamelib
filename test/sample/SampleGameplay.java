@@ -10,6 +10,7 @@ import sps.draw.BackgroundMaker;
 import sps.entity.Entities;
 import sps.input.InputWrapper;
 import sps.states.State;
+import sps.states.Systems;
 import sps.text.TextEffects;
 import sps.text.TextPool;
 import sps.time.CoolDown;
@@ -19,7 +20,7 @@ public class SampleGameplay implements State {
     private Sprite _background;
 
     private void write() {
-        TextPool.get().write("Sample Game", Screen.rand(10, 90, 10, 90), 3f, TextEffects.Fountain);
+        Systems.get(TextPool.class).write("Sample Game", Screen.rand(10, 90, 10, 90), 3f, TextEffects.Fountain);
     }
 
     @Override
@@ -28,7 +29,7 @@ public class SampleGameplay implements State {
         _background = BackgroundMaker.radialDark();
         if (SpriteTypes.get("Player Stand") != null) {
             Logger.info("Player added");
-            Entities.get().add(new SamplePlayer());
+            Systems.get(Entities.class).add(new SamplePlayer());
         }
     }
 
