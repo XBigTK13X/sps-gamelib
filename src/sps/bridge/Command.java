@@ -1,10 +1,10 @@
 package sps.bridge;
 
-import sps.input.gamepad.ControllerInput;
+import sps.input.gamepad.GamepadInput;
 import sps.input.Keys;
 
 public class Command implements Comparable<Command> {
-    private ControllerInput _controllerInput;
+    private GamepadInput _gamepadInput;
     private Keys[] _keys;
     private String _name;
     public Context Context;
@@ -18,14 +18,14 @@ public class Command implements Comparable<Command> {
         _name = name;
     }
 
-    public void bind(ControllerInput controllerInput, Keys... keys) {
-        _controllerInput = controllerInput;
+    public void bind(GamepadInput gamepadInput, Keys... keys) {
+        _gamepadInput = gamepadInput;
         _keys = keys;
         recalcPrettyId();
     }
 
-    public ControllerInput controllerInput() {
-        return _controllerInput;
+    public GamepadInput controllerInput() {
+        return _gamepadInput;
     }
 
     public Keys[] keys() {

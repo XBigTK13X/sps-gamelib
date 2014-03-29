@@ -3,7 +3,7 @@ package sps.input.gamepad;
 import com.badlogic.gdx.controllers.PovDirection;
 import org.apache.commons.lang3.SystemUtils;
 
-public enum XBox360ControllerInputs {
+public enum XBox360GamepadInputs {
     LeftStickButton(9, 8),
     LeftStickUp(1, 0, Device.Axis, false),
     LeftStickDown(1, 0, Device.Axis, true),
@@ -30,21 +30,21 @@ public enum XBox360ControllerInputs {
     B(1, 1);
 
     final public int Index;
-    final public ControllerInput Input;
+    final public GamepadInput Input;
 
-    private XBox360ControllerInputs(int linuxIndex, int windowsIndex) {
+    private XBox360GamepadInputs(int linuxIndex, int windowsIndex) {
         this(linuxIndex, windowsIndex, Device.Button, null);
     }
 
-    private XBox360ControllerInputs(int linuxIndex, int windowsIndex, PovDirection direction) {
+    private XBox360GamepadInputs(int linuxIndex, int windowsIndex, PovDirection direction) {
         this(linuxIndex, windowsIndex, Device.Pov, direction, null);
     }
 
-    private XBox360ControllerInputs(int linuxIndex, int windowsIndex, Device device, Boolean positive) {
+    private XBox360GamepadInputs(int linuxIndex, int windowsIndex, Device device, Boolean positive) {
         this(linuxIndex, windowsIndex, device, null, positive);
     }
 
-    private XBox360ControllerInputs(int linuxIndex, int windowsIndex, Device device, PovDirection direction, Boolean positive) {
+    private XBox360GamepadInputs(int linuxIndex, int windowsIndex, Device device, PovDirection direction, Boolean positive) {
         if (SystemUtils.IS_OS_MAC) {
             Input = MacOsXXboxMappings.inputs.get(name());
             Index = 0;
@@ -59,41 +59,41 @@ public enum XBox360ControllerInputs {
 
             if (name().equalsIgnoreCase("RightTrigger")) {
                 if (SystemUtils.IS_OS_WINDOWS) {
-                    Input = ControllerInput.createLessThanAxis(Index, ControllerAdapter.ZeroPoint);
+                    Input = GamepadInput.createLessThanAxis(Index, GamepadAdapter.ZeroPoint);
                 }
                 else {
-                    Input = ControllerInput.createGreaterThanAxis(Index, ControllerAdapter.ZeroPoint);
+                    Input = GamepadInput.createGreaterThanAxis(Index, GamepadAdapter.ZeroPoint);
                 }
             }
             else if (name().equalsIgnoreCase("LeftTrigger")) {
                 if (SystemUtils.IS_OS_WINDOWS) {
-                    Input = ControllerInput.createGreaterThanAxis(Index, -ControllerAdapter.ZeroPoint);
+                    Input = GamepadInput.createGreaterThanAxis(Index, -GamepadAdapter.ZeroPoint);
                 }
                 else {
-                    Input = ControllerInput.createGreaterThanAxis(Index, ControllerAdapter.ZeroPoint);
+                    Input = GamepadInput.createGreaterThanAxis(Index, GamepadAdapter.ZeroPoint);
                 }
 
             }
             else {
                 switch (device) {
                     case Button:
-                        Input = ControllerInput.createButton(Index);
+                        Input = GamepadInput.createButton(Index);
                         break;
                     case Axis:
                         if (positive == null) {
-                            Input = ControllerInput.createNonZeroAxis(Index);
+                            Input = GamepadInput.createNonZeroAxis(Index);
                             break;
                         }
                         else if (positive) {
-                            Input = ControllerInput.createPositiveAxis(Index);
+                            Input = GamepadInput.createPositiveAxis(Index);
                             break;
                         }
                         else {
-                            Input = ControllerInput.createNegativeAxis(Index);
+                            Input = GamepadInput.createNegativeAxis(Index);
                             break;
                         }
                     case Pov:
-                        Input = ControllerInput.createPov(Index, direction);
+                        Input = GamepadInput.createPov(Index, direction);
                         break;
                     default:
                         Input = null;
@@ -102,8 +102,8 @@ public enum XBox360ControllerInputs {
         }
     }
 
-    public static XBox360ControllerInputs get(String s) {
-        for (XBox360ControllerInputs key : values()) {
+    public static XBox360GamepadInputs get(String s) {
+        for (XBox360GamepadInputs key : values()) {
             if (key.name().equalsIgnoreCase(s)) {
                 return key;
             }

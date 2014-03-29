@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector3;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ControllerAdapter {
+public class GamepadAdapter {
     public final static float DeadZone = .5f;
     public final static float ZeroPoint = -.5f;
     public final static float MaxInputsPerDevice = 50;
@@ -63,10 +63,10 @@ public class ControllerAdapter {
             return false;
         }
     };
-    private static ControllerAdapter instance;
+    private static GamepadAdapter instance;
     private Map<Controller, ControllerState> controllers;
 
-    private ControllerAdapter() {
+    private GamepadAdapter() {
         if (controllers == null) {
             controllers = new HashMap<Controller, ControllerState>();
             for (Controller c : Controllers.getControllers()) {
@@ -98,10 +98,10 @@ public class ControllerAdapter {
         }
     }
 
-    public static ControllerAdapter get() {
+    public static GamepadAdapter get() {
         if (instance == null) {
             Controllers.addListener(initTriggers);
-            instance = new ControllerAdapter();
+            instance = new GamepadAdapter();
         }
         return instance;
     }

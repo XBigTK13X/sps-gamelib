@@ -7,7 +7,7 @@ import sps.bridge.Contexts;
 import sps.bridge.Sps;
 import sps.core.Loader;
 import sps.core.Logger;
-import sps.input.gamepad.ControllerInput;
+import sps.input.gamepad.GamepadInput;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -82,8 +82,8 @@ public class InputBindings {
                         }
                     }
 
-                    ControllerInput controllerInput = ControllerInput.parse(value.split("-")[1]);
-                    if (controllerInput == null && !keyNotFound.isEmpty()) {
+                    GamepadInput gamepadInput = GamepadInput.parse(value.split("-")[1]);
+                    if (gamepadInput == null && !keyNotFound.isEmpty()) {
                         Logger.exception(new RuntimeException("Unable to parse input config: '" + line + "'. " + keyNotFound));
                     }
 
@@ -92,7 +92,7 @@ public class InputBindings {
                     if (Commands.get(key) == null) {
                         Commands.add(new Command(key, Contexts.get(Sps.Contexts.All)));
                     }
-                    Commands.get(key).bind(controllerInput, chord);
+                    Commands.get(key).bind(gamepadInput, chord);
 
                 }
             }

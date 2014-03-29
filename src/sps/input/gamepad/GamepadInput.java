@@ -6,7 +6,7 @@ import sps.core.Logger;
 
 import java.io.Serializable;
 
-public class ControllerInput implements Serializable {
+public class GamepadInput implements Serializable {
     final private PovDirection povDirection;
     final private Integer pov;
     final private Integer button;
@@ -17,7 +17,7 @@ public class ControllerInput implements Serializable {
     final private Float threshold;
     final private Boolean greaterThan;
 
-    private ControllerInput(Integer buttonIndex, Integer axisIndex, Integer povIndex, PovDirection direction, Boolean nonzero, Boolean positive, Float threshold, Boolean greaterThan) {
+    private GamepadInput(Integer buttonIndex, Integer axisIndex, Integer povIndex, PovDirection direction, Boolean nonzero, Boolean positive, Float threshold, Boolean greaterThan) {
         pov = povIndex;
         povDirection = direction;
         axis = axisIndex;
@@ -37,44 +37,44 @@ public class ControllerInput implements Serializable {
         this.greaterThan = greaterThan;
     }
 
-    private ControllerInput() {
+    private GamepadInput() {
         this(null, null, null, null, null, null, null, null);
     }
 
-    public static ControllerInput createButton(int index) {
-        return new ControllerInput(index, null, null, null, null, null, null, null);
+    public static GamepadInput createButton(int index) {
+        return new GamepadInput(index, null, null, null, null, null, null, null);
     }
 
-    public static ControllerInput createNonZeroAxis(int index) {
-        return new ControllerInput(null, index, null, null, true, null, null, null);
+    public static GamepadInput createNonZeroAxis(int index) {
+        return new GamepadInput(null, index, null, null, true, null, null, null);
     }
 
-    public static ControllerInput createPositiveAxis(int index) {
-        return new ControllerInput(null, index, null, null, null, true, null, null);
+    public static GamepadInput createPositiveAxis(int index) {
+        return new GamepadInput(null, index, null, null, null, true, null, null);
     }
 
-    public static ControllerInput createNegativeAxis(int index) {
-        return new ControllerInput(null, index, null, null, null, false, null, null);
+    public static GamepadInput createNegativeAxis(int index) {
+        return new GamepadInput(null, index, null, null, null, false, null, null);
     }
 
-    public static ControllerInput createGreaterThanAxis(int index, float threshold) {
-        return new ControllerInput(null, index, null, null, null, null, threshold, true);
+    public static GamepadInput createGreaterThanAxis(int index, float threshold) {
+        return new GamepadInput(null, index, null, null, null, null, threshold, true);
     }
 
-    public static ControllerInput createLessThanAxis(int index, float threshold) {
-        return new ControllerInput(null, index, null, null, null, null, threshold, false);
+    public static GamepadInput createLessThanAxis(int index, float threshold) {
+        return new GamepadInput(null, index, null, null, null, null, threshold, false);
     }
 
-    public static ControllerInput createPov(int index, PovDirection direction) {
-        return new ControllerInput(null, null, index, direction, null, null, null, null);
+    public static GamepadInput createPov(int index, PovDirection direction) {
+        return new GamepadInput(null, null, index, direction, null, null, null, null);
     }
 
-    public static ControllerInput parse(String source) {
+    public static GamepadInput parse(String source) {
         String[] parts = source.split("/");
         //Wired Xbox 360 controllers are the only supported, non-serialized input
         if (parts.length == 1) {
             if (!parts[0].equalsIgnoreCase("null")) {
-                return XBox360ControllerInputs.get(parts[0]).Input;
+                return XBox360GamepadInputs.get(parts[0]).Input;
             }
             return null;
         }
@@ -135,31 +135,31 @@ public class ControllerInput implements Serializable {
     public boolean isActive(Controller controller) {
         if (threshold != null) {
             if (greaterThan) {
-                return ControllerAdapter.get().isAxisGreaterThan(controller, axis, threshold);
+                return GamepadAdapter.get().isAxisGreaterThan(controller, axis, threshold);
             }
             else {
-                return ControllerAdapter.get().isAxisLessThan(controller, axis, threshold);
+                return GamepadAdapter.get().isAxisLessThan(controller, axis, threshold);
             }
         }
         if (button != null) {
-            return ControllerAdapter.get().isDown(controller, button);
+            return GamepadAdapter.get().isDown(controller, button);
         }
         if (axis != null) {
             if (positive != null) {
                 if (positive) {
-                    return ControllerAdapter.get().isPositive(controller, axis);
+                    return GamepadAdapter.get().isPositive(controller, axis);
                 }
                 if (!positive) {
-                    return ControllerAdapter.get().isNegative(controller, axis);
+                    return GamepadAdapter.get().isNegative(controller, axis);
                 }
             }
             else {
-                return ControllerAdapter.get().isNotZero(controller, axis);
+                return GamepadAdapter.get().isNotZero(controller, axis);
             }
             Logger.error("Invalid axis ControllerInput defined");
             return false;
         }
-        return ControllerAdapter.get().isPovActive(controller, pov, povDirection);
+        return GamepadAdapter.get().isPovActive(controller, pov, povDirection);
     }
 
     public int hashCode() {
@@ -185,7 +185,7 @@ public class ControllerInput implements Serializable {
             return false;
         }
 
-        ControllerInput rhs = (ControllerInput) obj;
+        GamepadInput rhs = (GamepadInput) obj;
         return rhs.hashCode() == hashCode();
     }
 
