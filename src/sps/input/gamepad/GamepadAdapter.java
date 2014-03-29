@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GamepadAdapter {
-    public final static float DeadZone = .5f;
-    public final static float ZeroPoint = -.5f;
-    public final static float MaxInputsPerDevice = 50;
+    public static float DeadZone = .5f;
+    public static float ZeroPoint = -.5f;
+    public static float MaxInputsPerDevice = 50;
 
     private static ControllerListener initTriggers = new ControllerListener() {
         @Override
@@ -108,28 +108,6 @@ public class GamepadAdapter {
 
     public boolean isDown(Controller controller, Integer index) {
         return controllers.get(controller).buttons.get(index);
-    }
-
-    public boolean isPositive(Controller controller, Integer axis) {
-        if (!controllers.get(controller).hasBeenMoved(axis)) {
-            return false;
-        }
-        return controllers.get(controller).axes.get(axis) > DeadZone;
-    }
-
-    public boolean isNegative(Controller controller, Integer axis) {
-        if (!controllers.get(controller).hasBeenMoved(axis)) {
-            return false;
-        }
-        float value = controllers.get(controller).axes.get(axis);
-        return value < -DeadZone && value != Float.MIN_VALUE;
-    }
-
-    public boolean isNotZero(Controller controller, Integer axis) {
-        if (!controllers.get(controller).hasBeenMoved(axis)) {
-            return false;
-        }
-        return controllers.get(controller).axes.get(axis) > ZeroPoint;
     }
 
     public boolean isAxisGreaterThan(Controller controller, Integer axis, Float threshold) {

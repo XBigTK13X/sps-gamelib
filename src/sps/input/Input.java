@@ -84,7 +84,7 @@ public class Input implements InputProvider {
         boolean gamepadActive = false;
         if (SpsConfig.get().controllersEnabled && playerIndex.ControllerIndex != null) {
             if (command.controllerInput() != null) {
-                gamepadActive = command.controllerInput().isActive(Controllers.getControllers().get(playerIndex.ControllerIndex));
+                gamepadActive = command.controllerInput().isActive(playerIndex);
             }
         }
 

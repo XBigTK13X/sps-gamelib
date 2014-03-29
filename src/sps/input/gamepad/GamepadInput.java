@@ -1,110 +1,108 @@
 package sps.input.gamepad;
 
 import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.PovDirection;
-import sps.core.Logger;
+import com.google.gson.JsonObject;
+import org.apache.commons.lang3.SystemUtils;
+import sps.input.PlayerIndex;
+import sps.util.JSON;
 
 import java.io.Serializable;
 
 public class GamepadInput implements Serializable {
-    final private PovDirection povDirection;
-    final private Integer pov;
-    final private Integer button;
-    final private Integer axis;
-    final private Boolean positive;
-    final private Boolean nonZero;
-    final private Device device;
-    final private Float threshold;
-    final private Boolean greaterThan;
+    private enum Device {
+        Button,
+        Pov,
+        Axis;
 
-    private GamepadInput(Integer buttonIndex, Integer axisIndex, Integer povIndex, PovDirection direction, Boolean nonzero, Boolean positive, Float threshold, Boolean greaterThan) {
-        pov = povIndex;
-        povDirection = direction;
-        axis = axisIndex;
-        button = buttonIndex;
-        this.positive = positive;
-        nonZero = nonzero;
-        if (pov != null) {
-            device = Device.Pov;
+        public static Device get(String name) {
+            for (Device device : values()) {
+                if (device.name().equalsIgnoreCase(name)) {
+                    return device;
+                }
+            }
+            return null;
         }
-        else if (axis != null) {
-            device = Device.Axis;
-        }
-        else {
-            device = Device.Button;
-        }
-        this.threshold = threshold;
-        this.greaterThan = greaterThan;
     }
 
-    private GamepadInput() {
-        this(null, null, null, null, null, null, null, null);
+    final private Device _inputType;
+    final private Integer _hardwareId;
+    final private Float _threshold;
+    final private String _direction;
+    final private String _name;
+
+    private GamepadInput(String name, Device inputType, Integer hardwareId, Float threshold, String direction) {
+        _inputType = inputType;
+        _hardwareId = hardwareId;
+        _threshold = threshold;
+        _direction = direction;
+        _name = name;
     }
 
-    public static GamepadInput createButton(int index) {
-        return new GamepadInput(index, null, null, null, null, null, null, null);
+    public GamepadInput(String name, int buttonIndex) {
+        this(name, Device.Button, buttonIndex, null, null);
     }
 
-    public static GamepadInput createNonZeroAxis(int index) {
-        return new GamepadInput(null, index, null, null, true, null, null, null);
+    public GamepadInput(String name, int hardwareIndex, String direction, float threshold) {
+        this(name, Device.Axis, hardwareIndex, threshold, direction);
     }
 
-    public static GamepadInput createPositiveAxis(int index) {
-        return new GamepadInput(null, index, null, null, null, true, null, null);
-    }
-
-    public static GamepadInput createNegativeAxis(int index) {
-        return new GamepadInput(null, index, null, null, null, false, null, null);
-    }
-
-    public static GamepadInput createGreaterThanAxis(int index, float threshold) {
-        return new GamepadInput(null, index, null, null, null, null, threshold, true);
-    }
-
-    public static GamepadInput createLessThanAxis(int index, float threshold) {
-        return new GamepadInput(null, index, null, null, null, null, threshold, false);
-    }
-
-    public static GamepadInput createPov(int index, PovDirection direction) {
-        return new GamepadInput(null, null, index, direction, null, null, null, null);
+    public GamepadInput(String name, int index, String direction) {
+        this(name, Device.Pov, index, null, direction);
     }
 
     public static GamepadInput parse(String source) {
-        String[] parts = source.split("/");
         //Wired Xbox 360 controllers are the only supported, non-serialized input
-        if (parts.length == 1) {
-            if (!parts[0].equalsIgnoreCase("null")) {
-                return XBox360GamepadInputs.get(parts[0]).Input;
+        if (!source.toString().contains("{")) {
+            if (!source.equalsIgnoreCase("null")) {
+                return PreconfiguredGamepadInputs.get(source);
             }
             return null;
         }
         else {
-            Device device = Device.get(parts[0]);
-            int index = Integer.parseInt(parts[1]);
-            switch (device) {
-                case Button:
-                    return createButton(index);
-                case Pov:
-                    int povIndex = index;
-                    PovDirection direction = getDirection(parts[2]);
-                    return createPov(povIndex, direction);
-                case Axis:
-                    String trigger = parts[2];
-                    if (trigger.equalsIgnoreCase("nonzero")) {
-                        return createNonZeroAxis(index);
+            JsonObject sourceJson = JSON.getObject(source);
+            String name = sourceJson.get("id").getAsString();
+            String inputType = sourceJson.get("type").getAsString();
+            String os = getPlatformString();
+            JsonObject config = sourceJson.get("config").getAsJsonObject().get(os).getAsJsonObject();
+            if (config.has("type")) {
+                inputType = config.get("type").getAsString();
+            }
+            GamepadInput Input = null;
+            int hardwareIndex = config.get("id").getAsInt();
+            switch (inputType) {
+                case "button":
+                    return new GamepadInput(name, hardwareIndex);
+                case "axis":
+                    String axisDirection = config.get("direction").getAsString();
+                    String bounds = config.get("bound").getAsString();
+                    float threshold = 0;
+                    switch(bounds){
+                        case "zeroPoint":
+                            threshold = GamepadAdapter.ZeroPoint;
+                            break;
+                        case "-zeroPoint":
+                            threshold = -GamepadAdapter.ZeroPoint;
+                            break;
+                        case "deadZone":
+                            threshold = GamepadAdapter.DeadZone;
+                            break;
+                        case "-deadZone":
+                            threshold = -GamepadAdapter.DeadZone;
+                            break;
                     }
-                    else if (trigger.equalsIgnoreCase("positive")) {
-                        return createPositiveAxis(index);
-                    }
-                    else {
-                        return createNegativeAxis(index);
-                    }
+                    return new GamepadInput(name, hardwareIndex, axisDirection, threshold);
+                case "pov":
+                    String povDirection = config.get("direction").getAsString();
+                    return new GamepadInput(name, hardwareIndex, povDirection);
+                default:
+                    return null;
             }
         }
-        return null;
     }
 
-    private static PovDirection getDirection(String name) {
+    private static PovDirection getPovDirection(String name) {
         for (PovDirection direction : PovDirection.values()) {
             if (direction.name().equalsIgnoreCase(name)) {
                 return direction;
@@ -113,64 +111,74 @@ public class GamepadInput implements Serializable {
         return null;
     }
 
+    private static String getPlatformString() {
+        return SystemUtils.IS_OS_MAC ? "mac" : SystemUtils.IS_OS_WINDOWS ? "windows" : "linux";
+    }
+
     public String serialize() {
-        String result = "";
-        result += device.name() + "/";
-        switch (device) {
-            case Button:
-                result += button;
-                break;
+        String result = "{";
+        result += "id:\"" + _name + "\",";
+        result += "type:\"" + _inputType.name().toLowerCase() + "\",";
+        result += "config:{";
+
+        String platform = getPlatformString();
+        result += platform + ":{id:" + _hardwareId;
+
+        switch (_inputType) {
             case Pov:
-                result += pov + "/";
-                result += povDirection.name();
+                result += ", direction:\"" + _direction + "\"";
                 break;
             case Axis:
-                result += axis + "/";
-                result += (positive == null) ? "NonZero" : (positive) ? "Positive" : "Negative";
+                String boundId = "null";
+                if (_threshold == GamepadAdapter.ZeroPoint) {
+                    boundId = "zeroPoint";
+                }
+                if (_threshold == -GamepadAdapter.ZeroPoint) {
+                    boundId = "-zeroPoint";
+                }
+                if (_threshold == GamepadAdapter.DeadZone) {
+                    boundId = "deadZone";
+                }
+                if (_threshold == -GamepadAdapter.DeadZone) {
+                    boundId = "-deadZone";
+                }
+                result += ", bound:\"" + _threshold + "\"";
+                break;
+            default:
                 break;
         }
+        result += "}}}";
+
         return result;
     }
 
-    public boolean isActive(Controller controller) {
-        if (threshold != null) {
-            if (greaterThan) {
-                return GamepadAdapter.get().isAxisGreaterThan(controller, axis, threshold);
-            }
-            else {
-                return GamepadAdapter.get().isAxisLessThan(controller, axis, threshold);
-            }
-        }
-        if (button != null) {
-            return GamepadAdapter.get().isDown(controller, button);
-        }
-        if (axis != null) {
-            if (positive != null) {
-                if (positive) {
-                    return GamepadAdapter.get().isPositive(controller, axis);
+    public boolean isActive(PlayerIndex playerIndex) {
+        Controller controller = Controllers.getControllers().get(playerIndex.ControllerIndex);
+        switch (_inputType) {
+            case Button:
+                return GamepadAdapter.get().isDown(controller, _hardwareId);
+            case Pov:
+                return GamepadAdapter.get().isPovActive(controller, _hardwareId, getPovDirection(_direction));
+            case Axis:
+                if (_direction.equalsIgnoreCase("above")) {
+                    return GamepadAdapter.get().isAxisGreaterThan(controller, _hardwareId, _threshold);
                 }
-                if (!positive) {
-                    return GamepadAdapter.get().isNegative(controller, axis);
+                else {
+                    return GamepadAdapter.get().isAxisLessThan(controller, _hardwareId, _threshold);
                 }
-            }
-            else {
-                return GamepadAdapter.get().isNotZero(controller, axis);
-            }
-            Logger.error("Invalid axis ControllerInput defined");
-            return false;
         }
-        return GamepadAdapter.get().isPovActive(controller, pov, povDirection);
+        return false;
+    }
+
+    public String getName() {
+        return _name;
     }
 
     public int hashCode() {
-        int hash = 0;
-        hash += (positive != null) ? ((positive) ? 1 : 2) : 0;
-        hash += (nonZero != null) ? ((nonZero) ? 5 : 7) : 0;
-        hash += (greaterThan != null) ? ((greaterThan) ? 13 : 17) : 0;
-        hash += (povDirection != null) ? povDirection.ordinal() * 100 : 0;
-        hash += (pov != null) ? pov * 10000 : 0;
-        hash += (axis != null) ? axis * 1000000 : 0;
-        hash += (button != null) ? button * 100000000 : 0;
+        int hash = _inputType.ordinal();
+        hash += _hardwareId * 100;
+        hash += _direction.hashCode();
+        hash += _threshold;
         return hash;
     }
 
@@ -188,20 +196,4 @@ public class GamepadInput implements Serializable {
         GamepadInput rhs = (GamepadInput) obj;
         return rhs.hashCode() == hashCode();
     }
-
-    private enum Device {
-        Button,
-        Pov,
-        Axis;
-
-        public static Device get(String name) {
-            for (Device device : values()) {
-                if (device.name().equalsIgnoreCase(name)) {
-                    return device;
-                }
-            }
-            return null;
-        }
-    }
-
 }
