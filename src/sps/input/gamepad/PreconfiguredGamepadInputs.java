@@ -6,6 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.SystemUtils;
 import sps.core.Loader;
 import sps.core.Logger;
 import sps.util.JSON;
@@ -61,6 +62,12 @@ public class PreconfiguredGamepadInputs {
         for (String key : __hardwareNames.keySet()) {
             for (String name : __hardwareNames.get(key)) {
                 if (gamepad.getName().toLowerCase().contains(name)) {
+                    //TODO
+                    //USB Sixaxis under linux is translated via the package xboxdrv
+                    //Have not yet tested a bluetooth connected PS3 controller
+                    if(key.equalsIgnoreCase("ps3") && SystemUtils.IS_OS_LINUX){
+                        return "xbox360";
+                    }
                     return key;
                 }
             }
