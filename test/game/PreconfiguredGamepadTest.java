@@ -33,7 +33,6 @@ public class PreconfiguredGamepadTest extends InputAdapter implements Applicatio
         if (Controllers.getControllers().size == 0) {
             print("No controllers attached");
         }
-        Players.init();
     }
 
     @Override
