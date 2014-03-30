@@ -88,9 +88,9 @@ public class Input implements InputProvider {
                     for (Command otherCommand : Commands.values()) {
                         if (otherCommand != command && otherCommand.controllerInput(playerIndex.GamepadType) != null) {
                             boolean anyCommonKeys = false;
-                            for(int ii = 0;ii<otherCommand.controllerInput(playerIndex.GamepadType).size();ii++){
+                            for(int ii = 0;ii<command.controllerInput(playerIndex.GamepadType).size();ii++){
                                 for(int jj = 0;jj< otherCommand.controllerInput(playerIndex.GamepadType).size();jj++){
-                                    if(command.keys().get(ii) == otherCommand.keys().get(jj)){
+                                    if(command.controllerInput(playerIndex.GamepadType).get(ii) == otherCommand.controllerInput(playerIndex.GamepadType).get(jj)){
                                         anyCommonKeys = true;
                                     }
                                 }
