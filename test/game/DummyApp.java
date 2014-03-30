@@ -9,11 +9,13 @@ import sps.bridge.Sps;
 import sps.color.Color;
 import sps.core.RNG;
 import sps.core.SpsConfig;
+import sps.data.UserFiles;
 import sps.display.Assets;
 import sps.display.SpriteSheetManager;
 import sps.display.Window;
 import sps.display.render.FrameStrategy;
 import sps.input.Input;
+import sps.input.InputBindings;
 import sps.input.Players;
 import sps.input.provider.DefaultStateProvider;
 
@@ -40,5 +42,6 @@ public class DummyApp {
         Players.init();
         Input.get().setup(new DefaultStateProvider());
         SpriteSheetManager.setup(SpriteTypes.getDefs());
+        InputBindings.reload(UserFiles.input());
     }
 }

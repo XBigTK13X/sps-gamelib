@@ -1,7 +1,7 @@
 package sps.input;
 
 public class PlayerIndex {
-    private Integer _playerIndex;
+    public Integer PlayerIndex;
     public Integer KeyboardIndex;
     public Integer GamepadIndex;
     public String GamepadType;
@@ -10,6 +10,6 @@ public class PlayerIndex {
         KeyboardIndex = keyboardIndex;
         GamepadIndex = gamepadIndex;
         GamepadType = gamepadType;
-        _playerIndex = playerIndex;
+        PlayerIndex = playerIndex;
     }
 }

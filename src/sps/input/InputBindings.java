@@ -68,7 +68,7 @@ public class InputBindings {
                     if (gamepad.equalsIgnoreCase("sps-autoconf")) {
                         gamepadChord = gamepadInputs.get(0).serialize();
                     }
-                    else{
+                    else {
                         gamepadChord = "\"" + gamepadInputs.get(0).getName() + "\"";
                     }
                     if (ii < gamepadInputs.size() - 1) {
@@ -86,9 +86,18 @@ public class InputBindings {
 
     private static void fromConfig(List<String> rawConfig) {
         try {
+            int lineCount = 0;
             for (String line : rawConfig) {
+                lineCount++;
                 if (!line.contains("##") && line.length() > 1) {
-                    JsonObject config = JSON.getObject(line);
+                    JsonObject config = null;
+                    try {
+                        config = JSON.getObject(line);
+                    }
+                    catch (Exception e) {
+                        Logger.info("Failed to parse input config on line: " + lineCount);
+                        throw e;
+                    }
                     String commandName = config.get("command").getAsString();
                     //Unless otherwise defined in bridge.cfg already,
                     // init a new binding to always lock after 1 press
@@ -100,7 +109,7 @@ public class InputBindings {
                     for (JsonElement rawBinding : bindings) {
                         JsonObject binding = rawBinding.getAsJsonObject();
                         String type = binding.get("type").getAsString();
-                        String[] rawChord = JSON.getGson().fromJson(binding.get("chord").getAsString(), String[].class);
+                        String[] rawChord = JSON.getGson().fromJson(binding.get("chord"), String[].class);
                         List<Keys> chord = new ArrayList<>();
                         List<GamepadInput> gamepadInputs = new ArrayList<>();
 
@@ -117,21 +126,27 @@ public class InputBindings {
                                 if (!keyNotFound.isEmpty()) {
                                     Logger.exception(new RuntimeException("Unable to parse input config: '" + line + "'. " + keyNotFound));
                                 }
-                                chord.add(key);
+                                if (key != null) {
+                                    chord.add(key);
+                                }
                             }
                             else {
                                 GamepadInput gamepadInput = PreconfiguredGamepadInputs.get(type, rawControl);
                                 if (gamepadInput == null) {
                                     gamepadInput = GamepadInput.parse(rawControl, null);
                                 }
-                                gamepadInputs.add(gamepadInput);
+                                if (gamepadInput != null) {
+                                    gamepadInputs.add(gamepadInput);
+                                }
                             }
                         }
 
                         if (chord.size() > 0) {
+                            //Logger.info("Binding " + commandName + " to keyboard " + chord);
                             Commands.get(commandName).bind(chord);
                         }
                         if (gamepadInputs.size() > 0) {
+                            //Logger.info("Binding " + commandName + " to gamepad " + gamepadInputs);
                             Commands.get(commandName).bind(type, gamepadInputs);
                         }
                     }

@@ -53,6 +53,9 @@ public class GamepadInput implements Serializable {
     }
 
     public static GamepadInput parse(String source, Float deadZone) {
+        if (source.equalsIgnoreCase("null") || source == null) {
+            return null;
+        }
         JsonObject sourceJson = JSON.getObject(source);
         String name = sourceJson.get("id").getAsString();
         String inputType = sourceJson.get("type").getAsString();
@@ -147,14 +150,21 @@ public class GamepadInput implements Serializable {
         return _name;
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
+
+    @Override
     public int hashCode() {
         int hash = _inputType.ordinal();
         hash += _hardwareId * 100;
-        hash += _direction.hashCode();
-        hash += _threshold;
+        hash += (_direction == null) ? 0 : _direction.hashCode();
+        hash += (_threshold == null) ? 0 : _threshold;
         return hash;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;

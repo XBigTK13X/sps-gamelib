@@ -73,15 +73,12 @@ public class Input implements InputProvider {
                 }
             }
             if(!found){
-                if(command == Commands.get("DialogueAdvance")){
-                    Logger.info("Didn't work");
-                }
                 return false;
             }
         }
 
         boolean gamepadActive = false;
-        if (SpsConfig.get().controllersEnabled && playerIndex.GamepadIndex != null) {
+        if (playerIndex.GamepadIndex != null) {
             if (command.controllerInput(playerIndex.GamepadType) != null) {
                 boolean chordActive = true;
                 for (int ii = 0; ii < command.controllerInput(playerIndex.GamepadType).size(); ii++) {

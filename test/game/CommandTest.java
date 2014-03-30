@@ -6,7 +6,10 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.GL10;
+import sps.bridge.Command;
+import sps.bridge.Commands;
 import sps.core.Logger;
+import sps.input.Input;
 import sps.input.PlayerIndex;
 import sps.input.Players;
 import sps.input.gamepad.GamepadInput;
@@ -14,11 +17,11 @@ import sps.input.gamepad.PreconfiguredGamepadInputs;
 
 import java.util.Map;
 
-public class PreconfiguredGamepadTest extends InputAdapter implements ApplicationListener {
+public class CommandTest extends InputAdapter implements ApplicationListener {
     private static DummyApp _context;
 
     public static void main(String[] args) {
-        _context = new DummyApp(new PreconfiguredGamepadTest());
+        _context = new DummyApp(new CommandTest());
     }
 
     @Override
@@ -33,7 +36,8 @@ public class PreconfiguredGamepadTest extends InputAdapter implements Applicatio
         if (Controllers.getControllers().size == 0) {
             print("No controllers attached");
         }
-        Players.init();
+
+        Logger.info("Number of players: " + Players.getAll().size());
     }
 
     @Override
@@ -42,6 +46,7 @@ public class PreconfiguredGamepadTest extends InputAdapter implements Applicatio
 
     @Override
     public void render() {
+        Input.get().update();
         //Macair was running loud and hot without this throttle
         try {
             Thread.sleep(50L);
@@ -50,15 +55,10 @@ public class PreconfiguredGamepadTest extends InputAdapter implements Applicatio
 
         }
 
-        for(PlayerIndex player:Players.getAll()){
-            Map<String, Map<String, GamepadInput>> inputs = PreconfiguredGamepadInputs.getAll();
-            for (String gamepadType : inputs.keySet()) {
-                if (gamepadType.equalsIgnoreCase(player.GamepadType)) {
-                    for (GamepadInput input : inputs.get(gamepadType).values()) {
-                        if (input.isActive(player)) {
-                            Logger.info(input.getName() + " is active for player "+player.PlayerIndex);
-                        }
-                    }
+        for (PlayerIndex player : Players.getAll()) {
+            for (Command command : Commands.values()) {
+                if (Input.get().isActive(command, player)) {
+                    Logger.info(command.name() + " is active for player " + player.PlayerIndex);
                 }
             }
         }
