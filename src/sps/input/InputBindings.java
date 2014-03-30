@@ -85,19 +85,13 @@ public class InputBindings {
     }
 
     private static void fromConfig(List<String> rawConfig) {
+        int lineCount = 0;
         try {
-            int lineCount = 0;
             for (String line : rawConfig) {
                 lineCount++;
                 if (!line.contains("##") && line.length() > 1) {
-                    JsonObject config = null;
-                    try {
-                        config = JSON.getObject(line);
-                    }
-                    catch (Exception e) {
-                        Logger.info("Failed to parse input config on line: " + lineCount);
-                        throw e;
-                    }
+                    JsonObject config = config = JSON.getObject(line);
+
                     String commandName = config.get("command").getAsString();
                     //Unless otherwise defined in bridge.cfg already,
                     // init a new binding to always lock after 1 press
@@ -154,6 +148,7 @@ public class InputBindings {
             }
         }
         catch (Exception e) {
+            Logger.info("Failed to parse input config on line: " + lineCount);
             Logger.exception(e);
         }
     }

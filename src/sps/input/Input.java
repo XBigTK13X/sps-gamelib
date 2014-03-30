@@ -86,7 +86,7 @@ public class Input implements InputProvider {
                 }
                 if (chordActive) {
                     for (Command otherCommand : Commands.values()) {
-                        if (otherCommand != command) {
+                        if (otherCommand != command && otherCommand.controllerInput(playerIndex.GamepadType) != null) {
                             boolean anyCommonKeys = false;
                             for(int ii = 0;ii<otherCommand.controllerInput(playerIndex.GamepadType).size();ii++){
                                 for(int jj = 0;jj< otherCommand.controllerInput(playerIndex.GamepadType).size();jj++){
