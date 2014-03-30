@@ -1,6 +1,8 @@
 package sps.input;
 
 import com.badlogic.gdx.controllers.Controllers;
+import sps.input.gamepad.GamepadAdapter;
+import sps.input.gamepad.PreconfiguredGamepadInputs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +17,16 @@ public class Players {
         _indices = new ArrayList<>();
         addKeyboard();
         for (int ii = 0; ii < Controllers.getControllers().size; ii++) {
-            addController(ii);
+            addController(ii, PreconfiguredGamepadInputs.getTypeFromName(ii));
         }
     }
 
     public static void addKeyboard() {
-        _indices.add(new PlayerIndex(__playerIndexBase++, __keyboards++, null));
+        _indices.add(new PlayerIndex(__playerIndexBase++, __keyboards++, null, null));
     }
 
-    public static void addController(int controllerId) {
-        _indices.add(new PlayerIndex(__playerIndexBase++, null, controllerId));
+    public static void addController(int controllerId, String gamepadType) {
+        _indices.add(new PlayerIndex(__playerIndexBase++, null, controllerId, gamepadType));
     }
 
     public static List<PlayerIndex> getAll() {

@@ -19,6 +19,8 @@ import sps.util.JSON;
 
 public class GamepadTest extends InputAdapter implements ApplicationListener {
     private static DummyApp _context;
+    private static float _deadZone = .5f;
+    private static int _deadCount = 0;
 
     public static void main(String[] args) {
         _context = new DummyApp(new GamepadTest());
@@ -79,7 +81,12 @@ public class GamepadTest extends InputAdapter implements ApplicationListener {
 
             @Override
             public boolean axisMoved(Controller controller, int axisIndex, float value) {
-                print("#" + indexOf(controller) + ", axis " + axisIndex + ": " + value);
+                if(_deadZone > Math.abs(value)){
+                    _deadCount++;
+                }
+                else{
+                    print("#" + indexOf(controller) + ", axis " + axisIndex + ": " + value);
+                }
                 return false;
             }
 

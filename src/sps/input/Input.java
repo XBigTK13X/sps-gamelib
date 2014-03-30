@@ -1,7 +1,6 @@
 package sps.input;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.controllers.Controllers;
 import sps.bridge.*;
 import sps.core.Logger;
 import sps.core.SpsConfig;
@@ -82,33 +81,60 @@ public class Input implements InputProvider {
         }
 
         boolean gamepadActive = false;
-        if (SpsConfig.get().controllersEnabled && playerIndex.ControllerIndex != null) {
-            if (command.controllerInput() != null) {
-                gamepadActive = command.controllerInput().isActive(playerIndex);
+        if (SpsConfig.get().controllersEnabled && playerIndex.GamepadIndex != null) {
+            if (command.controllerInput(playerIndex.GamepadType) != null) {
+                boolean chordActive = true;
+                for (int ii = 0; ii < command.controllerInput(playerIndex.GamepadType).size(); ii++) {
+                    chordActive = chordActive && command.controllerInput(playerIndex.GamepadType).get(ii).isActive(playerIndex);
+                }
+                if (chordActive) {
+                    for (Command otherCommand : Commands.values()) {
+                        if (otherCommand != command) {
+                            boolean anyCommonKeys = false;
+                            for(int ii = 0;ii<otherCommand.controllerInput(playerIndex.GamepadType).size();ii++){
+                                for(int jj = 0;jj< otherCommand.controllerInput(playerIndex.GamepadType).size();jj++){
+                                    if(command.keys().get(ii) == otherCommand.keys().get(jj)){
+                                        anyCommonKeys = true;
+                                    }
+                                }
+                            }
+                            if (anyCommonKeys && otherCommand.controllerInput(playerIndex.GamepadType).size() > command.controllerInput(playerIndex.GamepadType).size()) {
+                                boolean secondChordActive = true;
+                                for (int ii = 0; ii < otherCommand.controllerInput(playerIndex.GamepadType).size(); ii++) {
+                                    secondChordActive = secondChordActive && otherCommand.controllerInput(playerIndex.GamepadType).get(ii).isActive(playerIndex);
+                                }
+                                if(secondChordActive){
+                                    chordActive = false;
+                                }
+                            }
+                        }
+                    }
+                }
+                gamepadActive = chordActive;
             }
         }
 
         boolean keyboardActive = false;
         if (playerIndex.KeyboardIndex != null) {
             boolean chordActive = true;
-            for (int ii = 0; ii < command.keys().length; ii++) {
-                chordActive = chordActive && Gdx.input.isKeyPressed(command.keys()[ii].getKeyCode());
+            for (int ii = 0; ii < command.keys().size(); ii++) {
+                chordActive = chordActive && Gdx.input.isKeyPressed(command.keys().get(ii).getKeyCode());
             }
             if (chordActive) {
                 for (Command otherCommand : Commands.values()) {
                     if (otherCommand != command) {
                         boolean anyCommonKeys = false;
-                        for(int ii = 0;ii<command.keys().length;ii++){
-                            for(int jj = 0;jj< otherCommand.keys().length;jj++){
-                                if(command.keys()[ii] == otherCommand.keys()[jj]){
+                        for(int ii = 0;ii<command.keys().size();ii++){
+                            for(int jj = 0;jj< otherCommand.keys().size();jj++){
+                                if(command.keys().get(ii) == otherCommand.keys().get(jj)){
                                     anyCommonKeys = true;
                                 }
                             }
                         }
-                        if (anyCommonKeys && otherCommand.keys().length > command.keys().length) {
+                        if (anyCommonKeys && otherCommand.keys().size() > command.keys().size()) {
                             boolean secondChordActive = true;
-                            for (int ii = 0; ii < otherCommand.keys().length; ii++) {
-                                secondChordActive = secondChordActive && Gdx.input.isKeyPressed(otherCommand.keys()[ii].getKeyCode());
+                            for (int ii = 0; ii < otherCommand.keys().size(); ii++) {
+                                secondChordActive = secondChordActive && Gdx.input.isKeyPressed(otherCommand.keys().get(ii).getKeyCode());
                             }
                             if(secondChordActive){
                                 chordActive = false;

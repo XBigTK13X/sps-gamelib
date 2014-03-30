@@ -32,7 +32,7 @@ public class AvailableInput {
     }
 
     private String getMessage() {
-        return ((_playerIndex.KeyboardIndex == null) ? "C" + _playerIndex.ControllerIndex : "K" + _playerIndex.KeyboardIndex);
+        return ((_playerIndex.KeyboardIndex == null) ? "C" + _playerIndex.GamepadIndex : "K" + _playerIndex.KeyboardIndex);
     }
 
     public void draw() {

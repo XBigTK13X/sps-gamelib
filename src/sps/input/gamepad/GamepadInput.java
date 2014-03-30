@@ -52,53 +52,38 @@ public class GamepadInput implements Serializable {
         this(name, Device.Pov, index, null, direction);
     }
 
-    public static GamepadInput parse(String source) {
-        //Wired Xbox 360 controllers are the only supported, non-serialized input
-        if (!source.toString().contains("{")) {
-            if (!source.equalsIgnoreCase("null")) {
-                return PreconfiguredGamepadInputs.get(source);
-            }
-            return null;
+    public static GamepadInput parse(String source, Float deadZone) {
+        JsonObject sourceJson = JSON.getObject(source);
+        String name = sourceJson.get("id").getAsString();
+        String inputType = sourceJson.get("type").getAsString();
+        String os = getPlatformString();
+        JsonObject config = sourceJson.get("config").getAsJsonObject().get(os).getAsJsonObject();
+        if (config.has("type")) {
+            inputType = config.get("type").getAsString();
         }
-        else {
-            JsonObject sourceJson = JSON.getObject(source);
-            String name = sourceJson.get("id").getAsString();
-            String inputType = sourceJson.get("type").getAsString();
-            String os = getPlatformString();
-            JsonObject config = sourceJson.get("config").getAsJsonObject().get(os).getAsJsonObject();
-            if (config.has("type")) {
-                inputType = config.get("type").getAsString();
-            }
-            GamepadInput Input = null;
-            int hardwareIndex = config.get("id").getAsInt();
-            switch (inputType) {
-                case "button":
-                    return new GamepadInput(name, hardwareIndex);
-                case "axis":
-                    String axisDirection = config.get("direction").getAsString();
-                    String bounds = config.get("bound").getAsString();
-                    float threshold = 0;
-                    switch(bounds){
-                        case "zeroPoint":
-                            threshold = GamepadAdapter.ZeroPoint;
-                            break;
-                        case "-zeroPoint":
-                            threshold = -GamepadAdapter.ZeroPoint;
-                            break;
-                        case "deadZone":
-                            threshold = GamepadAdapter.DeadZone;
-                            break;
-                        case "-deadZone":
-                            threshold = -GamepadAdapter.DeadZone;
-                            break;
-                    }
-                    return new GamepadInput(name, hardwareIndex, axisDirection, threshold);
-                case "pov":
-                    String povDirection = config.get("direction").getAsString();
-                    return new GamepadInput(name, hardwareIndex, povDirection);
-                default:
-                    return null;
-            }
+        int hardwareIndex = config.get("id").getAsInt();
+
+        switch (inputType) {
+            case "button":
+                return new GamepadInput(name, hardwareIndex);
+            case "axis":
+                String axisDirection = config.get("direction").getAsString();
+                String bounds = config.get("bound").getAsString();
+                float threshold = 0;
+                switch (bounds) {
+                    case "deadZone":
+                        threshold = deadZone;
+                        break;
+                    case "-deadZone":
+                        threshold = -deadZone;
+                        break;
+                }
+                return new GamepadInput(name, hardwareIndex, axisDirection, threshold);
+            case "pov":
+                String povDirection = config.get("direction").getAsString();
+                return new GamepadInput(name, hardwareIndex, povDirection);
+            default:
+                return null;
         }
     }
 
@@ -129,19 +114,7 @@ public class GamepadInput implements Serializable {
                 result += ", direction:\"" + _direction + "\"";
                 break;
             case Axis:
-                String boundId = "null";
-                if (_threshold == GamepadAdapter.ZeroPoint) {
-                    boundId = "zeroPoint";
-                }
-                if (_threshold == -GamepadAdapter.ZeroPoint) {
-                    boundId = "-zeroPoint";
-                }
-                if (_threshold == GamepadAdapter.DeadZone) {
-                    boundId = "deadZone";
-                }
-                if (_threshold == -GamepadAdapter.DeadZone) {
-                    boundId = "-deadZone";
-                }
+                result += ", direction:\"" + _direction + "\"";
                 result += ", bound:\"" + _threshold + "\"";
                 break;
             default:
@@ -153,7 +126,7 @@ public class GamepadInput implements Serializable {
     }
 
     public boolean isActive(PlayerIndex playerIndex) {
-        Controller controller = Controllers.getControllers().get(playerIndex.ControllerIndex);
+        Controller controller = Controllers.getControllers().get(playerIndex.GamepadIndex);
         switch (_inputType) {
             case Button:
                 return GamepadAdapter.get().isDown(controller, _hardwareId);

@@ -3,11 +3,13 @@ package sps.input;
 public class PlayerIndex {
     private Integer _playerIndex;
     public Integer KeyboardIndex;
-    public Integer ControllerIndex;
+    public Integer GamepadIndex;
+    public String GamepadType;
 
-    public PlayerIndex(int playerIndex, Integer keyboardIndex, Integer controllerIndex) {
+    public PlayerIndex(int playerIndex, Integer keyboardIndex, Integer gamepadIndex, String gamepadType) {
         KeyboardIndex = keyboardIndex;
-        ControllerIndex = controllerIndex;
+        GamepadIndex = gamepadIndex;
+        GamepadType = gamepadType;
         _playerIndex = playerIndex;
     }
 }

@@ -1,5 +1,7 @@
 package sps.input.gamepad;
 
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.Controllers;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -8,49 +10,73 @@ import sps.core.Loader;
 import sps.core.Logger;
 import sps.util.JSON;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 
 public class PreconfiguredGamepadInputs {
+    private static Map<String, Map<String, GamepadInput>> __inputs;
+    private static Map<String, List<String>> __hardwareNames;
 
-    private static Map<String, GamepadInput> __inputs;
-
-    public static Collection<GamepadInput> getAll() {
+    public static Map getAll() {
         if (__inputs == null) {
             init();
         }
-        return __inputs.values();
+        return __inputs;
     }
 
     private static void init() {
         __inputs = new HashMap<>();
+        __hardwareNames = new HashMap<>();
         try {
-            JsonObject json = JSON.getObject(FileUtils.readFileToString(Loader.get().data("gamepad.cfg")));
-            JsonObject rawVariables = json.get("vars").getAsJsonObject();
-            GamepadAdapter.DeadZone = rawVariables.get("deadZone").getAsFloat();
-            GamepadAdapter.MaxInputsPerDevice = rawVariables.get("genericButtonMax").getAsInt();
-            GamepadAdapter.ZeroPoint = rawVariables.get("zeroPoint").getAsFloat();
+            for (File config : Loader.get().data("gamepad").listFiles()) {
+                Logger.info("Reading gamepad config: " + config.getAbsolutePath());
+                if (!config.getName().contains("~") && !config.getName().contains(".DS_Store")) {
+                    JsonObject json = JSON.getObject(FileUtils.readFileToString(config));
+                    JsonObject rawVariables = json.get("vars").getAsJsonObject();
 
-            JsonArray bindings = json.getAsJsonArray("bindings");
-            for (JsonElement binding : bindings) {
-                String inputName = binding.getAsJsonObject().get("id").getAsString();
-                __inputs.put(inputName, GamepadInput.parse(binding.toString()));
+                    String title = json.get("title").getAsString();
+                    __hardwareNames.put(title, new ArrayList<String>());
+                    for (JsonElement el : rawVariables.get("hardwareNames").getAsJsonArray()) {
+                        __hardwareNames.get(title).add(el.getAsString());
+                    }
+                    __inputs.put(title, new HashMap<String, GamepadInput>());
+                    JsonArray bindings = json.getAsJsonArray("bindings");
+                    for (JsonElement binding : bindings) {
+                        String inputName = binding.getAsJsonObject().get("id").getAsString();
+                        __inputs.get(title).put(inputName, GamepadInput.parse(binding.toString(), rawVariables.get("deadZone").getAsFloat()));
+                    }
+                }
             }
-
         }
         catch (Exception e) {
             Logger.exception(e);
         }
     }
 
-    public static GamepadInput get(String controlName) {
+    public static String getTypeFromName(int controllerIndex) {
+        if (__hardwareNames == null) {
+            init();
+        }
+        Controller gamepad = Controllers.getControllers().get(controllerIndex);
+        for (String key : __hardwareNames.keySet()) {
+            for (String name : __hardwareNames.get(key)) {
+                if (gamepad.getName().toLowerCase().contains(name)) {
+                    return key;
+                }
+            }
+        }
+        return "sps-autoconf";
+    }
+
+    public static GamepadInput get(String type, String controlName) {
         if (__inputs == null) {
             init();
         }
-        for (String key : __inputs.keySet()) {
-            if (key.equalsIgnoreCase(controlName)) {
-                return __inputs.get(key);
+        if (__inputs.containsKey(type)) {
+            for (String controlKey : __inputs.get(type).keySet()) {
+                if (controlKey.equalsIgnoreCase(controlName)) {
+                    return __inputs.get(type).get(controlKey);
+                }
             }
         }
         return null;

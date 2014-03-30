@@ -3,9 +3,11 @@ package sps.bridge;
 import sps.input.gamepad.GamepadInput;
 import sps.input.Keys;
 
+import java.util.*;
+
 public class Command implements Comparable<Command> {
-    private GamepadInput _gamepadInput;
-    private Keys[] _keys;
+    private Map<String, List<GamepadInput>> _gamepadInput = new HashMap<>();
+    private List<Keys> _keys = new ArrayList<>();
     private String _name;
     public Context Context;
 
@@ -18,18 +20,26 @@ public class Command implements Comparable<Command> {
         _name = name;
     }
 
-    public void bind(GamepadInput gamepadInput, Keys... keys) {
-        _gamepadInput = gamepadInput;
+    public void bind(List<Keys> keys) {
         _keys = keys;
         recalcPrettyId();
     }
 
-    public GamepadInput controllerInput() {
-        return _gamepadInput;
+    public void bind(String gamepadType, List<GamepadInput> inputs) {
+        _gamepadInput.put(gamepadType, inputs);
+        recalcPrettyId();
     }
 
-    public Keys[] keys() {
+    public List<GamepadInput> controllerInput(String gamepadType) {
+        return _gamepadInput.get(gamepadType);
+    }
+
+    public List<Keys> keys() {
         return _keys;
+    }
+
+    public Collection<String> supportedGamepads(){
+        return _gamepadInput.keySet();
     }
 
     public String name() {
@@ -52,9 +62,9 @@ public class Command implements Comparable<Command> {
 
     private void recalcPrettyId() {
         _prettyId = "";
-        for (int ii = 0; ii < keys().length; ii++) {
-            _prettyId += keys()[ii];
-            if (ii < keys().length - 1) {
+        for (int ii = 0; ii < keys().size(); ii++) {
+            _prettyId += _keys.get(ii);
+            if (ii < keys().size() - 1) {
                 _prettyId += "+";
             }
         }

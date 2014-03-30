@@ -18,10 +18,7 @@ import sps.ui.ButtonStyle;
 import sps.ui.UIButton;
 import sps.time.CoolDown;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ControlConfigMenu extends OptionsState {
     private static class PrettyCommand {
@@ -34,10 +31,11 @@ public class ControlConfigMenu extends OptionsState {
         }
     }
 
-    public ControlConfigMenu(Sprite background,ConfigurableCommands commands) {
+    public ControlConfigMenu(Sprite background, ConfigurableCommands commands) {
         super(background);
         _commands = commands;
     }
+
     private ConfigurableCommands _commands;
 
     private List<PrettyCommand> _prettyCommands;
@@ -109,12 +107,12 @@ public class ControlConfigMenu extends OptionsState {
                     String chord = _chords.get(command);
                     if (chord.length() > 0) {
                         String[] keyIds = chord.split("\\+");
-                        Keys[] keys = new Keys[keyIds.length];
+                        List<Keys> keys = new ArrayList<>();
                         int ii = 0;
                         for (String id : keyIds) {
-                            keys[ii++] = Keys.fromName(id);
+                            keys.add(Keys.fromName(id));
                         }
-                        command.bind(command.controllerInput(), keys);
+                        command.bind(keys);
                     }
                 }
                 try {
@@ -143,7 +141,7 @@ public class ControlConfigMenu extends OptionsState {
 
     private void setupCommandNames() {
         _prettyCommands = new LinkedList<>();
-        for(String commandId:_commands.getIds()){
+        for (String commandId : _commands.getIds()) {
             _prettyCommands.add(new PrettyCommand(commandId, _commands.getDisplay(commandId)));
         }
     }

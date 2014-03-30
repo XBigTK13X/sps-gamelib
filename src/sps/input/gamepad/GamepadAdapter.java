@@ -10,9 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GamepadAdapter {
-    public static float DeadZone = .5f;
-    public static float ZeroPoint = -.5f;
-    public static float MaxInputsPerDevice = 50;
+    private static float MaxInputsPerDevice = 50;
 
     private static ControllerListener initTriggers = new ControllerListener() {
         @Override
@@ -68,7 +66,7 @@ public class GamepadAdapter {
 
     private GamepadAdapter() {
         if (controllers == null) {
-            controllers = new HashMap<Controller, ControllerState>();
+            controllers = new HashMap<>();
             for (Controller c : Controllers.getControllers()) {
                 controllers.put(c, new ControllerState());
                 for (int ii = 0; ii < MaxInputsPerDevice; ii++) {

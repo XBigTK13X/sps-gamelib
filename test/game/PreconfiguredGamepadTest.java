@@ -11,6 +11,8 @@ import sps.input.PlayerIndex;
 import sps.input.gamepad.GamepadInput;
 import sps.input.gamepad.PreconfiguredGamepadInputs;
 
+import java.util.Map;
+
 public class PreconfiguredGamepadTest extends InputAdapter implements ApplicationListener {
     private static DummyApp _context;
     private PlayerIndex _player;
@@ -31,7 +33,7 @@ public class PreconfiguredGamepadTest extends InputAdapter implements Applicatio
         if (Controllers.getControllers().size == 0) {
             print("No controllers attached");
         }
-        _player = new PlayerIndex(0,0,0);
+        _player = new PlayerIndex(0, 0, 0, "ps3");
     }
 
     @Override
@@ -48,9 +50,14 @@ public class PreconfiguredGamepadTest extends InputAdapter implements Applicatio
 
         }
 
-        for (GamepadInput input : PreconfiguredGamepadInputs.getAll()) {
-            if (input.isActive(_player)) {
-                Logger.info(input.getName() + " is active");
+        Map<String, Map<String, GamepadInput>> inputs = PreconfiguredGamepadInputs.getAll();
+        for (String gamepadType : inputs.keySet()) {
+            if (gamepadType.equalsIgnoreCase(_player.GamepadType)) {
+                for (GamepadInput input : inputs.get(gamepadType).values()) {
+                    if (input.isActive(_player)) {
+                        Logger.info(input.getName() + " is active");
+                    }
+                }
             }
         }
 
