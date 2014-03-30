@@ -33,6 +33,14 @@ public class PreconfiguredGamepadTest extends InputAdapter implements Applicatio
         if (Controllers.getControllers().size == 0) {
             print("No controllers attached");
         }
+        for(PlayerIndex player:Players.getAll()){
+            if(player.KeyboardIndex != null){
+                Logger.info("Player " +player.PlayerIndex+" registered with keyboard #"+player.KeyboardIndex);
+            }
+            else{
+                Logger.info("Player " +player.PlayerIndex+" registered with "+player.GamepadType +" gamepad number #"+player.GamepadIndex);
+            }
+        }
     }
 
     @Override

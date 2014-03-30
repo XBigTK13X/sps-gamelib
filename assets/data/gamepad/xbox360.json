@@ -3,7 +3,7 @@ title:"xbox360",
 
 vars:{
     deadZone:.5,
-    hardwareNames:["microsoft","xbox"]
+    hardwareNames:["microsoft","xbox","x-box"]
 },
 
 bindings:[
