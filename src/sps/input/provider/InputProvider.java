@@ -14,6 +14,8 @@ public interface InputProvider {
 
     public boolean isActive(Command command, PlayerIndex playerIndex);
 
+    public float getVector(Command command, PlayerIndex playerIndex);
+
     void setContext(Context context, PlayerIndex playerIndex);
 
     boolean isContext(Context context, PlayerIndex playerIndex);

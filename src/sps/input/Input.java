@@ -2,8 +2,6 @@ package sps.input;
 
 import com.badlogic.gdx.Gdx;
 import sps.bridge.*;
-import sps.core.Logger;
-import sps.core.SpsConfig;
 import sps.display.Screen;
 import sps.display.Window;
 import sps.input.provider.DefaultStateProvider;
@@ -63,16 +61,37 @@ public class Input implements InputProvider {
     }
 
     @Override
+    public float getVector(Command command, PlayerIndex playerIndex) {
+        if (playerIndex.GamepadIndex != null) {
+            if (command.controllerInput(playerIndex.GamepadType) != null) {
+                float vector = 0f;
+                float vectorCount = 0;
+                for (int ii = 0; ii < command.controllerInput(playerIndex.GamepadType).size(); ii++) {
+                    if (command.controllerInput(playerIndex.GamepadType).get(ii).isAxis()) {
+                        vector += command.controllerInput(playerIndex.GamepadType).get(ii).getVector(playerIndex);
+                        vectorCount++;
+                    }
+                }
+                if(vectorCount == 0){
+                    return 0f;
+                }
+                return vector / vectorCount;
+            }
+        }
+        return 0f;
+    }
+
+    @Override
     public boolean detectState(Command command, PlayerIndex playerIndex) {
-        if(_validCommands != null){
+        if (_validCommands != null) {
             boolean found = false;
             //TODO Force system commands (Exit, Pause, FullScreen, etc)
-            for(Command vC: _validCommands){
-                if(vC == command){
+            for (Command vC : _validCommands) {
+                if (vC == command) {
                     found = true;
                 }
             }
-            if(!found){
+            if (!found) {
                 return false;
             }
         }
@@ -88,9 +107,9 @@ public class Input implements InputProvider {
                     for (Command otherCommand : Commands.values()) {
                         if (otherCommand != command && otherCommand.controllerInput(playerIndex.GamepadType) != null) {
                             boolean anyCommonKeys = false;
-                            for(int ii = 0;ii<command.controllerInput(playerIndex.GamepadType).size();ii++){
-                                for(int jj = 0;jj< otherCommand.controllerInput(playerIndex.GamepadType).size();jj++){
-                                    if(command.controllerInput(playerIndex.GamepadType).get(ii) == otherCommand.controllerInput(playerIndex.GamepadType).get(jj)){
+                            for (int ii = 0; ii < command.controllerInput(playerIndex.GamepadType).size(); ii++) {
+                                for (int jj = 0; jj < otherCommand.controllerInput(playerIndex.GamepadType).size(); jj++) {
+                                    if (command.controllerInput(playerIndex.GamepadType).get(ii) == otherCommand.controllerInput(playerIndex.GamepadType).get(jj)) {
                                         anyCommonKeys = true;
                                     }
                                 }
@@ -100,7 +119,7 @@ public class Input implements InputProvider {
                                 for (int ii = 0; ii < otherCommand.controllerInput(playerIndex.GamepadType).size(); ii++) {
                                     secondChordActive = secondChordActive && otherCommand.controllerInput(playerIndex.GamepadType).get(ii).isActive(playerIndex);
                                 }
-                                if(secondChordActive){
+                                if (secondChordActive) {
                                     chordActive = false;
                                 }
                             }
@@ -121,9 +140,9 @@ public class Input implements InputProvider {
                 for (Command otherCommand : Commands.values()) {
                     if (otherCommand != command) {
                         boolean anyCommonKeys = false;
-                        for(int ii = 0;ii<command.keys().size();ii++){
-                            for(int jj = 0;jj< otherCommand.keys().size();jj++){
-                                if(command.keys().get(ii) == otherCommand.keys().get(jj)){
+                        for (int ii = 0; ii < command.keys().size(); ii++) {
+                            for (int jj = 0; jj < otherCommand.keys().size(); jj++) {
+                                if (command.keys().get(ii) == otherCommand.keys().get(jj)) {
                                     anyCommonKeys = true;
                                 }
                             }
@@ -133,7 +152,7 @@ public class Input implements InputProvider {
                             for (int ii = 0; ii < otherCommand.keys().size(); ii++) {
                                 secondChordActive = secondChordActive && Gdx.input.isKeyPressed(otherCommand.keys().get(ii).getKeyCode());
                             }
-                            if(secondChordActive){
+                            if (secondChordActive) {
                                 chordActive = false;
                             }
                         }

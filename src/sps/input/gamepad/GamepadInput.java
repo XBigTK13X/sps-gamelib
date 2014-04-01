@@ -146,6 +146,21 @@ public class GamepadInput implements Serializable {
         return false;
     }
 
+    public boolean isAxis() {
+        return _inputType == Device.Axis;
+    }
+
+    public float getVector(PlayerIndex playerIndex) {
+        if (_inputType == Device.Axis) {
+            Controller controller = Controllers.getControllers().get(playerIndex.GamepadIndex);
+            float scaled = GamepadAdapter.get().getScaledAxis(controller, _hardwareId, 1f);
+            if((_direction.equalsIgnoreCase("above") && scaled > 0) || ((_direction.equalsIgnoreCase("below") && scaled < 0))){
+                return scaled;
+            }
+        }
+        return 0f;
+    }
+
     public String getName() {
         return _name;
     }

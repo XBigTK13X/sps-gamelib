@@ -46,6 +46,8 @@ public class SpsConfig {
     public final int particleEffectPoolStartSize;
     public final int maxColorLookupSize;
 
+    public final float gamepadAxisDeadZone;
+
 
     private SpsConfig() {
         try {
@@ -97,5 +99,7 @@ public class SpsConfig {
         viewPaths = Parse.bool(_settings.get("viewPaths"));
         devConsoleEnabled = Parse.bool(_settings.get("devConsoleEnabled"));
         controllersEnabled = Parse.bool(_settings.get("controllersEnabled"));
+
+        gamepadAxisDeadZone = Parse.floa(_settings.get("gamepadAxisDeadZone"));
     }
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.controllers.ControllerListener;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.math.Vector3;
+import sps.core.SpsConfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -123,6 +124,17 @@ public class GamepadAdapter {
         return value < threshold && value != Float.MIN_VALUE;
     }
 
+    public float getScaledAxis(Controller controller, Integer axis, float max) {
+        if(controllers.get(controller).axes.get(axis) == Float.MIN_VALUE){
+            return 0f;
+        }
+        float result = controllers.get(controller).axes.get(axis) / max;
+        if(Math.abs(result) < SpsConfig.get().gamepadAxisDeadZone){
+            return 0f;
+        }
+        return result;
+    }
+
     public boolean isPovActive(Controller controller, Integer index, PovDirection direction) {
         return controllers.get(controller).povs.get(index) == direction;
     }
@@ -130,11 +142,11 @@ public class GamepadAdapter {
     private class ControllerState {
         private static final int axisMovementsRequiredForDetection = 2;
 
-        private Map<Integer, Float> axes = new HashMap<Integer, Float>();
-        private Map<Integer, Boolean> buttons = new HashMap<Integer, Boolean>();
-        private Map<Integer, PovDirection> povs = new HashMap<Integer, PovDirection>();
+        private Map<Integer, Float> axes = new HashMap<>();
+        private Map<Integer, Boolean> buttons = new HashMap<>();
+        private Map<Integer, PovDirection> povs = new HashMap<>();
 
-        private Map<Integer, Integer> axisMovements = new HashMap<Integer, Integer>();
+        private Map<Integer, Integer> axisMovements = new HashMap<>();
 
         public boolean hasBeenMoved(int axis) {
             if (!axisMovements.containsKey(axis)) {

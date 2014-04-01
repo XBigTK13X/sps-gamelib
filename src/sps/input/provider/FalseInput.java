@@ -27,6 +27,11 @@ public class FalseInput implements InputProvider {
     }
 
     @Override
+    public float getVector(Command command, PlayerIndex playerIndex) {
+        return 0;
+    }
+
+    @Override
     public void setContext(Context context, PlayerIndex playerIndex) {
 
     }
