@@ -70,18 +70,23 @@ public class GamepadInput implements Serializable {
             case "button":
                 return new GamepadInput(name, hardwareIndex);
             case "axis":
-                String axisDirection = config.get("direction").getAsString();
-                String bounds = config.get("bound").getAsString();
-                float threshold = 0;
-                switch (bounds) {
-                    case "deadZone":
-                        threshold = deadZone;
-                        break;
-                    case "-deadZone":
-                        threshold = -deadZone;
-                        break;
+                if (config.has("direction")) {
+                    String axisDirection = config.get("direction").getAsString();
+                    String bounds = config.get("bound").getAsString();
+                    float threshold = 0;
+                    switch (bounds) {
+                        case "deadZone":
+                            threshold = deadZone;
+                            break;
+                        case "-deadZone":
+                            threshold = -deadZone;
+                            break;
+                    }
+                    return new GamepadInput(name, hardwareIndex, axisDirection, threshold);
                 }
-                return new GamepadInput(name, hardwareIndex, axisDirection, threshold);
+                else {
+                    return new GamepadInput(name, hardwareIndex, null, 0f);
+                }
             case "pov":
                 String povDirection = config.get("direction").getAsString();
                 return new GamepadInput(name, hardwareIndex, povDirection);
@@ -136,6 +141,9 @@ public class GamepadInput implements Serializable {
             case Pov:
                 return GamepadAdapter.get().isPovActive(controller, _hardwareId, getPovDirection(_direction));
             case Axis:
+                if (_direction == null) {
+                    return getVector(playerIndex) != 0f;
+                }
                 if (_direction.equalsIgnoreCase("above")) {
                     return GamepadAdapter.get().isAxisGreaterThan(controller, _hardwareId, _threshold);
                 }
@@ -154,7 +162,10 @@ public class GamepadInput implements Serializable {
         if (_inputType == Device.Axis) {
             Controller controller = Controllers.getControllers().get(playerIndex.GamepadIndex);
             float scaled = GamepadAdapter.get().getScaledAxis(controller, _hardwareId, 1f);
-            if((_direction.equalsIgnoreCase("above") && scaled > 0) || ((_direction.equalsIgnoreCase("below") && scaled < 0))){
+            if (_direction == null) {
+                return scaled;
+            }
+            if ((_direction.equalsIgnoreCase("above") && scaled > 0) || ((_direction.equalsIgnoreCase("below") && scaled < 0))) {
                 return scaled;
             }
         }

@@ -137,6 +137,31 @@ bindings:[
             mac:{id:0,direction:"above",bound:"deadZone"}
          }},
 
+    {id:"LeftStickX",type:"axis",
+         config:{
+            linux:{id:0},
+            windows:{id:1},
+            mac:{id:2}
+         }},
+    {id:"LeftStickY",type:"axis",
+             config:{
+                linux:{id:1},
+                windows:{id:0},
+                mac:{id:3}
+             }},
+     {id:"RightStickX",type:"axis",
+              config:{
+                 linux:{id:3},
+                 windows:{id:3},
+                 mac:{id:4}
+              }},
+    {id:"RightStickY",type:"axis",
+             config:{
+                linux:{id:4},
+                windows:{id:2},
+                mac:{id:5}
+             }},
+
     {id:"LeftStickUp",type:"axis",
          config:{
             linux:{id:1,direction:"below",bound:"-deadZone"},

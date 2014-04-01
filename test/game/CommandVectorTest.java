@@ -56,9 +56,6 @@ public class CommandVectorTest extends InputAdapter implements ApplicationListen
                 if (Input.get().getVector(command, player) != 0f) {
                     Logger.info(command.name() + " for player #" + player.PlayerIndex + " is currently " + Input.get().getVector(command, player));
                 }
-                if (Input.get().isActive(command, player)) {
-
-                }
             }
         }
 

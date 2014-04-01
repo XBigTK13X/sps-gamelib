@@ -131,7 +131,7 @@ public class Input implements InputProvider {
         }
 
         boolean keyboardActive = false;
-        if (playerIndex.KeyboardIndex != null) {
+        if (playerIndex.KeyboardIndex != null && !command.keys().isEmpty()) {
             boolean chordActive = true;
             for (int ii = 0; ii < command.keys().size(); ii++) {
                 chordActive = chordActive && Gdx.input.isKeyPressed(command.keys().get(ii).getKeyCode());
