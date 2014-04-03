@@ -1,59 +1,44 @@
 package sps.bridge;
 
+import sps.core.Logger;
+import sps.input.InputBindings;
+
 import java.util.*;
 
 public class Commands {
-    private static Commands instance;
+    private static Map<String, Command> commands;
+    private static List<Command> values;
+    private static String __current = "";
 
-    public static Command get(String name) {
-        if (instance == null) {
-            instance = new Commands();
+    private static void init(){
+        if (commands == null) {
+            commands = new HashMap<>();
+            values = new LinkedList<>();
         }
-        return instance.resolve(name);
-    }
-
-    public static void add(Command command) {
-        if (instance == null) {
-            instance = new Commands();
-        }
-        instance.put(command);
     }
 
     public static void clear() {
-        instance = new Commands();
+        init();
     }
 
-    public static List<Command> values() {
-        if (instance == null) {
-            instance = new Commands();
+    public static Command get(String name) {
+        init();
+        __current = name.toLowerCase();
+        if(!commands.containsKey(__current) && InputBindings.areLoaded()){
+            Logger.exception(new RuntimeException("Input binding not set for command -> "+name));
         }
-        return instance.all();
+        return commands.get(__current);
     }
 
-    public static int size() {
-        return instance.all().size();
-    }
-
-
-    private Map<String, Command> commands = new HashMap<String, Command>();
-
-    private Commands() {
-
-    }
-
-    public void put(Command command) {
+    public static void add(Command command) {
+        init();
         commands.put(command.name().toLowerCase(), command);
     }
 
-    public Command resolve(String name) {
-        return commands.get(name.toLowerCase());
-    }
-
-    private List<Command> values;
-
-    public List<Command> all() {
+    public static List<Command> values() {
+        init();
         if (values == null || values.size() != commands.entrySet().size()) {
-            values = new ArrayList<>();
+            values = new LinkedList<>();
             for (String key : commands.keySet()) {
                 values.add(commands.get(key));
             }
@@ -62,4 +47,11 @@ public class Commands {
         return values;
     }
 
+    public static int size() {
+        return commands.size();
+    }
+
+    private Commands() {
+
+    }
 }

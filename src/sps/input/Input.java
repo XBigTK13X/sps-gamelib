@@ -72,7 +72,7 @@ public class Input implements InputProvider {
                         vectorCount++;
                     }
                 }
-                if(vectorCount == 0){
+                if (vectorCount == 0) {
                     return 0f;
                 }
                 return vector / vectorCount;

@@ -19,6 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InputBindings {
+    private static boolean __loaded = false;
+    public static boolean areLoaded(){
+        return __loaded;
+    }
+
     public static void reload(final File config) {
         reload(config, true);
     }
@@ -151,5 +156,6 @@ public class InputBindings {
             Logger.info("Failed to parse input config on line: " + lineCount);
             Logger.exception(e);
         }
+        __loaded = true;
     }
 }
