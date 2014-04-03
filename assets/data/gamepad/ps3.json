@@ -108,6 +108,31 @@
              mac:{id:2}
           }},
 
+    {id:"LeftStickX",type:"axis",
+         config:{
+            linux:{id:0},
+            windows:{id:0},
+            mac:{id:0}
+         }},
+    {id:"LeftStickY",type:"axis",
+             config:{
+                linux:{id:1},
+                windows:{id:1},
+                mac:{id:1}
+             }},
+     {id:"RightStickX",type:"axis",
+              config:{
+                 linux:{id:2},
+                 windows:{id:2},
+                 mac:{id:2}
+              }},
+    {id:"RightStickY",type:"axis",
+             config:{
+                linux:{id:3},
+                windows:{id:3},
+                mac:{id:3}
+             }},
+
      {id:"LeftStickUp",type:"axis",
           config:{
              linux:{id:1,direction:"below",bound:"-deadZone"},
