@@ -2,6 +2,7 @@ package sps.input;
 
 import com.badlogic.gdx.Gdx;
 import sps.bridge.*;
+import sps.core.Logger;
 import sps.display.Screen;
 import sps.display.Window;
 import sps.input.provider.DefaultStateProvider;
@@ -72,7 +73,7 @@ public class Input implements InputProvider {
                         vectorCount++;
                     }
                 }
-                if (vectorCount == 0) {
+                if(vectorCount == 0){
                     return 0f;
                 }
                 return vector / vectorCount;
