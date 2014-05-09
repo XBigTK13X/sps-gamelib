@@ -1,2 +1,2 @@
 #! /bin/bash
-cat assets/data/version.dat
+cat proj/core/assets/data/version.dat

@@ -20,8 +20,6 @@ cd ..
 rsync -a --exclude=".*" sgl/ $NAME/
 cp sgl/.gitignore $NAME/.gitignore
 cd $NAME
-rm -rf logs
-rm -rf target
 git add -A .
 git commit -qam "Copy sps-gamelib [$GIT_VERSION] for new project."
 echo "Git repo setup for new project."
