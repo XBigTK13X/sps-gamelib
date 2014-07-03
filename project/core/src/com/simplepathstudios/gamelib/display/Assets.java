@@ -11,6 +11,7 @@ import com.simplepathstudios.gamelib.bridge.SpriteType;
 import com.simplepathstudios.gamelib.bridge.SpriteTypes;
 import com.simplepathstudios.gamelib.core.Loader;
 import com.simplepathstudios.gamelib.core.Logger;
+import com.simplepathstudios.gamelib.util.BoundingBox;
 import com.simplepathstudios.gamelib.util.JSON;
 import com.simplepathstudios.gamelib.util.Parse;
 import org.apache.commons.io.FileUtils;
@@ -39,7 +40,7 @@ public class Assets {
 
     private void scanSprites(String graphicsPath) {
         for (File spriteTile : Loader.get().graphics(graphicsPath).listFiles()) {
-            switch(FilenameUtils.getExtension(spriteTile.getName())){
+            switch (FilenameUtils.getExtension(spriteTile.getName())) {
                 case "txt":
                     continue;
             }
@@ -70,22 +71,45 @@ public class Assets {
         }
     }
 
-    private void scanSheets(String graphicsPath){
+    private int currentSheetIndex = -1;
+
+    private BoundingBox getFrameBounds(JsonObject frame) {
+        return BoundingBox.fromDimensions(frame.get("x").getAsInt(), frame.get("y").getAsInt(), frame.get("width").getAsInt(), frame.get("height").getAsInt());
+    }
+
+    private void parseSheet(String graphicsPath, JsonObject sheetJSON) {
+        File spriteSheet = new File(graphicsPath, sheetJSON.get("file").getAsString());
+        String collection = sheetJSON.get("collection").getAsString();
+        for (JsonElement spriteEl : sheetJSON.get("sprites").getAsJsonArray()) {
+            JsonObject sprite = spriteEl.getAsJsonObject();
+            String name = sprite.get("name").getAsString();
+
+            _spriteNames.put(currentSheetIndex--, collection + "." + name);
+
+            if (sprite.has("frames")) {
+                for (JsonElement frameEl : sprite.get("frames").getAsJsonArray()) {
+                    BoundingBox bounds = getFrameBounds(frameEl.getAsJsonObject());
+                }
+            }
+            else {
+                BoundingBox bounds = getFrameBounds(sprite);
+            }
+        }
+    }
+
+    private void scanSheets(String graphicsPath) {
         for (File sheetDesc : Loader.get().graphics(graphicsPath).listFiles()) {
             if (!sheetDesc.isHidden()) {
                 if (sheetDesc.isDirectory()) {
                     scanSheets(graphicsPath + '/' + sheetDesc.getName());
                     continue;
                 }
-                if(FilenameUtils.getExtension(sheetDesc.getName()).equals("json")){
-                    try{
+                if (FilenameUtils.getExtension(sheetDesc.getName()).equals("json")) {
+                    try {
                         JsonObject sheetJSON = JSON.getObject(FileUtils.readFileToString(sheetDesc));
-                        for(JsonElement sprite:sheetJSON.getAsJsonArray("sprites")){
-                            JsonObject entry = sprite.getAsJsonObject();
-                            //TODO Flesh out JSON parse
-                        }
+                        parseSheet(graphicsPath, sheetJSON);
                     }
-                    catch(Exception swallow){
+                    catch (Exception swallow) {
 
                     }
                 }
