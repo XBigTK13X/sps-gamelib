@@ -1,5 +1,6 @@
 package com.simplepathstudios.gamelib.bridge;
 
+import com.simplepathstudios.gamelib.core.Logger;
 import com.simplepathstudios.gamelib.display.SpriteDefinition;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class SpriteTypes {
 
     public SpriteType resolve(String name) {
         if (!spriteTypes.containsKey(name)) {
+            Logger.error("Unable to find sprite type: [" + name + "]");
             return null;
         }
         return spriteTypes.get(name);

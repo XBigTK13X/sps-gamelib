@@ -8,7 +8,7 @@ import com.simplepathstudios.gamelib.input.InputWrapper;
 
 public class SamplePlayer extends AnimatedEntity {
     public SamplePlayer() {
-        super(Screen.rand(10, 90, 10, 90), SpriteTypes.get("Player Stand"), DrawDepths.get("Player"));
+        super(Screen.rand(10, 90, 10, 90), SpriteTypes.get("P1_walk"), DrawDepths.get("Player"));
     }
 
     @Override

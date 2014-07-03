@@ -27,10 +27,7 @@ public class SampleGameplay implements State {
     public void create() {
         _timer = new CoolDown(.3f);
         _background = BackgroundMaker.radialDark();
-        if (SpriteTypes.get("Player Stand") != null) {
-            Logger.info("Player added");
-            Systems.get(Entities.class).add(new SamplePlayer());
-        }
+        Systems.get(Entities.class).add(new SamplePlayer());
     }
 
     @Override

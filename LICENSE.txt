@@ -8,15 +8,10 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ## Media licenses
-See speficic licenses listed under the assets/graphics/sprite/X folders
-
-graphics/sprite/icons came from http://opengameart.org/content/420-pixel-art-icons-for-medievalfantasy-rpg
-
-graphics/sprite/kp came from http://opengameart.org/content/platformer-art-deluxe
-
 All images without a specific license are licensed under CC BYSA 3.0. 
 More information about this license can be found here: http://creativecommons.org/licenses/bysa/3.0/
 
+graphics/sheets/kp came from http://opengameart.org/content/platformer-art-deluxe
 
 ## Font Licenses
 See specific licenses under the assets/graphics/font/

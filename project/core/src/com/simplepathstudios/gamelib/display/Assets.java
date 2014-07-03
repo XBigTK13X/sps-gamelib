@@ -10,6 +10,7 @@ import com.simplepathstudios.gamelib.bridge.SpriteTypes;
 import com.simplepathstudios.gamelib.core.Loader;
 import com.simplepathstudios.gamelib.core.Logger;
 import com.simplepathstudios.gamelib.util.Parse;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.util.HashMap;
@@ -27,38 +28,69 @@ public class Assets {
 
     private final FontPack _fonts;
 
-    private Map<String, Texture> textures = new HashMap<String, Texture>();
+    private Map<String, Texture> _textures = new HashMap<>();
 
-    private final HashMap<Integer, HashMap<Integer, Sprite>> indexedSprites = new HashMap<Integer, HashMap<Integer, Sprite>>();
-    private final HashMap<Integer, String> spriteNames = new HashMap<Integer, String>();
+    private final HashMap<Integer, HashMap<Integer, Sprite>> _indexedSprites = new HashMap<>();
+    private final HashMap<Integer, String> _spriteNames = new HashMap<>();
 
-    private Assets() {
-        _fonts = new FontPack();
-        for (File spriteTile : Loader.get().graphics("sprites").listFiles()) {
+    private void scanSprites(String graphicsPath) {
+        for (File spriteTile : Loader.get().graphics(graphicsPath).listFiles()) {
+            switch(FilenameUtils.getExtension(spriteTile.getName())){
+                case "txt":
+                    continue;
+            }
             if (!spriteTile.isHidden()) {
+                if (spriteTile.isDirectory()) {
+                    scanSprites(graphicsPath + '/' + spriteTile.getName());
+                    continue;
+                }
                 String[] comps = spriteTile.getName().split("-");
                 int index = Parse.inte(comps[0]);
                 int frame = Parse.inte(comps[1]);
                 String name = "";
-                for (int ii = 2; ii < comps.length; ii++) {
+                for (int ii = 1; ii < comps.length; ii++) {
                     String baseName = comps[ii].replace(".png", "");
                     name += Character.toUpperCase(baseName.charAt(0)) + baseName.substring(1) + " ";
                 }
                 name = name.substring(0, name.length() - 1);
-                spriteNames.put(index, name);
+
+                _spriteNames.put(index, name);
                 Sprite sprite = new Sprite(new Texture(spriteTile.getAbsolutePath()));
-                if (!indexedSprites.containsKey(index)) {
-                    indexedSprites.put(index, new HashMap<Integer, Sprite>());
+                if (!_indexedSprites.containsKey(index)) {
+                    _indexedSprites.put(index, new HashMap<>());
                 }
-                if (!indexedSprites.get(index).containsKey(frame)) {
-                    indexedSprites.get(index).put(frame, sprite);
+                if (!_indexedSprites.get(index).containsKey(frame)) {
+                    _indexedSprites.get(index).put(frame, sprite);
                 }
             }
         }
+    }
 
-        for (Integer index : indexedSprites.keySet()) {
-            int frames = indexedSprites.get(index).keySet().size();
-            String id = spriteNames.get(index);
+    private void scanSheets(String graphicsPath){
+        for (File spriteTile : Loader.get().graphics(graphicsPath).listFiles()) {
+            switch (FilenameUtils.getExtension(spriteTile.getName())) {
+                case "txt":
+                    continue;
+            }
+            if (!spriteTile.isHidden()) {
+                if (spriteTile.isDirectory()) {
+                    scanSheets(graphicsPath + '/' + spriteTile.getName());
+                    continue;
+                }
+                
+            }
+        }
+    }
+
+    private Assets() {
+        _fonts = new FontPack();
+
+        scanSprites("sprites");
+        scanSheets("sheets");
+
+        for (Integer index : _indexedSprites.keySet()) {
+            int frames = _indexedSprites.get(index).keySet().size();
+            String id = _spriteNames.get(index);
             SpriteTypes.add(new SpriteType(id, index, frames));
         }
     }
@@ -88,17 +120,17 @@ public class Assets {
     }
 
     public Texture image(String fileName) {
-        if (!textures.containsKey(fileName)) {
-            textures.put(fileName, new Texture(Loader.get().graphics(fileName).getAbsolutePath()));
+        if (!_textures.containsKey(fileName)) {
+            _textures.put(fileName, new Texture(Loader.get().graphics(fileName).getAbsolutePath()));
         }
-        return textures.get(fileName);
+        return _textures.get(fileName);
     }
 
     public Sprite sprite(int verticalIndex) {
-        return indexedSprites.get(verticalIndex).get(0);
+        return _indexedSprites.get(verticalIndex).get(0);
     }
 
     public Sprite sprite(int frame, int index) {
-        return indexedSprites.get(index).get(frame);
+        return _indexedSprites.get(index).get(frame);
     }
 }
