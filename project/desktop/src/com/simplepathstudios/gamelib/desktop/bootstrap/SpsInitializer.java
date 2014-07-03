@@ -14,7 +14,7 @@ import com.simplepathstudios.gamelib.data.GameConfig;
 import com.simplepathstudios.gamelib.data.Options;
 import com.simplepathstudios.gamelib.data.UserFiles;
 import com.simplepathstudios.gamelib.display.Assets;
-import com.simplepathstudios.gamelib.display.SpriteSheetManager;
+import com.simplepathstudios.gamelib.display.SpriteManager;
 import com.simplepathstudios.gamelib.display.Window;
 import com.simplepathstudios.gamelib.display.render.FrameStrategy;
 import com.simplepathstudios.gamelib.entity.Entities;
@@ -112,7 +112,7 @@ public class SpsInitializer {
                 Window.get(true).screenEngine().setStrategy(new FrameStrategy());
                 Players.init();
                 Input.get().setup(new DefaultStateProvider());
-                SpriteSheetManager.setup(SpriteTypes.getDefs());
+                SpriteManager.setup(SpriteTypes.getDefs());
             }
         });
 

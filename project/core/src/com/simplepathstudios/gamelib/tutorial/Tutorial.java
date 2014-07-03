@@ -36,7 +36,7 @@ public class Tutorial {
             __background = SpriteMaker.pixel(bg);
             __background.setSize(Screen.width(100), Screen.height(100));
 
-            SpriteInfo arrowInfo = SpriteSheetManager.getSpriteInfo(SpriteTypes.get("Arrow"));
+            SpriteInfo arrowInfo = SpriteManager.getSpriteInfo(SpriteTypes.get("Arrow"));
             __arrow = Assets.get().sprite(arrowInfo.SpriteIndex);
         }
         _steps = new ArrayList<>();

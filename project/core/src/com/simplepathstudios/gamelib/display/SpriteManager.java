@@ -5,7 +5,7 @@ import com.simplepathstudios.gamelib.bridge.SpriteType;
 import java.util.HashMap;
 import java.util.List;
 
-public class SpriteSheetManager {
+public class SpriteManager {
     private static final HashMap<SpriteType, SpriteInfo> __manager = new HashMap<SpriteType, SpriteInfo>();
 
     public static SpriteInfo getSpriteInfo(SpriteType spriteName) {

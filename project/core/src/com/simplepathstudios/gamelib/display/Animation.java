@@ -33,7 +33,7 @@ public class Animation {
 
     public Animation(SpriteType assetName, DrawDepth depth) {
         _depth = depth;
-        _spriteInfo = SpriteSheetManager.getSpriteInfo(assetName);
+        _spriteInfo = SpriteManager.getSpriteInfo(assetName);
         _animationTimer = Sps.AnimationFps;
     }
 
