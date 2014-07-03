@@ -1,3 +1,5 @@
+#! /bin/bash
+
 NAME=$1
 if [[ $# -eq 0 ]] ; then
     echo 'New project directory name required'
@@ -17,7 +19,7 @@ mkdir $NAME
 cd $NAME
 git init -q
 cd ..
-rsync -a --exclude=".*" sgl/ $NAME/
+rsync -a --exclude=".*" --exclude="*.iml" sgl/ $NAME/
 cp sgl/.gitignore $NAME/.gitignore
 cd $NAME
 git add -A .
