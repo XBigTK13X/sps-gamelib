@@ -1,118 +1,112 @@
 {
-"file":"p1.png",
-"collection":"p1",
-"sprites":[
-  {
-    "name":"duck",
-    "x":365,
-    "y":98,
-    "width":69,
-    "height":71
-  },
-  {
-    "name":"front",
-    "x":0,
-    "y":196,
-    "width":66,
-    "height":92
-  },
-  {
-    "name":"hurt",
-    "x":438,
-    "y":0,
-    "width":69,
-    "height":92
-  },
-  {
-    "name":"jump",
-    "x":438,
-    "y":93,
-    "width":67,
-    "height":94
-  },
-  {
-    "name":"stand",
-    "x":67,
-    "y":196,
-    "width":66,
-    "height":92
-  },
-  {
-    "name":"walk01",
-    "x":0,
-    "y":0,
-    "width":72,
-    "height":97
-  },
-  {
-    "name":"walk02",
-    "x":73,
-    "y":0,
-    "width":72,
-    "height":97
-  },
-  {
-    "name":"walk03",
-    "x":146,
-    "y":0,
-    "width":72,
-    "height":97
-  },
-  {
-    "name":"walk04",
-    "x":0,
-    "y":98,
-    "width":72,
-    "height":97
-  },
-  {
-    "name":"walk05",
-    "x":73,
-    "y":98,
-    "width":72,
-    "height":97
-  },
-  {
-    "name":"walk06",
-    "x":146,
-    "y":98,
-    "width":72,
-    "height":97
-  },
-  {
-    "name":"walk07",
-    "x":219,
-    "y":0,
-    "width":72,
-    "height":97
-  },
-  {
-    "name":"walk08",
-    "x":292,
-    "y":0,
-    "width":72,
-    "height":97
-  },
-  {
-    "name":"walk09",
-    "x":219,
-    "y":98,
-    "width":72,
-    "height":97
-  },
-  {
-    "name":"walk10",
-    "x":365,
-    "y":0,
-    "width":72,
-    "height":97
-  },
-  {
-    "name":"walk11",
-    "x":292,
-    "y":98,
-    "width":72,
-    "height":97
-  }
-]	
+  "file": "p1.png",
+  "collection": "p1",
+  "sprites": [
+    {
+      "name": "duck",
+      "x": 365,
+      "y": 98,
+      "width": 69,
+      "height": 71
+    },
+    {
+      "name": "front",
+      "x": 0,
+      "y": 196,
+      "width": 66,
+      "height": 92
+    },
+    {
+      "name": "hurt",
+      "x": 438,
+      "y": 0,
+      "width": 69,
+      "height": 92
+    },
+    {
+      "name": "jump",
+      "x": 438,
+      "y": 93,
+      "width": 67,
+      "height": 94
+    },
+    {
+      "name": "stand",
+      "x": 67,
+      "y": 196,
+      "width": 66,
+      "height": 92
+    },
+    {
+      "name": "walk",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 72,
+          "height": 97
+        },
+        {
+          "x": 73,
+          "y": 0,
+          "width": 72,
+          "height": 97
+        },
+        {
+          "x": 146,
+          "y": 0,
+          "width": 72,
+          "height": 97
+        },
+        {
+          "x": 0,
+          "y": 98,
+          "width": 72,
+          "height": 97
+        },
+        {
+          "x": 73,
+          "y": 98,
+          "width": 72,
+          "height": 97
+        },
+        {
+          "x": 146,
+          "y": 98,
+          "width": 72,
+          "height": 97
+        },
+        {
+          "x": 219,
+          "y": 0,
+          "width": 72,
+          "height": 97
+        },
+        {
+          "x": 292,
+          "y": 0,
+          "width": 72,
+          "height": 97
+        },
+        {
+          "x": 219,
+          "y": 98,
+          "width": 72,
+          "height": 97
+        },
+        {
+          "x": 365,
+          "y": 0,
+          "width": 72,
+          "height": 97
+        },
+        {
+          "x": 292,
+          "y": 98,
+          "width": 72,
+          "height": 97
+        }
+      ]
+    }
+  ]
 }

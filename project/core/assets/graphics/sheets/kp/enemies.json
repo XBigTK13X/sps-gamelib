@@ -1,143 +1,144 @@
 {
-"file":"enemies.png",
-"collection":"enemies",
-"sprites":
-[{
-	"name":"blockerBody",
-	"x":"203",
-	"y":"0",
-	"width":"51",
-	"height":"51"
-},
-{
-	"name":"blockerMad",
-	"x":"136",
-	"y":"66",
-	"width":"51",
-	"height":"51"
-},
-{
-	"name":"blockerSad",
-	"x":"188",
-	"y":"66",
-	"width":"51",
-	"height":"51"
-},
-{
-	"name":"fishDead",
-	"x":"0",
-	"y":"69",
-	"width":"66",
-	"height":"42"
-},
-{
-	"name":"fishSwim",
-	"frames":[
-		{
-			"x":"76",
-			"y":"0",
-			"width":"66",
-			"height":"42"
-		},
-		{
-			"x":"73",
-			"y":"43",
-			"width":"62",
-			"height":"43"
-		}
-	]	
-},
-{
-	"name":"flyDead",	
-	"x":"143",
-	"y":"0",
-	"width":"59",
-	"height":"33"
-},
-{
-	"name":"flyFlying",
-	"frames":[
-		{
-			"x":"0",
-			"y":"32",
-			"width":"72",
-			"height":"36"
-		},
-		{
-			"x":"0",
-			"y":"0",
-			"width":"75",
-			"height":"31"
-		}
-	]
-},
-{
-	"name":"pokerMad",	
-	"x":"255",
-	"y":"0",
-	"width":"48",
-	"height":"146"
-},
-{
-	"name":"pokerSad",	
-	"x":"304",
-	"y":"0",
-	"width":"48",
-	"height":"146"
-},
-{
-	"name":"slimeDead",	
-	"x":"0",
-	"y":"112",
-	"width":"59",
-	"height":"12"
-},
-{
-	"name":"slimeWalk",
-	"frames":[
-		{
-			"x":"52",
-			"y":"125",
-			"width":"50",
-			"height":"28"
-		},
-		{
-			"x":"0",
-			"y":"125",
-			"width":"51",
-			"height":"26"
-		}
-	]	
-},
-{
-	"name":"snailShell",	
-	"x":"103",
-	"y":"119",
-	"width":"44",
-	"height":"30"
-},
-{
-	"name":"snailShell_upsidedown",	
-	"x":"148",
-	"y":"118",
-	"width":"44",
-	"height":"30"
-},
-{
-	"name":"snailWalk",
-	"frames":[
-		{
-			"x":"143",
-			"y":"34",
-			"width":"54",
-			"height":"31"
-		},
-		{
-			"x":"67",
-			"y":"87",
-			"width":"57",
-			"height":"31"
-		}
-	]	
-}]
+  "file": "enemies.png",
+  "collection": "enemies",
+  "sprites": [
+    {
+      "name": "blockerBody",
+      "x": "203",
+      "y": "0",
+      "width": "51",
+      "height": "51"
+    },
+    {
+      "name": "blockerMad",
+      "x": "136",
+      "y": "66",
+      "width": "51",
+      "height": "51"
+    },
+    {
+      "name": "blockerSad",
+      "x": "188",
+      "y": "66",
+      "width": "51",
+      "height": "51"
+    },
+    {
+      "name": "fishDead",
+      "x": "0",
+      "y": "69",
+      "width": "66",
+      "height": "42"
+    },
+    {
+      "name": "fishSwim",
+      "frames": [
+        {
+          "x": "76",
+          "y": "0",
+          "width": "66",
+          "height": "42"
+        },
+        {
+          "x": "73",
+          "y": "43",
+          "width": "62",
+          "height": "43"
+        }
+      ]
+    },
+    {
+      "name": "flyDead",
+      "x": "143",
+      "y": "0",
+      "width": "59",
+      "height": "33"
+    },
+    {
+      "name": "flyFlying",
+      "frames": [
+        {
+          "x": "0",
+          "y": "32",
+          "width": "72",
+          "height": "36"
+        },
+        {
+          "x": "0",
+          "y": "0",
+          "width": "75",
+          "height": "31"
+        }
+      ]
+    },
+    {
+      "name": "pokerMad",
+      "x": "255",
+      "y": "0",
+      "width": "48",
+      "height": "146"
+    },
+    {
+      "name": "pokerSad",
+      "x": "304",
+      "y": "0",
+      "width": "48",
+      "height": "146"
+    },
+    {
+      "name": "slimeDead",
+      "x": "0",
+      "y": "112",
+      "width": "59",
+      "height": "12"
+    },
+    {
+      "name": "slimeWalk",
+      "frames": [
+        {
+          "x": "52",
+          "y": "125",
+          "width": "50",
+          "height": "28"
+        },
+        {
+          "x": "0",
+          "y": "125",
+          "width": "51",
+          "height": "26"
+        }
+      ]
+    },
+    {
+      "name": "snailShell",
+      "x": "103",
+      "y": "119",
+      "width": "44",
+      "height": "30"
+    },
+    {
+      "name": "snailShell_upsidedown",
+      "x": "148",
+      "y": "118",
+      "width": "44",
+      "height": "30"
+    },
+    {
+      "name": "snailWalk",
+      "frames": [
+        {
+          "x": "143",
+          "y": "34",
+          "width": "54",
+          "height": "31"
+        },
+        {
+          "x": "67",
+          "y": "87",
+          "width": "57",
+          "height": "31"
+        }
+      ]
+    }
+  ]
 }
