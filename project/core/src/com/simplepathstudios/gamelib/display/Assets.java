@@ -5,11 +5,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.simplepathstudios.gamelib.bridge.SpriteType;
 import com.simplepathstudios.gamelib.bridge.SpriteTypes;
 import com.simplepathstudios.gamelib.core.Loader;
 import com.simplepathstudios.gamelib.core.Logger;
+import com.simplepathstudios.gamelib.util.JSON;
 import com.simplepathstudios.gamelib.util.Parse;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
@@ -67,17 +71,24 @@ public class Assets {
     }
 
     private void scanSheets(String graphicsPath){
-        for (File spriteTile : Loader.get().graphics(graphicsPath).listFiles()) {
-            switch (FilenameUtils.getExtension(spriteTile.getName())) {
-                case "txt":
-                    continue;
-            }
-            if (!spriteTile.isHidden()) {
-                if (spriteTile.isDirectory()) {
-                    scanSheets(graphicsPath + '/' + spriteTile.getName());
+        for (File sheetDesc : Loader.get().graphics(graphicsPath).listFiles()) {
+            if (!sheetDesc.isHidden()) {
+                if (sheetDesc.isDirectory()) {
+                    scanSheets(graphicsPath + '/' + sheetDesc.getName());
                     continue;
                 }
-                
+                if(FilenameUtils.getExtension(sheetDesc.getName()).equals("json")){
+                    try{
+                        JsonObject sheetJSON = JSON.getObject(FileUtils.readFileToString(sheetDesc));
+                        for(JsonElement sprite:sheetJSON.getAsJsonArray("sprites")){
+                            JsonObject entry = sprite.getAsJsonObject();
+                            //TODO Flesh out JSON parse
+                        }
+                    }
+                    catch(Exception swallow){
+
+                    }
+                }
             }
         }
     }
