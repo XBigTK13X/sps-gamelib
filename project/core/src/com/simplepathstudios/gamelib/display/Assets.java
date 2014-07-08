@@ -1,9 +1,11 @@
 package com.simplepathstudios.gamelib.display;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -38,6 +40,15 @@ public class Assets {
     private final HashMap<Integer, HashMap<Integer, Sprite>> _indexedSprites = new HashMap<>();
     private final HashMap<Integer, String> _spriteNames = new HashMap<>();
 
+    private void cacheSprite(int index, int frame, Sprite sprite) {
+        if (!_indexedSprites.containsKey(index)) {
+            _indexedSprites.put(index, new HashMap<>());
+        }
+        if (!_indexedSprites.get(index).containsKey(frame)) {
+            _indexedSprites.get(index).put(frame, sprite);
+        }
+    }
+
     private void scanSprites(String graphicsPath) {
         for (File spriteTile : Loader.get().graphics(graphicsPath).listFiles()) {
             switch (FilenameUtils.getExtension(spriteTile.getName())) {
@@ -46,7 +57,7 @@ public class Assets {
             }
             if (!spriteTile.isHidden()) {
                 if (spriteTile.isDirectory()) {
-                    scanSprites(graphicsPath + '/' + spriteTile.getName());
+                    scanSprites(new File(graphicsPath, spriteTile.getName()).getPath());
                     continue;
                 }
                 String[] comps = spriteTile.getName().split("-");
@@ -61,12 +72,7 @@ public class Assets {
 
                 _spriteNames.put(index, name);
                 Sprite sprite = new Sprite(new Texture(spriteTile.getAbsolutePath()));
-                if (!_indexedSprites.containsKey(index)) {
-                    _indexedSprites.put(index, new HashMap<>());
-                }
-                if (!_indexedSprites.get(index).containsKey(frame)) {
-                    _indexedSprites.get(index).put(frame, sprite);
-                }
+                cacheSprite(index, frame, sprite);
             }
         }
     }
@@ -77,22 +83,35 @@ public class Assets {
         return BoundingBox.fromDimensions(frame.get("x").getAsInt(), frame.get("y").getAsInt(), frame.get("width").getAsInt(), frame.get("height").getAsInt());
     }
 
+    private Sprite spriteJSONtoImage(Texture texture, JsonObject spriteJSON) {
+        BoundingBox b = getFrameBounds(spriteJSON);
+        TextureRegion region = new TextureRegion(texture, b.X, b.Y, b.Width, b.Height);
+        return new Sprite(region);
+    }
+
     private void parseSheet(String graphicsPath, JsonObject sheetJSON) {
-        File spriteSheet = new File(graphicsPath, sheetJSON.get("file").getAsString());
+        File spriteSheet = Loader.get().graphics(new File(graphicsPath, sheetJSON.get("file").getAsString()).getPath());
         String collection = sheetJSON.get("collection").getAsString();
         for (JsonElement spriteEl : sheetJSON.get("sprites").getAsJsonArray()) {
-            JsonObject sprite = spriteEl.getAsJsonObject();
-            String name = sprite.get("name").getAsString();
+            JsonObject spriteJSON = spriteEl.getAsJsonObject();
+            String name = spriteJSON.get("name").getAsString();
 
-            _spriteNames.put(currentSheetIndex--, collection + "." + name);
+            String cacheName = collection + "." + name;
+            currentSheetIndex--;
+            _spriteNames.put(currentSheetIndex, cacheName);
 
-            if (sprite.has("frames")) {
-                for (JsonElement frameEl : sprite.get("frames").getAsJsonArray()) {
-                    BoundingBox bounds = getFrameBounds(frameEl.getAsJsonObject());
+            Texture texture = new Texture(new FileHandle(spriteSheet.getAbsoluteFile()));
+
+            if (spriteJSON.has("frames")) {
+                int frame = 0;
+                for (JsonElement frameEl : spriteJSON.get("frames").getAsJsonArray()) {
+                    Sprite sprite = spriteJSONtoImage(texture, frameEl.getAsJsonObject());
+                    cacheSprite(currentSheetIndex, frame++, sprite);
                 }
             }
             else {
-                BoundingBox bounds = getFrameBounds(sprite);
+                Sprite sprite = spriteJSONtoImage(texture, spriteJSON);
+                cacheSprite(currentSheetIndex, 1, sprite);
             }
         }
     }
@@ -101,16 +120,17 @@ public class Assets {
         for (File sheetDesc : Loader.get().graphics(graphicsPath).listFiles()) {
             if (!sheetDesc.isHidden()) {
                 if (sheetDesc.isDirectory()) {
-                    scanSheets(graphicsPath + '/' + sheetDesc.getName());
+                    scanSheets(new File(graphicsPath, sheetDesc.getName()).getPath());
                     continue;
                 }
                 if (FilenameUtils.getExtension(sheetDesc.getName()).equals("json")) {
                     try {
+                        Logger.info("Parsing spritesheet JSON file: " + sheetDesc.getAbsolutePath());
                         JsonObject sheetJSON = JSON.getObject(FileUtils.readFileToString(sheetDesc));
                         parseSheet(graphicsPath, sheetJSON);
                     }
-                    catch (Exception swallow) {
-
+                    catch (Exception e) {
+                        Logger.exception(e);
                     }
                 }
             }
