@@ -1,422 +1,421 @@
 {
-  "file": "items.png",
+  "file":"items.png",
   "collection":"items",
-  "sprites": [
-    {
-      "name": "bomb",
-      "x": "432",
-      "y": "432",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "bombFlash",
-      "x": "432",
-      "y": "360",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "bush",
-      "x": "346",
-      "y": "144",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "buttonBlue",
-      "x": "288",
-      "y": "504",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "buttonBlue_pressed",
-      "x": "419",
-      "y": "72",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "buttonGreen",
-      "x": "419",
-      "y": "0",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "buttonGreen_pressed",
-      "x": "418",
-      "y": "144",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "buttonRed",
-      "x": "360",
-      "y": "504",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "buttonRed_pressed",
-      "x": "360",
-      "y": "432",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "buttonYellow",
-      "x": "360",
-      "y": "360",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "buttonYellow_pressed",
-      "x": "360",
-      "y": "288",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "cactus",
-      "x": "360",
-      "y": "216",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "chain",
-      "x": "347",
-      "y": "72",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "cloud",
-	  "frames":[
-		{
-			"x": "0",
-		      "y": "146",
-		      "width": "128",
-		      "height": "71"
-		},
-		{
-			"x": "0",
-		      "y": "73",
-		      "width": "129",
-		      "height": "71"
-		},
-		{
-			"x": "0",
-		      "y": "0",
-		      "width": "129",
-		      "height": "71"
-		}
-	  ]
-      
-    },
-    {
-      "name": "coinBronze",
-      "x": "288",
-      "y": "432",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "coinGold",
-      "x": "288",
-      "y": "360",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "coinSilver",
-      "x": "288",
-      "y": "288",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "fireball",
-      "x": "0",
-      "y": "435",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "flagBlue",
-      "x": "275",
-      "y": "72",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "flagBlue2",
-      "x": "275",
-      "y": "0",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "flagBlueHanging",
-      "x": "216",
-      "y": "504",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "flagGreen",
-      "x": "216",
-      "y": "432",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "flagGreen2",
-      "x": "216",
-      "y": "360",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "flagGreenHanging",
-      "x": "216",
-      "y": "288",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "flagRed",
-      "x": "274",
-      "y": "144",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "flagRed2",
-      "x": "216",
-      "y": "216",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "flagRedHanging",
-      "x": "203",
-      "y": "72",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "flagYellow",
-      "x": "203",
-      "y": "0",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "flagYellow2",
-      "x": "202",
-      "y": "144",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "flagYellowHanging",
-      "x": "144",
-      "y": "434",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "gemBlue",
-      "x": "144",
-      "y": "362",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "gemGreen",
-      "x": "144",
-      "y": "290",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "gemRed",
-      "x": "144",
-      "y": "218",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "gemYellow",
-      "x": "131",
-      "y": "72",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "keyBlue",
-      "x": "131",
-      "y": "0",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "keyGreen",
-      "x": "130",
-      "y": "146",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "keyRed",
-      "x": "72",
-      "y": "435",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "keyYellow",
-      "x": "72",
-      "y": "363",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "mushroomBrown",
-      "x": "72",
-      "y": "291",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "mushroomRed",
-      "x": "72",
-      "y": "219",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "particleBrick1a",
-      "x": "0",
-      "y": "553",
-      "width": "19",
-      "height": "14"
-    },
-    {
-      "name": "particleBrick1b",
-      "x": "0",
-      "y": "530",
-      "width": "21",
-      "height": "21"
-    },
-    {
-      "name": "particleBrick2a",
-      "x": "21",
-      "y": "553",
-      "width": "19",
-      "height": "14"
-    },
-    {
-      "name": "particleBrick2b",
-      "x": "0",
-      "y": "507",
-      "width": "21",
-      "height": "21"
-    },
-    {
-      "name": "plant",
-      "x": "0",
-      "y": "363",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "plantPurple",
-      "x": "0",
-      "y": "291",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "rock",
-      "x": "0",
-      "y": "219",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "snowhill",
-      "x": "288",
-      "y": "216",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "spikes",
-      "x": "347",
-      "y": "0",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "springboardDown",
-      "x": "432",
-      "y": "288",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "springboardUp",
-      "x": "432",
-      "y": "216",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "star",
-      "x": "504",
-      "y": "288",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "switchLeft",
-      "x": "504",
-      "y": "216",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "switchMid",
-      "x": "491",
-      "y": "72",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "switchRight",
-      "x": "491",
-      "y": "0",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "weight",
-      "x": "490",
-      "y": "144",
-      "width": "70",
-      "height": "70"
-    },
-    {
-      "name": "weightChained",
-      "x": "432",
-      "y": "504",
-      "width": "70",
-      "height": "70"
-    }
-  ]
+  "sprites":[
+    {
+      "name":"bomb",
+      "x":"432",
+      "y":"432",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"bombFlash",
+      "x":"432",
+      "y":"360",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"bush",
+      "x":"346",
+      "y":"144",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"buttonBlue",
+      "x":"288",
+      "y":"504",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"buttonBlue_pressed",
+      "x":"419",
+      "y":"72",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"buttonGreen",
+      "x":"419",
+      "y":"0",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"buttonGreen_pressed",
+      "x":"418",
+      "y":"144",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"buttonRed",
+      "x":"360",
+      "y":"504",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"buttonRed_pressed",
+      "x":"360",
+      "y":"432",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"buttonYellow",
+      "x":"360",
+      "y":"360",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"buttonYellow_pressed",
+      "x":"360",
+      "y":"288",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"cactus",
+      "x":"360",
+      "y":"216",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"chain",
+      "x":"347",
+      "y":"72",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"cloud",
+      "frames":[
+        {
+          "x":"0",
+          "y":"146",
+          "width":"128",
+          "height":"71"
+        },
+        {
+          "x":"0",
+          "y":"73",
+          "width":"129",
+          "height":"71"
+        },
+        {
+          "x":"0",
+          "y":"0",
+          "width":"129",
+          "height":"71"
+        }
+      ]
+    },
+    {
+      "name":"coinBronze",
+      "x":"288",
+      "y":"432",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"coinGold",
+      "x":"288",
+      "y":"360",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"coinSilver",
+      "x":"288",
+      "y":"288",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"fireball",
+      "x":"0",
+      "y":"435",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"flagBlue",
+      "x":"275",
+      "y":"72",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"flagBlue2",
+      "x":"275",
+      "y":"0",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"flagBlueHanging",
+      "x":"216",
+      "y":"504",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"flagGreen",
+      "x":"216",
+      "y":"432",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"flagGreen2",
+      "x":"216",
+      "y":"360",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"flagGreenHanging",
+      "x":"216",
+      "y":"288",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"flagRed",
+      "x":"274",
+      "y":"144",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"flagRed2",
+      "x":"216",
+      "y":"216",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"flagRedHanging",
+      "x":"203",
+      "y":"72",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"flagYellow",
+      "x":"203",
+      "y":"0",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"flagYellow2",
+      "x":"202",
+      "y":"144",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"flagYellowHanging",
+      "x":"144",
+      "y":"434",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"gemBlue",
+      "x":"144",
+      "y":"362",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"gemGreen",
+      "x":"144",
+      "y":"290",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"gemRed",
+      "x":"144",
+      "y":"218",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"gemYellow",
+      "x":"131",
+      "y":"72",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"keyBlue",
+      "x":"131",
+      "y":"0",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"keyGreen",
+      "x":"130",
+      "y":"146",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"keyRed",
+      "x":"72",
+      "y":"435",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"keyYellow",
+      "x":"72",
+      "y":"363",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"mushroomBrown",
+      "x":"72",
+      "y":"291",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"mushroomRed",
+      "x":"72",
+      "y":"219",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"particleBrick1a",
+      "x":"0",
+      "y":"553",
+      "width":"19",
+      "height":"14"
+    },
+    {
+      "name":"particleBrick1b",
+      "x":"0",
+      "y":"530",
+      "width":"21",
+      "height":"21"
+    },
+    {
+      "name":"particleBrick2a",
+      "x":"21",
+      "y":"553",
+      "width":"19",
+      "height":"14"
+    },
+    {
+      "name":"particleBrick2b",
+      "x":"0",
+      "y":"507",
+      "width":"21",
+      "height":"21"
+    },
+    {
+      "name":"plant",
+      "x":"0",
+      "y":"363",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"plantPurple",
+      "x":"0",
+      "y":"291",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"rock",
+      "x":"0",
+      "y":"219",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"snowhill",
+      "x":"288",
+      "y":"216",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"spikes",
+      "x":"347",
+      "y":"0",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"springboardDown",
+      "x":"432",
+      "y":"288",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"springboardUp",
+      "x":"432",
+      "y":"216",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"star",
+      "x":"504",
+      "y":"288",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"switchLeft",
+      "x":"504",
+      "y":"216",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"switchMid",
+      "x":"491",
+      "y":"72",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"switchRight",
+      "x":"491",
+      "y":"0",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"weight",
+      "x":"490",
+      "y":"144",
+      "width":"70",
+      "height":"70"
+    },
+    {
+      "name":"weightChained",
+      "x":"432",
+      "y":"504",
+      "width":"70",
+      "height":"70"
+    }
+  ]
 }

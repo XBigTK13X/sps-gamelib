@@ -13,7 +13,7 @@ public class Animation {
     protected Point2 _position = new Point2(0, 0);
     private int _currentFrame;
     private SpriteInfo _spriteInfo;
-    private int _animationTimer;
+    private int _animationFps;
     private Color _color = Color.WHITE;
     private Sprite _sprite;
     private DrawDepth _depth;
@@ -34,7 +34,13 @@ public class Animation {
     public Animation(SpriteType assetName, DrawDepth depth) {
         _depth = depth;
         _spriteInfo = SpriteManager.getSpriteInfo(assetName);
-        _animationTimer = Sps.AnimationFps;
+
+        if (_spriteInfo.MetaData != null && _spriteInfo.MetaData.AnimationFps != null) {
+            _animationFps = _spriteInfo.MetaData.AnimationFps;
+        }
+        else {
+            _animationFps = Sps.AnimationFps;
+        }
     }
 
     public void setAnimationEnabled(boolean value) {
@@ -82,10 +88,10 @@ public class Animation {
 
     private void updateAnimation() {
         if (animationEnabled && _spriteInfo.MaxFrame != 1) {
-            _animationTimer--;
-            if (_animationTimer <= 0) {
+            _animationFps--;
+            if (_animationFps <= 0) {
                 _currentFrame = (_currentFrame + 1) % _spriteInfo.MaxFrame;
-                _animationTimer = Sps.AnimationFps;
+                _animationFps = Sps.AnimationFps;
             }
         }
     }

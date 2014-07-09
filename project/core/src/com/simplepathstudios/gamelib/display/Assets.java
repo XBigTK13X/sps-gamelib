@@ -1,6 +1,5 @@
 package com.simplepathstudios.gamelib.display;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -130,7 +129,7 @@ public class Assets {
                         parseSheet(graphicsPath, sheetJSON);
                     }
                     catch (Exception e) {
-                        Logger.exception(e);
+                        Logger.exception(e, false);
                     }
                 }
             }
@@ -146,6 +145,7 @@ public class Assets {
         for (Integer index : _indexedSprites.keySet()) {
             int frames = _indexedSprites.get(index).keySet().size();
             String id = _spriteNames.get(index);
+            //TODO Build metadata object into SpriteType
             SpriteTypes.add(new SpriteType(id, index, frames));
         }
     }
