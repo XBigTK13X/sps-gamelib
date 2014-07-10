@@ -3,7 +3,6 @@ package com.simplepathstudios.gamelib.desktop.bootstrap;
 import com.simplepathstudios.gamelib.audio.MusicPlayer;
 import com.simplepathstudios.gamelib.audio.RandomSoundPlayer;
 import com.simplepathstudios.gamelib.audio.SoundPlayer;
-import com.simplepathstudios.gamelib.bridge.SpriteTypes;
 import com.simplepathstudios.gamelib.bridge.Sps;
 import com.simplepathstudios.gamelib.color.Color;
 import com.simplepathstudios.gamelib.console.DevConsole;
@@ -14,7 +13,6 @@ import com.simplepathstudios.gamelib.data.GameConfig;
 import com.simplepathstudios.gamelib.data.Options;
 import com.simplepathstudios.gamelib.data.UserFiles;
 import com.simplepathstudios.gamelib.display.Assets;
-import com.simplepathstudios.gamelib.display.SpriteManager;
 import com.simplepathstudios.gamelib.display.Window;
 import com.simplepathstudios.gamelib.display.render.FrameStrategy;
 import com.simplepathstudios.gamelib.entity.Entities;
@@ -112,7 +110,6 @@ public class SpsInitializer {
                 Window.get(true).screenEngine().setStrategy(new FrameStrategy());
                 Players.init();
                 Input.get().setup(new DefaultStateProvider());
-                SpriteManager.setup(SpriteTypes.getDefs());
             }
         });
 

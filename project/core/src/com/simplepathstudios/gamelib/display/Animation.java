@@ -1,28 +1,24 @@
 package com.simplepathstudios.gamelib.display;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.simplepathstudios.gamelib.bridge.DrawDepth;
-import com.simplepathstudios.gamelib.bridge.SpriteType;
-import com.simplepathstudios.gamelib.bridge.Sps;
 import com.simplepathstudios.gamelib.color.Color;
 import com.simplepathstudios.gamelib.core.Point2;
 import com.simplepathstudios.gamelib.core.RNG;
-import com.simplepathstudios.gamelib.core.SpsConfig;
 
 public class Animation {
     protected Point2 _position = new Point2(0, 0);
     private int _currentFrame;
-    private SpriteInfo _spriteInfo;
-    private int _animationFps;
+    private SpriteDefinition _spriteDefinition;
+    private float _animationLengthSeconds;
     private Color _color = Color.WHITE;
     private Sprite _sprite;
     private DrawDepth _depth;
     private int _rotation = 0;
     private boolean animationEnabled = true;
-    private boolean flipX = false;
-    private boolean flipY = false;
-    private float _height = -1;
-    private float _width = -1;
+    private boolean _flipX = false;
+    private boolean _flipY = false;
     private float flashes = 30;
     private float flashCount = flashes + 1;
     private Color flashColor = Color.BLUE;
@@ -30,17 +26,13 @@ public class Animation {
     private boolean alternate;
     private SpriteEdge _edge = null;
     private boolean _dynamicEdges = false;
+    private boolean _defaultXFlipped = false;
+    private boolean _defaultYFlipped = false;
 
-    public Animation(SpriteType assetName, DrawDepth depth) {
+    public Animation(SpriteDefinition spriteDefinition, DrawDepth depth) {
         _depth = depth;
-        _spriteInfo = SpriteManager.getSpriteInfo(assetName);
-
-        if (_spriteInfo.MetaData != null && _spriteInfo.MetaData.AnimationFps != null) {
-            _animationFps = _spriteInfo.MetaData.AnimationFps;
-        }
-        else {
-            _animationFps = Sps.AnimationFps;
-        }
+        _spriteDefinition = spriteDefinition;
+        _animationLengthSeconds = _spriteDefinition.TimeSeconds;
     }
 
     public void setAnimationEnabled(boolean value) {
@@ -49,17 +41,11 @@ public class Animation {
 
     public void draw() {
         if (_sprite == null) {
-            _sprite = Assets.get().sprite(_spriteInfo.SpriteIndex);
+            _sprite = Assets.get().sprite(_spriteDefinition.Index);
         }
         if (_color.a > 0) {
             _sprite.setRotation(_rotation);
-            if (_width >= 0 && _height >= 0) {
-                _sprite.setSize(_width, _height);
-            }
-            else {
-                _sprite.setSize(SpsConfig.get().spriteWidth, SpsConfig.get().spriteHeight);
-            }
-            _sprite = Assets.get().sprite(_currentFrame, _spriteInfo.SpriteIndex);
+            _sprite = Assets.get().sprite(_currentFrame, _spriteDefinition.Index);
             updateAnimation();
 
             if (flashCount < flashes) {
@@ -75,10 +61,10 @@ public class Animation {
             Color renderColor = (alternate) ? _color.mul(flashColor) : _color;
             _sprite.setPosition(_position.X, _position.Y);
             _sprite.setColor(renderColor.getGdxColor());
-            if (_sprite.isFlipX() != flipX) {
+            if (_sprite.isFlipX() != (_flipX && _defaultXFlipped)) {
                 _sprite.flip(true, _sprite.isFlipY());
             }
-            if (_sprite.isFlipY() != flipY) {
+            if (_sprite.isFlipY() != (_flipY && _defaultYFlipped)) {
                 _sprite.flip(_sprite.isFlipX(), true);
             }
 
@@ -87,18 +73,18 @@ public class Animation {
     }
 
     private void updateAnimation() {
-        if (animationEnabled && _spriteInfo.MaxFrame != 1) {
-            _animationFps--;
-            if (_animationFps <= 0) {
-                _currentFrame = (_currentFrame + 1) % _spriteInfo.MaxFrame;
-                _animationFps = Sps.AnimationFps;
+        if (animationEnabled && _spriteDefinition.MaxFrame > 1) {
+            _animationLengthSeconds -= Gdx.graphics.getDeltaTime();
+            if (_animationLengthSeconds <= 0) {
+                _animationLengthSeconds = _spriteDefinition.TimeSeconds;
             }
+            _currentFrame = (int) (((_spriteDefinition.TimeSeconds - _animationLengthSeconds) / _spriteDefinition.TimeSeconds) * _spriteDefinition.MaxFrame);
         }
     }
 
-    public void setSpriteInfo(SpriteInfo sprite) {
-        if (_spriteInfo != sprite) {
-            _spriteInfo = sprite;
+    public void setSpriteInfo(SpriteDefinition sprite) {
+        if (_spriteDefinition != sprite) {
+            _spriteDefinition = sprite;
             _currentFrame = 0;
         }
     }
@@ -138,8 +124,13 @@ public class Animation {
     }
 
     public void flip(boolean x, boolean y) {
-        flipX = x;
-        flipY = y;
+        _flipX = x;
+        _flipY = y;
+    }
+
+    public void defaultFlip(boolean x, boolean y) {
+        _defaultXFlipped = x;
+        _defaultYFlipped = y;
     }
 
     public void gotoRandomFrame() {
@@ -148,17 +139,12 @@ public class Animation {
 
     public void gotoRandomFrame(boolean disableAnimation) {
         setAnimationEnabled(!disableAnimation);
-        _currentFrame = RNG.next(0, _spriteInfo.MaxFrame, false);
+        _currentFrame = RNG.next(0, _spriteDefinition.MaxFrame, false);
     }
 
-    public void setSize(float width, float height) {
-        _width = width;
-        _height = height;
-    }
-
-    public void flash(Color attackColor) {
+    public void flash(Color color) {
         flashCount = 0;
-        flashColor = attackColor;
+        flashColor = color;
     }
 
     public SpriteEdge getSpriteEdge() {

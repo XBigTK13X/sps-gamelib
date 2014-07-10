@@ -3,7 +3,6 @@ package com.simplepathstudios.gamelib.tutorial;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.simplepathstudios.gamelib.bridge.Commands;
 import com.simplepathstudios.gamelib.bridge.DrawDepths;
-import com.simplepathstudios.gamelib.bridge.SpriteTypes;
 import com.simplepathstudios.gamelib.color.Color;
 import com.simplepathstudios.gamelib.color.Colors;
 import com.simplepathstudios.gamelib.display.*;
@@ -36,8 +35,8 @@ public class Tutorial {
             __background = SpriteMaker.pixel(bg);
             __background.setSize(Screen.width(100), Screen.height(100));
 
-            SpriteInfo arrowInfo = SpriteManager.getSpriteInfo(SpriteTypes.get("Arrow"));
-            __arrow = Assets.get().sprite(arrowInfo.SpriteIndex);
+            SpriteDefinition arrowInfo = SpriteManager.get("Arrow");
+            __arrow = Assets.get().sprite(arrowInfo.Index);
         }
         _steps = new ArrayList<>();
     }

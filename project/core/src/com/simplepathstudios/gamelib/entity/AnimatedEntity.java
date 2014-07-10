@@ -1,19 +1,18 @@
 package com.simplepathstudios.gamelib.entity;
 
 import com.simplepathstudios.gamelib.bridge.DrawDepth;
-import com.simplepathstudios.gamelib.bridge.SpriteType;
 import com.simplepathstudios.gamelib.core.Point2;
 import com.simplepathstudios.gamelib.display.Animation;
+import com.simplepathstudios.gamelib.display.SpriteDefinition;
 import com.simplepathstudios.gamelib.display.SpriteEdge;
-import com.simplepathstudios.gamelib.display.SpriteInfo;
 
 public class AnimatedEntity extends Entity {
     private Animation _graphic;
     private boolean _facingLeft = true;
 
-    public AnimatedEntity(Point2 location, SpriteType spriteType, DrawDepth depth) {
+    public AnimatedEntity(Point2 location, SpriteDefinition spriteDefinition, DrawDepth depth) {
         super();
-        _graphic = new Animation(spriteType, depth);
+        _graphic = new Animation(spriteDefinition, depth);
         setPosition(location.X, location.Y);
     }
 
@@ -43,8 +42,8 @@ public class AnimatedEntity extends Entity {
         return super.move(amountX, amountY);
     }
 
-    protected void setSpriteInfo(SpriteInfo spriteInfo) {
-        _graphic.setSpriteInfo(spriteInfo);
+    protected void setSpriteInfo(SpriteDefinition spriteDefinition) {
+        _graphic.setSpriteInfo(spriteDefinition);
     }
 
     public DrawDepth getDepth() {
@@ -55,5 +54,9 @@ public class AnimatedEntity extends Entity {
         if (_graphic.hasDynamicEdges()) {
             _graphic.setEdge(SpriteEdge.determine());
         }
+    }
+
+    public Animation getGraphic() {
+        return _graphic;
     }
 }

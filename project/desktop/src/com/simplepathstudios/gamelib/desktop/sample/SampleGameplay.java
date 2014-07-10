@@ -2,8 +2,6 @@ package com.simplepathstudios.gamelib.desktop.sample;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.simplepathstudios.gamelib.bridge.DrawDepths;
-import com.simplepathstudios.gamelib.bridge.SpriteTypes;
-import com.simplepathstudios.gamelib.core.Logger;
 import com.simplepathstudios.gamelib.display.Screen;
 import com.simplepathstudios.gamelib.display.Window;
 import com.simplepathstudios.gamelib.draw.BackgroundMaker;

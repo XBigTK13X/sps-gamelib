@@ -1,20 +1,15 @@
 package com.simplepathstudios.gamelib.display;
 
-import com.simplepathstudios.gamelib.bridge.SpriteType;
-
 import java.util.HashMap;
-import java.util.List;
 
 public class SpriteManager {
-    private static final HashMap<SpriteType, SpriteInfo> __manager = new HashMap<SpriteType, SpriteInfo>();
+    private static final HashMap<String, SpriteDefinition> __manager = new HashMap<>();
 
-    public static SpriteInfo getSpriteInfo(SpriteType spriteName) {
+    public static SpriteDefinition get(String spriteName) {
         return __manager.get(spriteName);
     }
 
-    public static void setup(List<SpriteDefinition> sprites) {
-        for (SpriteDefinition sprite : sprites) {
-            __manager.put(sprite.Type, sprite.Info);
-        }
+    public static void add(SpriteDefinition spriteDefinition) {
+        __manager.put(spriteDefinition.Name, spriteDefinition);
     }
 }
