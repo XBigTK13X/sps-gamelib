@@ -17,8 +17,6 @@ public class Animation {
     private DrawDepth _depth;
     private int _rotation = 0;
     private boolean animationEnabled = true;
-    private boolean _flipX = false;
-    private boolean _flipY = false;
     private float flashes = 30;
     private float flashCount = flashes + 1;
     private Color flashColor = Color.BLUE;
@@ -26,13 +24,14 @@ public class Animation {
     private boolean alternate;
     private SpriteEdge _edge = null;
     private boolean _dynamicEdges = false;
-    private boolean _defaultXFlipped = false;
-    private boolean _defaultYFlipped = false;
+    private boolean _lastFlipX = false;
+    private boolean _lastFlipY = false;
 
     public Animation(SpriteDefinition spriteDefinition, DrawDepth depth) {
         _depth = depth;
         _spriteDefinition = spriteDefinition;
         _animationLengthSeconds = _spriteDefinition.TimeSeconds;
+        _sprite = Assets.get().sprite(_spriteDefinition.Index);
     }
 
     public void setAnimationEnabled(boolean value) {
@@ -40,12 +39,8 @@ public class Animation {
     }
 
     public void draw() {
-        if (_sprite == null) {
-            _sprite = Assets.get().sprite(_spriteDefinition.Index);
-        }
         if (_color.a > 0) {
             _sprite.setRotation(_rotation);
-            _sprite = Assets.get().sprite(_currentFrame, _spriteDefinition.Index);
             updateAnimation();
 
             if (flashCount < flashes) {
@@ -61,13 +56,6 @@ public class Animation {
             Color renderColor = (alternate) ? _color.mul(flashColor) : _color;
             _sprite.setPosition(_position.X, _position.Y);
             _sprite.setColor(renderColor.getGdxColor());
-            if (_sprite.isFlipX() != (_flipX && _defaultXFlipped)) {
-                _sprite.flip(true, _sprite.isFlipY());
-            }
-            if (_sprite.isFlipY() != (_flipY && _defaultYFlipped)) {
-                _sprite.flip(_sprite.isFlipX(), true);
-            }
-
             Window.get().schedule(_sprite, _depth);
         }
     }
@@ -80,6 +68,7 @@ public class Animation {
             }
             _currentFrame = (int) (((_spriteDefinition.TimeSeconds - _animationLengthSeconds) / _spriteDefinition.TimeSeconds) * _spriteDefinition.MaxFrame);
         }
+        _sprite = Assets.get().sprite(_currentFrame, _spriteDefinition.Index);
     }
 
     public void setSpriteInfo(SpriteDefinition sprite) {
@@ -99,6 +88,31 @@ public class Animation {
 
     public void setColor(Color color) {
         _color = color;
+    }
+
+    private void setFlip(boolean x, boolean y) {
+        if (x != _lastFlipX) {
+            _lastFlipX = x;
+            for (int frame = 0; frame < _spriteDefinition.MaxFrame; frame++) {
+                Sprite sprite = Assets.get().sprite(frame, _spriteDefinition.Index);
+                sprite.flip(true, sprite.isFlipY());
+            }
+        }
+        if (y != _lastFlipY) {
+            _lastFlipY = y;
+            for (int frame = 0; frame < _spriteDefinition.MaxFrame; frame++) {
+                Sprite sprite = Assets.get().sprite(frame, _spriteDefinition.Index);
+                sprite.flip(sprite.isFlipX(), true);
+            }
+        }
+    }
+
+    public void flipX() {
+        setFlip(!_lastFlipX, _lastFlipY);
+    }
+
+    public void flipY() {
+        setFlip(_lastFlipX, !_lastFlipY);
     }
 
     public void setAlpha(float alpha) {
@@ -121,16 +135,6 @@ public class Animation {
         _currentFrame = edge.Frame;
         _rotation = edge.Rotation;
         _edge = edge;
-    }
-
-    public void flip(boolean x, boolean y) {
-        _flipX = x;
-        _flipY = y;
-    }
-
-    public void defaultFlip(boolean x, boolean y) {
-        _defaultXFlipped = x;
-        _defaultYFlipped = y;
     }
 
     public void gotoRandomFrame() {

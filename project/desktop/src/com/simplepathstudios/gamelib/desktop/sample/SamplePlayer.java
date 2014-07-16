@@ -9,7 +9,7 @@ import com.simplepathstudios.gamelib.input.InputWrapper;
 public class SamplePlayer extends AnimatedEntity {
     public SamplePlayer() {
         super(Screen.rand(10, 90, 10, 90), SpriteManager.get("p1.walk"), DrawDepths.get("Player"));
-        getGraphic().defaultFlip(true, false);
+
     }
 
     @Override

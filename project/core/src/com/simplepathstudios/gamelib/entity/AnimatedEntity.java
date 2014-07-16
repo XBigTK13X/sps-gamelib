@@ -8,7 +8,8 @@ import com.simplepathstudios.gamelib.display.SpriteEdge;
 
 public class AnimatedEntity extends Entity {
     private Animation _graphic;
-    private boolean _facingLeft = true;
+    private float _lastMoveX = 1;
+    private float _lastMoveY = 1;
 
     public AnimatedEntity(Point2 location, SpriteDefinition spriteDefinition, DrawDepth depth) {
         super();
@@ -27,17 +28,10 @@ public class AnimatedEntity extends Entity {
         super.setPosition(x, y);
     }
 
-    public void setFacingLeft(boolean value) {
-        _facingLeft = value;
-        _graphic.flip(!_facingLeft, false);
-    }
-
     public boolean move(float amountX, float amountY) {
-        if (amountX > 0) {
-            setFacingLeft(false);
-        }
-        if (amountX < 0) {
-            setFacingLeft(true);
+        if ((amountX > 0 && _lastMoveX <= 0) || (amountX < 0 && _lastMoveX >= 0)) {
+            _lastMoveX = amountX;
+            getGraphic().flipX();
         }
         return super.move(amountX, amountY);
     }
