@@ -59,10 +59,13 @@ public class FontPack {
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(new FileHandle(Loader.get().font(fontName)));
         if (!_fonts.containsKey(label)) {
-            _fonts.put(label, new HashMap<Integer, BitmapFont>());
+            _fonts.put(label, new HashMap<>());
         }
         if (!_fonts.get(label).containsKey(pointSize)) {
-            BitmapFont font = generator.generateFont(pointSize);
+            FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
+            params.size = pointSize;
+            params.characters = FreeTypeFontGenerator.DEFAULT_CHARS;
+            BitmapFont font = generator.generateFont(params);
             _fonts.get(label).put(pointSize, font);
         }
         generator.dispose();

@@ -23,6 +23,7 @@ import com.simplepathstudios.gamelib.input.provider.DefaultStateProvider;
 import com.simplepathstudios.gamelib.particle.simple.ParticleEngine;
 import com.simplepathstudios.gamelib.preload.PreloadChain;
 import com.simplepathstudios.gamelib.preload.PreloadChainLink;
+import com.simplepathstudios.gamelib.preload.gui.LightPreloadGui;
 import com.simplepathstudios.gamelib.states.Systems;
 import com.simplepathstudios.gamelib.task.GameTasks;
 import com.simplepathstudios.gamelib.text.TextPool;
@@ -35,7 +36,7 @@ import java.io.File;
 
 public class SpsInitializer {
     public static PreloadChain getChain() {
-        PreloadChain preload = new PreloadChain(false) {
+        PreloadChain preload = new PreloadChain(new LightPreloadGui()) {
             @Override
             public void finish() {
 
@@ -50,7 +51,7 @@ public class SpsInitializer {
             }
         });
 
-        preload.add(new PreloadChainLink("Read bridge config") {
+        preload.add(new PreloadChainLink("Loading detected graphical assets") {
             @Override
             public void process() {
                 RNG.naturalReseed();
@@ -102,17 +103,6 @@ public class SpsInitializer {
             }
         });
 
-        preload.add(new PreloadChainLink("Prepare render management") {
-            @Override
-            public void process() {
-                Window.setWindowBackground(Color.BLACK);
-                Window.get(false).screenEngine().setStrategy(new FrameStrategy());
-                Window.get(true).screenEngine().setStrategy(new FrameStrategy());
-                Players.init();
-                Input.get().setup(new DefaultStateProvider());
-            }
-        });
-
         preload.add(new PreloadChainLink("Check for automated bot strategy") {
             @Override
             public void process() {
@@ -159,6 +149,17 @@ public class SpsInitializer {
             public void process() {
                 Options.load();
                 Options.get().apply();
+            }
+        });
+
+        preload.add(new PreloadChainLink("Prepare render management") {
+            @Override
+            public void process() {
+                Window.setWindowBackground(Color.BLACK);
+                Window.get(false).screenEngine().setStrategy(new FrameStrategy());
+                Window.get(true).screenEngine().setStrategy(new FrameStrategy());
+                Players.init();
+                Input.get().setup(new DefaultStateProvider());
             }
         });
         return preload;

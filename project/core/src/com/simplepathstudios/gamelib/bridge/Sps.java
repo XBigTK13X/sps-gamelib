@@ -13,7 +13,6 @@ public class Sps {
 
     public static void setup(Application application, boolean enableGraphics) {
         _application = application;
-        GdxNativesLoader.load();
         Bridge.setup(enableGraphics);
     }
 

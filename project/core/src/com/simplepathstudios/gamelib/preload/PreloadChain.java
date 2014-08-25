@@ -1,16 +1,8 @@
 package com.simplepathstudios.gamelib.preload;
 
-import com.simplepathstudios.gamelib.color.Color;
-import com.simplepathstudios.gamelib.color.Colors;
-import com.simplepathstudios.gamelib.core.Logger;
-import com.simplepathstudios.gamelib.display.Screen;
-import com.simplepathstudios.gamelib.states.Systems;
-import com.simplepathstudios.gamelib.text.Text;
-import com.simplepathstudios.gamelib.text.TextPool;
-import com.simplepathstudios.gamelib.ui.Meter;
-import com.simplepathstudios.gamelib.ui.MultiText;
+import com.simplepathstudios.gamelib.preload.gui.HeavyPreloadGui;
+import com.simplepathstudios.gamelib.preload.gui.PreloadGui;
 
-import java.text.NumberFormat;
 import java.util.LinkedList;
 
 public abstract class PreloadChain implements SpsEngineChainLink {
@@ -18,24 +10,18 @@ public abstract class PreloadChain implements SpsEngineChainLink {
     private boolean processStep = false;
     private int _preloadedItemsTarget = 0;
     private int _preloadedItems = 0;
-    private MultiText _loadingMessage;
-    private Text _percentDisplay;
-    private Meter _loadingMeter;
-    private boolean _showGUI;
     private boolean _finished;
+    private boolean _guiInitialized = false;
 
-    public PreloadChain(boolean showGUI) {
-        _showGUI = showGUI;
+    private PreloadGui _gui;
+
+    public PreloadChain(PreloadGui gui) {
+        _gui = gui;
         _preloadChain = new LinkedList<>();
-        if (showGUI) {
-            _percentDisplay = Systems.get(TextPool.class).write("", Screen.pos(40, 20));
-            _loadingMessage = new MultiText(Screen.pos(10, 50), 6, Color.GRAY.newAlpha(.5f), (int) Screen.width(80), (int) Screen.height(20));
-            _loadingMeter = new Meter(90, 9, Colors.randomPleasant(), Screen.pos(5, 30), false);
-        }
     }
 
     public PreloadChain() {
-        this(true);
+        this(new HeavyPreloadGui());
     }
 
     public void add(PreloadChainLink link) {
@@ -44,8 +30,12 @@ public abstract class PreloadChain implements SpsEngineChainLink {
     }
 
     private String _lastMessage;
+    private int _lastPercent;
 
     public void update() {
+        if(!_guiInitialized){
+            _gui.init();
+        }
         PreloadChainLink link = _preloadChain.peek();
         if (!processStep) {
             if (link == null) {
@@ -53,19 +43,14 @@ public abstract class PreloadChain implements SpsEngineChainLink {
                 finish();
             }
             else {
-                if (_showGUI) {
-                    _loadingMeter.setPercent((int) ((_preloadedItems / (float) _preloadedItemsTarget) * 100));
-                    if (_lastMessage == null || !_lastMessage.equals(link.getMessage())) {
-                        _loadingMessage.add(link.getMessage());
-                        _lastMessage = link.getMessage();
-                    }
-                    _percentDisplay.setMessage(getProgress());
+                int percent = (int) ((_preloadedItems / (float) _preloadedItemsTarget) * 100);
+                if(percent != _lastPercent){
+                    _lastPercent = percent;
+                    _gui.update(percent);
                 }
-                else {
-                    if (_lastMessage == null || !_lastMessage.equals(link.getMessage())) {
-                        Logger.info(link.getMessage());
-                        _lastMessage = link.getMessage();
-                    }
+                if (_lastMessage == null || !_lastMessage.equals(link.getMessage())) {
+                    _lastMessage = link.getMessage();
+                    _gui.update(_lastMessage);
                 }
             }
         }
@@ -80,17 +65,8 @@ public abstract class PreloadChain implements SpsEngineChainLink {
         processStep = !processStep;
     }
 
-    private static final NumberFormat _df = NumberFormat.getPercentInstance();
-
-    private String getProgress() {
-        return _df.format(((float) _preloadedItems / _preloadedItemsTarget)) + " complete";
-    }
-
     public void draw() {
-        if (_showGUI) {
-            _loadingMeter.draw();
-            _loadingMessage.draw();
-        }
+        _gui.draw();
     }
 
     public boolean isFinished() {

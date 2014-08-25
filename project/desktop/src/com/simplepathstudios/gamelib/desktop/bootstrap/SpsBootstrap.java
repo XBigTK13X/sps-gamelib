@@ -2,10 +2,12 @@ package com.simplepathstudios.gamelib.desktop.bootstrap;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.simplepathstudios.gamelib.draw.SpriteMaker;
 import com.simplepathstudios.gamelib.preload.PreloadChain;
 import com.simplepathstudios.gamelib.preload.PreloadChainLink;
 import com.simplepathstudios.gamelib.preload.SpsEngineChainLink;
+import com.simplepathstudios.gamelib.preload.gui.LoggerPreloadGui;
 import org.lwjgl.opengl.Display;
 
 public class SpsBootstrap implements SpsEngineChainLink {
@@ -16,7 +18,7 @@ public class SpsBootstrap implements SpsEngineChainLink {
     private int _windowHeight;
 
     public SpsBootstrap() {
-        _bootstrap = new PreloadChain(false) {
+        _bootstrap = new PreloadChain(new LoggerPreloadGui()) {
             @Override
             public void finish() {
 
@@ -31,7 +33,7 @@ public class SpsBootstrap implements SpsEngineChainLink {
         _bootstrap.add(new PreloadChainLink("Bootstrap logo") {
             @Override
             public void process() {
-                _logo = SpriteMaker.fromGraphic("sps-gamelib-logo.png");
+                _logo = SpriteMaker.fromGraphic("sps-gamelib-logo-with-text.png");
                 _windowHeight = Display.getHeight();
                 _windowWidth = Display.getWidth();
                 _logo.setPosition((_windowWidth - _logo.getWidth()) / 2, (_windowHeight - _logo.getHeight()) / 2);

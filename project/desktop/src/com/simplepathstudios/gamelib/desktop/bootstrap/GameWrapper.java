@@ -3,6 +3,7 @@ package com.simplepathstudios.gamelib.desktop.bootstrap;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.simplepathstudios.gamelib.audio.MusicPlayer;
 import com.simplepathstudios.gamelib.audio.SoundPlayer;
 import com.simplepathstudios.gamelib.core.Logger;
@@ -13,6 +14,7 @@ import com.simplepathstudios.gamelib.preload.DelayedPreloader;
 import com.simplepathstudios.gamelib.preload.PreloadChain;
 import com.simplepathstudios.gamelib.preload.PreloadChainLink;
 import com.simplepathstudios.gamelib.preload.SpsEngineChain;
+import com.simplepathstudios.gamelib.preload.gui.LoggerPreloadGui;
 import com.simplepathstudios.gamelib.states.GlobalStateResolver;
 import com.simplepathstudios.gamelib.states.StateManager;
 import com.simplepathstudios.gamelib.states.StateResolver;
@@ -25,7 +27,7 @@ public class GameWrapper implements ApplicationListener {
     private boolean _firstResizeCall = true;
 
     public GameWrapper(final DelayedPreloader delayedPreloader, final StateResolver resolver) {
-        PreloadChain kickstart = new PreloadChain(false) {
+        PreloadChain kickstart = new PreloadChain(new LoggerPreloadGui()) {
             @Override
             public void finish() {
 
@@ -38,7 +40,7 @@ public class GameWrapper implements ApplicationListener {
                 StateManager.get().push(GlobalStateResolver.get().createInitial());
             }
         });
-
+        GdxNativesLoader.load();
         _engineChain = new SpsEngineChain();
         _engineChain.add(new SpsBootstrap());
         _engineChain.add(SpsInitializer.getChain());
