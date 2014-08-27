@@ -67,11 +67,12 @@ public abstract class UIButton {
 
         if (_command != null && Options.get().GUIButtonKeyboardLabelsEnabled) {
             _commandMessage = Systems.get(TextPool.class).write(_command.toString(), new Point2(0, 0));
+            _commandMessage.setDepth(DrawDepths.get("UIButtonText"));
         }
 
         _message = Systems.get(TextPool.class).write(text, new Point2(0, 0));
         setFont("UIButton", 60);
-        _message.setDepth(_depth);
+        _message.setDepth(DrawDepths.get("UIButtonText"));
 
         _originalMessage = text;
 
@@ -216,9 +217,10 @@ public abstract class UIButton {
 
     public void setDepth(DrawDepth depth) {
         _depth = depth;
-        _message.setDepth(depth);
+        DrawDepth textDepth = new DrawDepth("UIButtonTextTemp", depth.DrawDepth + 1);
+        _message.setDepth(textDepth);
         if (_commandMessage != null) {
-            _commandMessage.setDepth(depth);
+            _commandMessage.setDepth(textDepth);
         }
         _buttonUser.setDepth(depth);
     }
