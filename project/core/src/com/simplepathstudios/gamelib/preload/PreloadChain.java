@@ -13,6 +13,9 @@ public abstract class PreloadChain implements SpsEngineChainLink {
     private boolean _finished;
     private boolean _guiInitialized = false;
 
+    private String _lastMessage;
+    private int _lastPercent;
+
     private PreloadGui _gui;
 
     public PreloadChain(PreloadGui gui) {
@@ -29,12 +32,10 @@ public abstract class PreloadChain implements SpsEngineChainLink {
         _preloadedItemsTarget += link.getRepetitions();
     }
 
-    private String _lastMessage;
-    private int _lastPercent;
-
     public void update() {
         if(!_guiInitialized){
             _gui.init();
+            _guiInitialized = true;
         }
         PreloadChainLink link = _preloadChain.peek();
         if (!processStep) {
