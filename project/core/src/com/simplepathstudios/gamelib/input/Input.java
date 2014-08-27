@@ -20,7 +20,6 @@ public class Input implements InputProvider {
     // Lists what commands are locked for a given player
     private final List<CommandLock> __locks = new ArrayList<CommandLock>();
     private StateProvider provider;
-    // $$$ FIXME (Integer -> PlayerId) Maps a playerId to a context
     private HashMap<PlayerIndex, Context> __contexts;
     private boolean __isInputActive = false;
     private int mouseX;

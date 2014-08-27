@@ -65,9 +65,7 @@ public class PreconfiguredGamepadInputs {
         for (String key : __hardwareNames.keySet()) {
             for (String name : __hardwareNames.get(key)) {
                 if (gamepad.getName().toLowerCase().contains(name)) {
-                    //TODO
-                    //USB Sixaxis under linux is translated via the package xboxdrv
-                    //Have not yet tested a bluetooth connected PS3 controller
+                    //TODO Verify that bluetooth ps3 connected mapping is correct
                     if(key.equalsIgnoreCase("ps3") && SystemUtils.IS_OS_LINUX){
                         return "xbox360";
                     }

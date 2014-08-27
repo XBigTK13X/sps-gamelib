@@ -1,6 +1,7 @@
 package com.simplepathstudios.gamelib.text;
 
 import com.simplepathstudios.gamelib.color.Color;
+import com.simplepathstudios.gamelib.core.Logger;
 import com.simplepathstudios.gamelib.core.Point2;
 import com.simplepathstudios.gamelib.states.GameSystem;
 import com.simplepathstudios.gamelib.states.State;
@@ -49,8 +50,10 @@ public class TextPool implements GameSystem {
         result.reset(position, message, fontLabel, fontPointSize, 1, lifeInSeconds, effect);
         result.setColor(color);
         result.setScale(scale);
-        //FIXME A log entry when all texts are in use
         index = (index + 1) % texts.size();
+        if(index == 0){
+            Logger.info("Looping around to the first text object");
+        }
         return result;
     }
 

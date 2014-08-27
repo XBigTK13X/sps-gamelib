@@ -130,9 +130,6 @@ public class Buttons implements GameSystem {
                     _states.put(user, State.Over);
                     user.over();
                 }
-                //FIXME Commands should only function for the highest, but that doesn't work.
-                // Without this ugly one-liner, the exit prompt wouldn't disable keyboard input on menus
-                // This has the downside of disabling keyboard controls for the exit menu
                 boolean commandActive = (!StateManager.get().isSuspended() && (user.getCommand() != null && InputWrapper.isActive(user.getCommand())));
                 if ((_states.get(user) == State.Over && mouseOver && mouseDown) || commandActive) {
                     if (_highest == null) {
