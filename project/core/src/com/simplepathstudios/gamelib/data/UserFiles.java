@@ -16,7 +16,7 @@ public class UserFiles {
     }
 
     public static File config() {
-        return Loader.get().userSave(_gameId, "game.cfg");
+        return Loader.get().userSave(_gameId, "config.yaml");
     }
 
     public static File input() {

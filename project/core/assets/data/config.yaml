@@ -1,0 +1,121 @@
+commandContexts:
+  - All
+  - Non_Free
+  - Free
+
+contextOverrides:
+  - command: MoveUp
+    context: Non_Free
+  - command: MoveDown
+    context: Non_Free
+  - command: MoveLeft
+    context: Non_Free
+  - command: MoveRight
+    context: Non_Free
+  - command: MoveHorizontal
+    context: Non_Free
+  - command: MoveVertical
+    context: Non_Free
+
+drawDepths:
+  - Default
+  - GameBackground
+  - TimerGraphic
+  - AnimatedTexture
+  - MovieImage
+  - MovieSubtitle
+  - Floor
+  - ForceMeter
+  - TooltipBackground
+  - MeterBackground
+  - Meter
+  - MeterFrame
+  - UIButton
+  - UIButtonText
+  - Logo
+  - Player
+  - Arrow
+  - Hand
+  - Particle
+  - SpsParticle
+  - DefaultTextBG
+  - DefaultText
+  - TooltipBackground
+  - TooltipText
+  - TutorialBackground
+  - TutorialArrow
+  - TutorialText
+  - PauseScreen
+  - PauseText
+  - ExitBackground
+  - ExitText
+  - DevConsole
+  - DevConsoleText
+  - Debug
+
+gameOptions:
+  disableCloudyTextures: false
+  enableFontOutlines: true
+  collectMetaData: true
+  playersMax: 4
+  graphicsLowQuality: true
+  tutorialEnabled: true
+  showIntro: true
+  tutorialQueryEnabled: true
+  brightness: 85
+  settingsDetected: false
+  uiButtonKeyboardLabelsEnabled: true
+
+engineOptions:
+  fullScreen: false
+  musicEnabled: true
+  soundEnabled: true
+  # Change these two resolution values to get a different window size
+  resolutionWidth: 1344
+  resolutionHeight: 756
+  ## Changing these two resolution values affects internal rendering calculations and will break the game
+  virtualWidth: 1920
+  virtualHeight: 1080
+  vSyncEnabled: true
+  displayLoggingEnabled: false
+  taskLoggingEnabled: false
+  gameTasksTimeDilation: 1.0
+  gameTasksTimeDilationEnabled: true
+  particleEffectPoolLimit: 20
+  particleEffectPoolStartSize: 10
+  maxColorLookupSize: 1000
+  gamepadAxisDeadZone: .2
+  devConsoleEnabled: true
+  viewPaths: false
+  controllersEnabled: true
+  threadMaxStalledMilliseconds: 10000
+  # These are legacy options that only affect tile mapped sprites
+  spriteWidth: 64
+  spriteHeight: 64
+  tileMapHeight: 15
+  tileMapWidth: 30
+  entityGridEnabled: false
+
+devOptions:
+  endToEndTest: false
+  botEnabled: false
+  timeStates: false
+  shortcutsEnabled: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

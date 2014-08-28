@@ -6,11 +6,9 @@ import com.simplepathstudios.gamelib.audio.SoundPlayer;
 import com.simplepathstudios.gamelib.bridge.Sps;
 import com.simplepathstudios.gamelib.color.Color;
 import com.simplepathstudios.gamelib.console.DevConsole;
-import com.simplepathstudios.gamelib.core.Loader;
-import com.simplepathstudios.gamelib.core.RNG;
+import com.simplepathstudios.gamelib.core.*;
 import com.simplepathstudios.gamelib.data.DevConfig;
-import com.simplepathstudios.gamelib.data.GameConfig;
-import com.simplepathstudios.gamelib.data.Options;
+import com.simplepathstudios.gamelib.core.SpsConfig;
 import com.simplepathstudios.gamelib.data.UserFiles;
 import com.simplepathstudios.gamelib.display.Assets;
 import com.simplepathstudios.gamelib.display.Window;
@@ -43,11 +41,18 @@ public class SpsInitializer {
             }
         };
 
+        preload.add(new PreloadChainLink("Loading SPS configuration") {
+            @Override
+            public void process() {
+                SpsConfig.get();
+            }
+        });
+
         final String error = "Unfortunately, an error caused the game to freeze last time it was played.";
         preload.add(new PreloadChainLink("Prevent game from freezing the system.") {
             @Override
             public void process() {
-                GameMonitor.monitor(UserFiles.crash(), error, GameConfig.ThreadMaxStalledMilliseconds);
+                GameMonitor.monitor(UserFiles.crash(), error, SpsConfig.get().threadMaxStalledMilliseconds);
             }
         });
 
@@ -107,12 +112,12 @@ public class SpsInitializer {
             @Override
             public void process() {
                 if (DevConfig.BotEnabled) {
-                    Options.get().GraphicsLowQuality = true;
-                    Options.get().FullScreen = false;
-                    Options.get().WindowResolutionY = 100;
-                    Options.get().WindowResolutionX = 100;
-                    Options.get().apply();
-                    Options.get().save();
+                    SpsConfig.get().graphicsLowQuality = true;
+                    SpsConfig.get().fullScreen = false;
+                    SpsConfig.get().resolutionHeight = 100;
+                    SpsConfig.get().resolutionWidth = 100;
+                    SpsConfig.getInstance().apply();
+                    SpsConfig.getInstance().save();
                 }
             }
         });
@@ -144,11 +149,10 @@ public class SpsInitializer {
             }
         });
 
-        preload.add(new PreloadChainLink("Loading game options") {
+        preload.add(new PreloadChainLink("Loading game SpsConfig") {
             @Override
             public void process() {
-                Options.load();
-                Options.get().apply();
+                SpsConfig.getInstance().apply();
             }
         });
 

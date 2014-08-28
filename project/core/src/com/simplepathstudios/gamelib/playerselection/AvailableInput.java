@@ -2,8 +2,8 @@ package com.simplepathstudios.gamelib.playerselection;
 
 import com.simplepathstudios.gamelib.bridge.Commands;
 import com.simplepathstudios.gamelib.color.Color;
+import com.simplepathstudios.gamelib.core.SpsConfig;
 import com.simplepathstudios.gamelib.core.Point2;
-import com.simplepathstudios.gamelib.data.GameConfig;
 import com.simplepathstudios.gamelib.display.Screen;
 import com.simplepathstudios.gamelib.input.Input;
 import com.simplepathstudios.gamelib.input.PlayerIndex;
@@ -12,7 +12,7 @@ import com.simplepathstudios.gamelib.text.Text;
 import com.simplepathstudios.gamelib.text.TextPool;
 
 public class AvailableInput {
-    private static int __columnMax = GameConfig.PlayersMax + 1;
+    private static int __columnMax = SpsConfig.get().playersMax + 1;
     private PlayerIndex _playerIndex;
     private Text _display;
     private int _column;

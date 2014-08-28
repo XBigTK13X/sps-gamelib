@@ -2,7 +2,7 @@ package com.simplepathstudios.gamelib.pregame;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.simplepathstudios.gamelib.bridge.Commands;
-import com.simplepathstudios.gamelib.data.Options;
+import com.simplepathstudios.gamelib.core.SpsConfig;
 import com.simplepathstudios.gamelib.states.StateManager;
 import com.simplepathstudios.gamelib.ui.ButtonStyle;
 import com.simplepathstudios.gamelib.ui.UIButton;
@@ -21,36 +21,36 @@ public class GameOptionsMenu extends OptionsState {
             }
         };
 
-        final UIButton commandLabels = new UIButton("Keyboard Labels: " + (Options.get().GUIButtonKeyboardLabelsEnabled ? "Enabled" : "Disabled"), Commands.get("Menu3")) {
+        final UIButton commandLabels = new UIButton("Keyboard Labels: " + (SpsConfig.get().uiButtonKeyboardLabelsEnabled ? "Enabled" : "Disabled"), Commands.get("Menu3")) {
             @Override
             public void click() {
-                Options.get().GUIButtonKeyboardLabelsEnabled = !Options.get().GUIButtonKeyboardLabelsEnabled;
-                Options.get().save();
-                Options.get().apply();
-                setMessage("Keyboard Labels: " + (Options.get().GUIButtonKeyboardLabelsEnabled ? "Enabled" : "Disabled"));
+                SpsConfig.get().uiButtonKeyboardLabelsEnabled = !SpsConfig.get().uiButtonKeyboardLabelsEnabled;
+                SpsConfig.getInstance().save();
+                SpsConfig.getInstance().apply();
+                setMessage("Keyboard Labels: " + (SpsConfig.get().uiButtonKeyboardLabelsEnabled ? "Enabled" : "Disabled"));
                 layout();
             }
         };
 
 
-        final UIButton introEnabled = new UIButton("Intro Video: " + (Options.get().ShowIntro ? "Enabled" : "Disabled"), Commands.get("Menu1")) {
+        final UIButton introEnabled = new UIButton("Intro Video: " + (SpsConfig.get().showIntro ? "Enabled" : "Disabled"), Commands.get("Menu1")) {
             @Override
             public void click() {
-                Options.get().ShowIntro = !Options.get().ShowIntro;
-                Options.get().save();
-                Options.get().apply();
-                setMessage("Intro Video: " + (Options.get().ShowIntro ? "Enabled" : "Disabled"));
+                SpsConfig.get().showIntro = !SpsConfig.get().showIntro;
+                SpsConfig.getInstance().save();
+                SpsConfig.getInstance().apply();
+                setMessage("Intro Video: " + (SpsConfig.get().showIntro ? "Enabled" : "Disabled"));
                 layout();
             }
         };
 
-        final UIButton tutorialQueryEnabled = new UIButton("Tutorial Prompt: " + (Options.get().TutorialQueryEnabled ? "Enabled" : "Disabled"), Commands.get("Menu2")) {
+        final UIButton tutorialQueryEnabled = new UIButton("Tutorial Prompt: " + (SpsConfig.get().tutorialQueryEnabled ? "Enabled" : "Disabled"), Commands.get("Menu2")) {
             @Override
             public void click() {
-                Options.get().TutorialQueryEnabled = !Options.get().TutorialQueryEnabled;
-                Options.get().save();
-                Options.get().apply();
-                setMessage("Tutorial Prompt: " + (Options.get().TutorialQueryEnabled ? "Enabled" : "Disabled"));
+                SpsConfig.get().tutorialQueryEnabled = !SpsConfig.get().tutorialQueryEnabled;
+                SpsConfig.getInstance().save();
+                SpsConfig.getInstance().apply();
+                setMessage("Tutorial Prompt: " + (SpsConfig.get().tutorialQueryEnabled ? "Enabled" : "Disabled"));
                 layout();
             }
         };

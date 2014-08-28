@@ -3,7 +3,7 @@ package com.simplepathstudios.gamelib.states;
 import com.simplepathstudios.gamelib.audio.MusicPlayer;
 import com.simplepathstudios.gamelib.core.Logger;
 import com.simplepathstudios.gamelib.data.DevConfig;
-import com.simplepathstudios.gamelib.data.GameConfig;
+import com.simplepathstudios.gamelib.core.SpsConfig;
 import com.simplepathstudios.gamelib.display.Window;
 import com.simplepathstudios.gamelib.particle.ParticleWrapper;
 import com.simplepathstudios.gamelib.text.TextPool;
@@ -96,7 +96,7 @@ public class StateManager {
             Logger.info("Pushing: " + state.getName() + ". Time since last: " + ((java.lang.System.currentTimeMillis() - lastMil)) / 1000f);
             lastMil = java.lang.System.currentTimeMillis();
         }
-        if (GameConfig.OptCollectMetaData) {
+        if (SpsConfig.get().collectMetaData) {
             if (lastMil != 0) {
                 if (!stateTimes.containsKey(state.getName())) {
                     stateTimes.put(state.getName(), 0L);

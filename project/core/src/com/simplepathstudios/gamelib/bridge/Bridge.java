@@ -1,9 +1,10 @@
 package com.simplepathstudios.gamelib.bridge;
 
-import com.simplepathstudios.gamelib.core.Loader;
 import com.simplepathstudios.gamelib.core.Logger;
+import com.simplepathstudios.gamelib.core.SpsConfig;
 import com.simplepathstudios.gamelib.display.Assets;
-import org.apache.commons.io.FileUtils;
+
+import java.util.Map;
 
 public class Bridge {
     private static boolean __setup = false;
@@ -14,32 +15,18 @@ public class Bridge {
                 if (enableGraphics) {
                     Assets.get();
                 }
-                boolean processDrawDepths = false;
+
                 int drawDepth = 0;
-                for (String line : FileUtils.readLines(Loader.get().data("bridge.cfg"))) {
-                    if (!line.contains("#")) {
-                        String[] values = line.split(",");
-                        String name = values[0];
-                        if (name.equals("context")) {
-                            String id = values[1];
-                            Contexts.add(new Context(id));
-                        }
-                        if (name.equals("command")) {
-                            String id = values[1];
-                            String context = values[2];
-                            Commands.add(new Command(id, Contexts.get(context)));
-                        }
-                        if (name.equalsIgnoreCase("StartDrawDepths")) {
-                            processDrawDepths = true;
-                        }
-                        if (processDrawDepths) {
-                            String id = values[0];
-                            DrawDepths.add(new DrawDepth(id, drawDepth++));
-                        }
-                        if (name.equalsIgnoreCase("EndDrawDepths")) {
-                            processDrawDepths = false;
-                        }
+                for (String context : SpsConfig.get().commandContexts) {
+                    Contexts.add(new Context(context));
+                }
+                for (Map<String, String> override : SpsConfig.get().contextOverrides) {
+                    for (String command : override.keySet()) {
+                        Commands.add(new Command(command, Contexts.get(override.get(command))));
                     }
+                }
+                for (String drawDepthName : SpsConfig.get().drawDepths) {
+                    DrawDepths.add(new DrawDepth(drawDepthName, drawDepth++));
                 }
             }
             catch (Exception e) {

@@ -1,105 +1,104 @@
 package com.simplepathstudios.gamelib.core;
 
-import com.simplepathstudios.gamelib.util.Parse;
+import com.simplepathstudios.gamelib.data.UserFiles;
+import com.simplepathstudios.gamelib.display.Window;
+import com.simplepathstudios.gamelib.input.InputBindings;
+import com.simplepathstudios.gamelib.util.Maths;
+import com.simplepathstudios.gamelib.util.YAML;
 import org.apache.commons.io.FileUtils;
 
-import java.util.HashMap;
+import java.io.File;
 
 public class SpsConfig {
     private static SpsConfig __instance;
+    private static File __config = UserFiles.config();
+    private static File __defaultConfig = Loader.get().data("config.yaml");
 
-    public static SpsConfig get() {
+    private SpsConfigData _spsConfigData;
+
+    private static void init() {
         if (__instance == null) {
             __instance = new SpsConfig();
+            __instance.load();
         }
+    }
+
+    public static SpsConfigData get() {
+        init();
+        return __instance.getData();
+    }
+
+    public static SpsConfig getInstance() {
+        init();
         return __instance;
     }
 
-    private HashMap<String, String> _settings = new HashMap<String, String>();
-
-    public boolean musicEnabled;
-    public boolean soundEnabled;
-
-    public final int spriteHeight;
-    public final int spriteWidth;
-    public final int tileMapHeight;
-    public final int tileMapWidth;
-    public final int resolutionHeight;
-    public final int resolutionWidth;
-    public final int virtualHeight;
-    public final int virtualWidth;
-    public final boolean fullScreen;
-    public final boolean vSyncEnabled;
-    public final boolean displayLoggingEnabled;
-    public final boolean taskLoggingEnabled;
-
-    public final boolean entityGridEnabled;
-
-    public final float gameTasksTimeDilation;
-    public final boolean gameTasksTimeDilationEnabled;
-
-    public final boolean viewPaths;
-    public final boolean devConsoleEnabled;
-    public final boolean controllersEnabled;
-
-    public final int particleEffectPoolLimit;
-    public final int particleEffectPoolStartSize;
-    public final int maxColorLookupSize;
-
-    public final float gamepadAxisDeadZone;
-
-
     private SpsConfig() {
-        try {
-            Logger.info("Parsing sps-gamelib.cfg");
-            for (String line : FileUtils.readLines(Loader.get().data("sps-gamelib.cfg"))) {
-                if (!line.contains("##") && line.length() > 1) {
-                    String key = line.split("=")[0];
-                    String value = line.split("=")[1];
-                    _settings.put(key, value);
-                }
+
+    }
+
+    public SpsConfigData getData() {
+        return _spsConfigData;
+    }
+
+    public void resetToDefaults() {
+        if (__config.exists()) {
+            try {
+                Logger.info("Removing user's config data");
+                FileUtils.forceDelete(__config);
+            }
+            catch (Exception e) {
+                Logger.exception(e, false);
             }
         }
+        try {
+            load();
+            apply();
+        }
         catch (Exception e) {
-            Logger.exception(e);
+            Logger.exception(e, false);
         }
+    }
 
-        // Audio
-        musicEnabled = Parse.bool(_settings.get("musicEnabled"));
-        soundEnabled = Parse.bool(_settings.get("soundEnabled"));
-
-        // Display
-        spriteHeight = Parse.inte(_settings.get("spriteHeight"));
-        spriteWidth = Parse.inte(_settings.get("spriteWidth"));
-        tileMapHeight = Parse.inte(_settings.get("tileMapHeight"));
-        tileMapWidth = Parse.inte(_settings.get("tileMapWidth"));
-        resolutionHeight = Parse.inte(_settings.get("resolutionHeight"));
-        resolutionWidth = Parse.inte(_settings.get("resolutionWidth"));
-        virtualHeight = Parse.inte(_settings.get("virtualHeight"));
-        virtualWidth = Parse.inte(_settings.get("virtualWidth"));
-        fullScreen = Parse.bool(_settings.get("fullScreen"));
-        vSyncEnabled = Parse.bool(_settings.get("vSyncEnabled"));
-        displayLoggingEnabled = Parse.bool(_settings.get("displayLoggingEnabled"));
-
-
-        entityGridEnabled = Parse.bool(_settings.get("entityGridEnabled"));
-
-        gameTasksTimeDilation = Parse.floa(_settings.get("gameTasksTimeDilation"));
-        gameTasksTimeDilationEnabled = Math.abs(gameTasksTimeDilation - 1.0f) > .0004f;
-        if (gameTasksTimeDilationEnabled) {
-            Logger.info("WARNING: GameTask time dilation does not equal 1.0! All game task lengths will be multiplied by " + gameTasksTimeDilation);
+    private void load() {
+        if (__config.exists()) {
+            try {
+                Logger.info("Attempting to load sps config from: " + __config.getAbsolutePath());
+                String yaml = FileUtils.readFileToString(__config);
+                _spsConfigData = (SpsConfigData) YAML.getObject(yaml, SpsConfigData.getYamlConstructor());
+                return;
+            }
+            catch (Exception e) {
+                Logger.exception(e, false);
+            }
         }
-        taskLoggingEnabled = Parse.bool(_settings.get("taskLoggingEnabled"));
+        try {
+            Logger.info("Attempting to load sps config from: " + __defaultConfig.getAbsolutePath());
+            String yaml = FileUtils.readFileToString(__defaultConfig);
+            _spsConfigData = (SpsConfigData) YAML.getObject(yaml, SpsConfigData.getYamlConstructor());
+        }
+        catch (Exception e) {
+            Logger.exception(e, false);
+        }
+        _spsConfigData.loadVarsFromMaps();
+    }
 
-        particleEffectPoolLimit = Parse.inte(_settings.get("particleEffectPoolLimit"));
-        particleEffectPoolStartSize = Parse.inte(_settings.get("particleEffectPoolStartSize"));
-        maxColorLookupSize = Parse.inte(_settings.get("maxColorLookupSize"));
+    public void save() {
+        try {
+            String yaml = YAML.toString(_spsConfigData);
+            FileUtils.write(__config, yaml);
+        }
+        catch (Exception e) {
+            Logger.exception(e, false);
+        }
+    }
 
-        // Dev
-        viewPaths = Parse.bool(_settings.get("viewPaths"));
-        devConsoleEnabled = Parse.bool(_settings.get("devConsoleEnabled"));
-        controllersEnabled = Parse.bool(_settings.get("controllersEnabled"));
-
-        gamepadAxisDeadZone = Parse.floa(_settings.get("gamepadAxisDeadZone"));
+    public void apply() {
+        Window.resize(_spsConfigData.resolutionWidth, _spsConfigData.resolutionHeight, _spsConfigData.fullScreen);
+        SpsConfig.get().musicEnabled = _spsConfigData.musicEnabled;
+        SpsConfig.get().soundEnabled = _spsConfigData.soundEnabled;
+        int brightness = (int) (Maths.percentToValue(-25, 0, _spsConfigData.brightness));
+        Window.get().screenEngine().setBrightness(brightness);
+        Window.get(true).screenEngine().setBrightness(brightness);
     }
 }

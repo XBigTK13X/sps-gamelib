@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.simplepathstudios.gamelib.bridge.Commands;
 import com.simplepathstudios.gamelib.bridge.DrawDepths;
 import com.simplepathstudios.gamelib.color.Color;
-import com.simplepathstudios.gamelib.data.Options;
+import com.simplepathstudios.gamelib.core.SpsConfig;
 import com.simplepathstudios.gamelib.display.Screen;
 import com.simplepathstudios.gamelib.display.Window;
 import com.simplepathstudios.gamelib.draw.SpriteMaker;
@@ -68,9 +68,9 @@ public class ExitPrompt {
         _toggleFullScreen = new UIButton("Toggle Fullscreen " + Commands.get("ToggleFullscreen")) {
             @Override
             public void click() {
-                Options.get().FullScreen = !Gdx.graphics.isFullscreen();
-                Options.get().apply();
-                Options.get().save();
+                SpsConfig.get().fullScreen = !Gdx.graphics.isFullscreen();
+                SpsConfig.getInstance().apply();
+                SpsConfig.getInstance().save();
             }
         };
 

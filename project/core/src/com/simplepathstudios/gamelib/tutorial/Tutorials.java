@@ -1,6 +1,6 @@
 package com.simplepathstudios.gamelib.tutorial;
 
-import com.simplepathstudios.gamelib.data.Options;
+import com.simplepathstudios.gamelib.core.SpsConfig;
 import com.simplepathstudios.gamelib.states.StateManager;
 
 import java.util.HashMap;
@@ -34,7 +34,7 @@ public class Tutorials {
     }
 
     public void show(boolean ignoreConfig) {
-        if (Options.get().TutorialEnabled || ignoreConfig) {
+        if (SpsConfig.get().tutorialEnabled || ignoreConfig) {
             Tutorial tutorial = _tutorials.get(StateManager.get().current().getClass());
             if (tutorial != null) {
                 Boolean completed = _completedTutorials.get(tutorial);

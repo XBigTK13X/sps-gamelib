@@ -7,7 +7,6 @@ import com.simplepathstudios.gamelib.color.Color;
 import com.simplepathstudios.gamelib.core.Logger;
 import com.simplepathstudios.gamelib.core.Point2;
 import com.simplepathstudios.gamelib.core.SpsConfig;
-import com.simplepathstudios.gamelib.data.Options;
 import com.simplepathstudios.gamelib.display.Screen;
 import com.simplepathstudios.gamelib.prompts.PausePrompt;
 import com.simplepathstudios.gamelib.states.Systems;
@@ -69,8 +68,8 @@ public class DevConsole {
         register(new DevConsoleAction("fs") {
             @Override
             public String act(int[] input) {
-                Options.get().FullScreen = !Options.get().FullScreen;
-                Options.get().apply();
+                SpsConfig.get().fullScreen = !SpsConfig.get().fullScreen;
+                SpsConfig.getInstance().apply();
                 return null;
             }
         });

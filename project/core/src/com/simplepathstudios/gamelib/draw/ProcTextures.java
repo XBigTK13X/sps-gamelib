@@ -4,7 +4,7 @@ import com.simplepathstudios.gamelib.color.Color;
 import com.simplepathstudios.gamelib.color.Colors;
 import com.simplepathstudios.gamelib.core.Point2;
 import com.simplepathstudios.gamelib.core.RNG;
-import com.simplepathstudios.gamelib.data.GameConfig;
+import com.simplepathstudios.gamelib.core.SpsConfig;
 import com.simplepathstudios.gamelib.util.HitTest;
 import com.simplepathstudios.gamelib.util.Maths;
 
@@ -40,7 +40,7 @@ public class ProcTextures {
     }
 
     public static Color[][] perlin(int width, int height, Color start, Color end, int smoothness, boolean ignoreOptimizationsConfig) {
-        if (GameConfig.OptDisableCloudyTextures && !ignoreOptimizationsConfig) {
+        if (SpsConfig.get().disableCloudyTextures && !ignoreOptimizationsConfig) {
             Color[][] result = new Color[width][height];
             for (int ii = 0; ii < width; ii++) {
                 for (int jj = 0; jj < height; jj++) {
