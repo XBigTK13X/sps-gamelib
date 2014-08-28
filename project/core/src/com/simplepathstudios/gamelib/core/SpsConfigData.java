@@ -3,6 +3,7 @@ package com.simplepathstudios.gamelib.core;
 import com.simplepathstudios.gamelib.util.Parse;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.constructor.Constructor;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class SpsConfigData {
     public Map<String, Object> gameOptions;
     public Map<String, Object> engineOptions;
     public Map<String, Object> devOptions;
+    public List<Map<String, Object>> inputBindings;
 
     //gameOptions
     public Boolean disableCloudyTextures;
@@ -106,6 +108,7 @@ public class SpsConfigData {
                     case "gameOptions":
                     case "engineOptions":
                     case "devOptions":
+                    case "inputBindings":
                         break;
                     default:
                         Logger.info("Unable to find config entry for: " + name);
@@ -126,9 +129,21 @@ public class SpsConfigData {
                 }
             }
         }
+
+        for (Map<String, Object> commandBindings : inputBindings) {
+            String command = commandBindings.get("command").toString();
+            List<Map<String, Object>> castedBindings = (List<Map<String, Object>>) commandBindings.get("bindings");
+            for (Map<String, Object> binding : castedBindings) {
+                String type = binding.get("type").toString();
+                List<String> chord = (List<String>)binding.get("chord");
+                //TODO Pass these pieces of info into InputBindings
+            }
+        }
+        System.exit(1);
     }
 
     public void dumpVarsToMaps() {
-
+        //TODO Store everything in a user's YAML file
+        throw new NotImplementedException();
     }
 }

@@ -102,20 +102,199 @@ devOptions:
   timeStates: false
   shortcutsEnabled: true
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+inputBindings:
+    - command: MoveUp 
+      bindings:
+        - type: keyboard
+          chord:
+            - Up
+        - type: xbox360
+          chord:
+            - LeftStickUp
+        - type: ps3
+          chord:
+            - LeftStickUp
+    - command: MoveDown
+      bindings:
+        - type: keyboard
+          chord:
+            - Down
+        - type: xbox360
+          chord:
+            - LeftStickDown
+        - type: ps3
+          chord:
+            - LeftStickDown
+    - command: MoveLeft
+      bindings:
+        - type: keyboard
+          chord:
+            - Left
+        - type: xbox360
+          chord:
+            - LeftStickLeft
+        - type: ps3
+          chord:
+            - LeftStickLeft
+    - command: MoveRight
+      bindings:
+        - type: keyboard
+          chord:
+            - Right
+        - type: xbox360
+          chord:
+            - LeftStickRight
+        - type: ps3
+          chord:
+            - LeftStickRight
+    - command: Confirm
+      bindings:
+        - type: keyboard
+          chord:
+            - Space
+        - type: xbox360
+          chord:
+            - A
+        - type: ps3
+          chord:
+            - X
+    - command: Cancel
+      bindings:
+        - type: keyboard
+          chord:
+            - Backspace
+        - type: xbox360
+          chord:
+            - B
+        - type: ps3
+          chord:
+            - Circle
+    - command: Start
+      bindings:
+        - type: keyboard
+          chord:
+            - Tab
+        - type: xbox360
+          chord:
+            - A
+    - command: Pause
+      bindings:
+        - type: keyboard
+          chord:
+            - H
+            - SHIFT_RIGHT
+        - type: xbox360
+          chord:
+            - Start
+    - command: Help
+      bindings:
+        - type: keyboard
+          chord:
+            - F1
+            - SHIFT_RIGHT
+        - type: xbox360
+          chord:
+            - Back
+    - command: Pause
+      bindings:
+        - type: keyboard
+          chord:
+            - ENTER
+        - type: xbox360
+          chord:
+            - X
+    - command: ToggleFullScreen
+      bindings:
+        - type: keyboard
+          chord:
+            - F11
+    - command: Menu1
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_1
+    - command: Menu2
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_2
+    - command: Menu3
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_3
+    - command: Menu4
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_4
+    - command: Menu5
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_5
+    - command: Menu6
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_6
+    - command: Menu7
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_7
+    - command: Menu8
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_8
+    - command: Menu9
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_9
+    - command: ToggleDevConsole
+      bindings:
+        - type: keyboard
+          chord:
+            - P
+            - SHIFT_RIGHT
+    - command: Exit
+      bindings:
+        - type: keyboard
+          chord:
+            - ESCAPE
+    - command: Debug1
+      bindings:
+        - type: keyboard
+          chord:
+            - U
+    - command: Debug2
+      bindings:
+        - type: keyboard
+          chord:
+            - J 
+    - command: AimAndFire
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_1
+        - type: xbox360
+          chord:
+            - LeftTrigger
+            - RightTrigger
+        - type: ps3
+          chord:
+            - L2
+            - R2
+    - command: MoveVertical
+      bindings:
+        - type: xbox360
+          chord:
+            - RightStickY
+    - command: MoveHorizontal
+      bindings:
+        - type: xbox360
+          chord:
+            - RightStickX
+            
