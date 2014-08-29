@@ -23,7 +23,7 @@ public class PdfViewer {
 
         }
         catch (Exception ex) {
-            Logger.exception("An error occurred while attempting to open a PDF.", ex, false);
+            Logger.exception("An error occurred while opening a PDF.", ex, false);
         }
 
     }

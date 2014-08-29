@@ -13,9 +13,7 @@ import com.simplepathstudios.gamelib.util.JSON;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class InputBindings {
     private InputBindings() {
@@ -28,58 +26,63 @@ public class InputBindings {
         return __areLoaded;
     }
 
-    public static List<String> toConfig() {
-        List<String> result = new ArrayList<>();
+    public static void updateConfig() {
+        List<Map<String, Object>> commandBindings = new LinkedList<>();
         for (Command command : Commands.values()) {
-            String chord = "";
+            String commandName = command.name();
+            List<String> keyboardChord = new LinkedList<>();
             for (int ii = 0; ii < command.keys().size(); ii++) {
-                chord += "\"" + command.keys().get(ii) + "\"";
-                if (ii < command.keys().size() - 1) {
-                    chord += ",";
-                }
+                keyboardChord.add(command.keys().get(ii).name());
             }
-            String entry = "{";
-            entry += JSON.pad("command", command.name()) + ",";
-            entry += "bindings:[";
-            entry += "{type:\"keyboard\",chord:[" + chord + "]}";
-            for (String gamepad : command.supportedGamepads()) {
-                String gamepadChord = "";
 
+            Map<String, Object> mapping = new HashMap<>();
+            mapping.put("command", commandName);
+            List<Map<String, Object>> bindings = new LinkedList<>();
+            if (keyboardChord.size() > 0) {
+                Map<String, Object> chordMap = new HashMap<>();
+                chordMap.put("type", "keyboard");
+                chordMap.put("chord", keyboardChord);
+                bindings.add(chordMap);
+            }
+
+            for (String gamepad : command.supportedGamepads()) {
                 List<GamepadInput> gamepadInputs = command.controllerInput(gamepad);
-                for (int ii = 0; ii < gamepadInputs.size(); ii++) {
+                List<Object> gamepadChord = new LinkedList<>();
+                for (GamepadInput gamepadInput : gamepadInputs) {
                     if (gamepad.equalsIgnoreCase("sps-autoconf")) {
-                        gamepadChord = gamepadInputs.get(0).serialize();
+                        gamepadChord.add(gamepadInput.getSerializable());
                     }
                     else {
-                        gamepadChord = "\"" + gamepadInputs.get(0).getName() + "\"";
-                    }
-                    if (ii < gamepadInputs.size() - 1) {
-                        gamepadChord += ",";
+                        gamepadChord.add(gamepadInput.getName());
                     }
                 }
-                entry += ",{type:\"" + gamepad + "\",chord:[" + gamepadChord + "]}";
+                Map<String, Object> chordMap = new HashMap<>();
+                chordMap.put("type", gamepad);
+                chordMap.put("chord", gamepadChord);
+                bindings.add(chordMap);
             }
-            entry += "]";
-            entry += "]}";
-            result.add(entry);
+            mapping.put("bindings", bindings);
+            commandBindings.add(mapping);
         }
-        return result;
+        SpsConfig.get().commandBindings = commandBindings;
+        SpsConfig.getInstance().apply();
+        SpsConfig.getInstance().save();
     }
 
     public static void bindAll() {
-        for (Map<String, Object> commandBindings : SpsConfig.get().inputBindings) {
+        for (Map<String, Object> commandBindings : SpsConfig.get().commandBindings) {
             String command = commandBindings.get("command").toString();
             List<Map<String, Object>> castedBindings = (List<Map<String, Object>>) commandBindings.get("bindings");
             for (Map<String, Object> binding : castedBindings) {
                 String chordType = binding.get("type").toString();
-                List<String> chord = (List<String>) binding.get("chord");
+                List<Object> chord = (List<Object>) binding.get("chord");
                 InputBindings.bind(command, chordType, chord);
             }
         }
         __areLoaded = true;
     }
 
-    private static void bind(String commandName, String chordType, List<String> rawChord) {
+    private static void bind(String commandName, String chordType, List<Object> rawChord) {
         if (Commands.get(commandName) == null) {
             if (SpsConfig.get().inputLoadLogging) {
                 Logger.info("No overrides found for " + commandName + " , setting context to default of All");
@@ -89,11 +92,12 @@ public class InputBindings {
         List<Keys> chord = new ArrayList<>();
         List<GamepadInput> gamepadInputs = new ArrayList<>();
 
-        for (String rawControl : rawChord) {
+        for (Object rawControl : rawChord) {
+            String controlName = rawControl.toString();
             if (chordType.equalsIgnoreCase("keyboard")) {
-                Keys key = Keys.fromName(rawControl);
-                if (key == null && rawControl.length() == 1) {
-                    key = Keys.fromChar(rawControl.charAt(0));
+                Keys key = Keys.fromName(controlName);
+                if (key == null && controlName.length() == 1) {
+                    key = Keys.fromChar(controlName.charAt(0));
                 }
                 if (key == null) {
                     Logger.exception(new RuntimeException("Unable to handle input binding for : '" + commandName + "'. " + "[" + rawControl + "] was not listed as any KeyID."));
@@ -101,9 +105,9 @@ public class InputBindings {
                 chord.add(key);
             }
             else {
-                GamepadInput gamepadInput = PreconfiguredGamepadInputs.get(chordType, rawControl);
+                GamepadInput gamepadInput = PreconfiguredGamepadInputs.get(chordType, controlName);
                 if (gamepadInput == null) {
-                    gamepadInput = GamepadInput.parse(rawControl, null);
+                    gamepadInput = GamepadInput.fromSerializable(rawControl, null);
                 }
                 if (gamepadInput != null) {
                     gamepadInputs.add(gamepadInput);

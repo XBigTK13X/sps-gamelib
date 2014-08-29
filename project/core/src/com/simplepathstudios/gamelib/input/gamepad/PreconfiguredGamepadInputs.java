@@ -2,17 +2,13 @@ package com.simplepathstudios.gamelib.input.gamepad;
 
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.simplepathstudios.gamelib.core.Loader;
 import com.simplepathstudios.gamelib.core.Logger;
-import com.simplepathstudios.gamelib.util.JSON;
+import com.simplepathstudios.gamelib.util.YAML;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,20 +30,15 @@ public class PreconfiguredGamepadInputs {
         try {
             for (File config : Loader.get().data("gamepad").listFiles()) {
                 Logger.info("Reading gamepad config: " + config.getAbsolutePath());
-                if (!config.getName().contains("~") && !config.getName().contains(".DS_Store")) {
-                    JsonObject json = JSON.getObject(FileUtils.readFileToString(config));
-                    JsonObject rawVariables = json.get("vars").getAsJsonObject();
+                if (config.getName().contains(".yaml") && !config.getName().contains("~") && !config.getName().contains(".DS_Store")) {
+                    String yaml = FileUtils.readFileToString(config);
+                    PreconfiguredGamepadData gamepadData = (PreconfiguredGamepadData) YAML.getObject(yaml, PreconfiguredGamepadData.getYamlConstructor());
 
-                    String title = json.get("title").getAsString();
-                    __hardwareNames.put(title, new ArrayList<String>());
-                    for (JsonElement el : rawVariables.get("hardwareNames").getAsJsonArray()) {
-                        __hardwareNames.get(title).add(el.getAsString());
-                    }
-                    __inputs.put(title, new HashMap<String, GamepadInput>());
-                    JsonArray bindings = json.getAsJsonArray("bindings");
-                    for (JsonElement binding : bindings) {
-                        String inputName = binding.getAsJsonObject().get("id").getAsString();
-                        __inputs.get(title).put(inputName, GamepadInput.parse(binding.toString(), rawVariables.get("deadZone").getAsFloat()));
+                    __hardwareNames.put(gamepadData.title,gamepadData.hardwareNames);
+
+                    __inputs.put(gamepadData.title, new HashMap<>());
+                    for (Map<String,Object> binding : gamepadData.bindings) {
+                        __inputs.get(gamepadData.title).put(binding.get("id").toString(), GamepadInput.fromSerializable(binding, gamepadData.deadZone));
                     }
                 }
             }

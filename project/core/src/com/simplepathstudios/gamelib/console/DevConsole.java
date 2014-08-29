@@ -146,7 +146,7 @@ public class DevConsole {
                 }
             }
             catch (Exception e) {
-                add("Exception caught while attempting to parse command.");
+                add("Exception caught while parsing command.");
             }
         }
         _input.setMessage("");

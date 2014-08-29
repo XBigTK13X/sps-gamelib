@@ -3,6 +3,7 @@ package com.simplepathstudios.gamelib.data;
 import com.simplepathstudios.gamelib.core.Loader;
 import com.simplepathstudios.gamelib.core.Logger;
 import com.simplepathstudios.gamelib.display.Window;
+import com.simplepathstudios.gamelib.input.InputBindings;
 import com.simplepathstudios.gamelib.util.Maths;
 import com.simplepathstudios.gamelib.util.YAML;
 import org.apache.commons.io.FileUtils;
@@ -44,7 +45,7 @@ public class SpsConfig {
     public void resetToDefaults() {
         if (__config.exists()) {
             try {
-                Logger.info("Removing user's config data");
+                Logger.info("Removing user's config data: " + __config.getAbsolutePath());
                 FileUtils.forceDelete(__config);
             }
             catch (Exception e) {
@@ -54,6 +55,7 @@ public class SpsConfig {
         try {
             load();
             apply();
+            InputBindings.bindAll();
         }
         catch (Exception e) {
             Logger.exception(e, false);
@@ -63,7 +65,7 @@ public class SpsConfig {
     private void load() {
         if (__config.exists()) {
             try {
-                Logger.info("Attempting to load sps config from: " + __config.getAbsolutePath());
+                Logger.info("Load sps config from: " + __config.getAbsolutePath());
                 String yaml = FileUtils.readFileToString(__config);
                 _spsConfigData = (SpsConfigData) YAML.getObject(yaml, SpsConfigData.getYamlConstructor());
                 return;
@@ -73,17 +75,18 @@ public class SpsConfig {
             }
         }
         try {
-            Logger.info("Attempting to load sps config from: " + __defaultConfig.getAbsolutePath());
+            Logger.info("Load sps config from: " + __defaultConfig.getAbsolutePath());
             String yaml = FileUtils.readFileToString(__defaultConfig);
             _spsConfigData = (SpsConfigData) YAML.getObject(yaml, SpsConfigData.getYamlConstructor());
+            _spsConfigData.loadVarsFromMaps();
         }
         catch (Exception e) {
             Logger.exception(e, false);
         }
-        _spsConfigData.loadVarsFromMaps();
     }
 
     public void save() {
+        Logger.info("Saving user config to: " + __config.getAbsolutePath());
         try {
             String yaml = YAML.toString(_spsConfigData);
             FileUtils.write(__config, yaml);
@@ -94,10 +97,10 @@ public class SpsConfig {
     }
 
     public void apply() {
-        Window.resize(_spsConfigData.resolutionWidth, _spsConfigData.resolutionHeight, _spsConfigData.fullScreen);
-        SpsConfig.get().musicEnabled = _spsConfigData.musicEnabled;
-        SpsConfig.get().soundEnabled = _spsConfigData.soundEnabled;
-        int brightness = (int) (Maths.percentToValue(-25, 0, _spsConfigData.brightness));
+        Window.resize(get().resolutionWidth, get().resolutionHeight, get().fullScreen);
+        SpsConfig.get().musicEnabled = get().musicEnabled;
+        SpsConfig.get().soundEnabled = get().soundEnabled;
+        int brightness = (int) (Maths.percentToValue(-25, 0, get().brightness));
         Window.get().screenEngine().setBrightness(brightness);
         Window.get(true).screenEngine().setBrightness(brightness);
     }

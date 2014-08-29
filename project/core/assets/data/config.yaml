@@ -92,6 +92,7 @@ engineOptions:
   spriteHeight: 64
   tileMapHeight: 15
   tileMapWidth: 30
+  inputDetectCooldown: 0.2
   entityGridEnabled: false
   displayLogging: false
   taskLogging: false
@@ -103,7 +104,7 @@ devOptions:
   timeStates: false
   shortcutsEnabled: true
 
-inputBindings:
+commandBindings:
     - command: MoveUp 
       bindings:
         - type: keyboard

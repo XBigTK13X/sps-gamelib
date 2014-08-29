@@ -1,0 +1,422 @@
+---
+  bindings: 
+    - 
+      config: 
+        linux: 
+          id: 8
+        mac: 
+          id: 10
+        windows: 
+          id: 11
+      id: Guide
+      type: button
+    - 
+      config: 
+        linux: 
+          id: 9
+        mac: 
+          id: 6
+        windows: 
+          id: 8
+      id: LeftStickButton
+      type: button
+    - 
+      config: 
+        linux: 
+          id: 10
+        mac: 
+          id: 7
+        windows: 
+          id: 9
+      id: RightStickButton
+      type: button
+    - 
+      config: 
+        linux: 
+          id: 0
+        mac: 
+          id: 11
+        windows: 
+          id: 0
+      id: A
+      type: button
+    - 
+      config: 
+        linux: 
+          id: 1
+        mac: 
+          id: 12
+        windows: 
+          id: 1
+      id: B
+      type: button
+    - 
+      config: 
+        linux: 
+          id: 2
+        mac: 
+          id: 13
+        windows: 
+          id: 2
+      id: X
+      type: button
+    - 
+      config: 
+        linux: 
+          id: 3
+        mac: 
+          id: 14
+        windows: 
+          id: 3
+      id: Y
+      type: button
+    - 
+      config: 
+        linux: 
+          id: 7
+        mac: 
+          id: 4
+        windows: 
+          id: 7
+      id: Start
+      type: button
+    - 
+      config: 
+        linux: 
+          id: 6
+        mac: 
+          id: 5
+        windows: 
+          id: 6
+      id: Back
+      type: button
+    - 
+      config: 
+        linux: 
+          id: 4
+        mac: 
+          id: 8
+        windows: 
+          id: 4
+      id: LeftShoulder
+      type: button
+    - 
+      config: 
+        linux: 
+          id: 5
+        mac: 
+          id: 9
+        windows: 
+          id: 5
+      id: RightShoulder
+      type: button
+    - 
+      config: 
+        linux: 
+          direction: north
+          id: 0
+        mac: 
+          id: 0
+          type: button
+        windows: 
+          direction: north
+          id: 0
+      id: DPadUp
+      type: pov
+    - 
+      config: 
+        linux: 
+          direction: west
+          id: 0
+        mac: 
+          id: 2
+          type: button
+        windows: 
+          direction: west
+          id: 0
+      id: DPadLeft
+      type: pov
+    - 
+      config: 
+        linux: 
+          direction: east
+          id: 0
+        mac: 
+          id: 3
+          type: button
+        windows: 
+          direction: east
+          id: 0
+      id: DPadRight
+      type: pov
+    - 
+      config: 
+        linux: 
+          direction: south
+          id: 0
+        mac: 
+          id: 1
+          type: button
+        windows: 
+          direction: south
+          id: 0
+      id: DPadDown
+      type: pov
+    - 
+      config: 
+        linux: 
+          direction: northeast
+          id: 0
+        mac: 
+          id: 0
+          type: button
+        windows: 
+          direction: northeast
+          id: 0
+      id: DPadUpRight
+      type: pov
+    - 
+      config: 
+        linux: 
+          direction: northwest
+          id: 0
+        mac: 
+          id: 2
+          type: button
+        windows: 
+          direction: northwest
+          id: 0
+      id: DPadUpLeft
+      type: pov
+    - 
+      config: 
+        linux: 
+          direction: southeast
+          id: 0
+        mac: 
+          id: 3
+          type: button
+        windows: 
+          direction: southeast
+          id: 0
+      id: DPadDownRight
+      type: pov
+    - 
+      config: 
+        linux: 
+          direction: southwest
+          id: 0
+        mac: 
+          id: 1
+          type: button
+        windows: 
+          direction: southwest
+          id: 0
+      id: DPadDownLeft
+      type: pov
+    - 
+      config: 
+        linux: 
+          bound: -deadZone
+          direction: above
+          id: 5
+        mac: 
+          bound: deadZone
+          direction: above
+          id: 1
+        windows: 
+          bound: -deadZone
+          direction: below
+          id: 4
+      id: RightTrigger
+      type: axis
+    - 
+      config: 
+        linux: 
+          bound: -deadZone
+          direction: above
+          id: 2
+        mac: 
+          bound: deadZone
+          direction: above
+          id: 0
+        windows: 
+          bound: -deadZone
+          direction: above
+          id: 4
+      id: LeftTrigger
+      type: axis
+    - 
+      config: 
+        linux: 
+          id: 0
+        mac: 
+          id: 2
+        windows: 
+          id: 1
+      id: LeftStickX
+      type: axis
+    - 
+      config: 
+        linux: 
+          id: 1
+        mac: 
+          id: 3
+        windows: 
+          id: 0
+      id: LeftStickY
+      type: axis
+    - 
+      config: 
+        linux: 
+          id: 3
+        mac: 
+          id: 4
+        windows: 
+          id: 3
+      id: RightStickX
+      type: axis
+    - 
+      config: 
+        linux: 
+          id: 4
+        mac: 
+          id: 5
+        windows: 
+          id: 2
+      id: RightStickY
+      type: axis
+    - 
+      config: 
+        linux: 
+          bound: -deadZone
+          direction: below
+          id: 1
+        mac: 
+          bound: -deadZone
+          direction: below
+          id: 3
+        windows: 
+          bound: -deadZone
+          direction: below
+          id: 0
+      id: LeftStickUp
+      type: axis
+    - 
+      config: 
+        linux: 
+          bound: deadZone
+          direction: above
+          id: 1
+        mac: 
+          bound: deadZone
+          direction: above
+          id: 3
+        windows: 
+          bound: deadZone
+          direction: above
+          id: 0
+      id: LeftStickDown
+      type: axis
+    - 
+      config: 
+        linux: 
+          bound: -deadZone
+          direction: below
+          id: 0
+        mac: 
+          bound: -deadZone
+          direction: below
+          id: 2
+        windows: 
+          bound: -deadZone
+          direction: below
+          id: 1
+      id: LeftStickLeft
+      type: axis
+    - 
+      config: 
+        linux: 
+          bound: deadZone
+          direction: above
+          id: 0
+        mac: 
+          bound: deadZone
+          direction: above
+          id: 2
+        windows: 
+          bound: deadZone
+          direction: above
+          id: 1
+      id: LeftStickRight
+      type: axis
+    - 
+      config: 
+        linux: 
+          bound: -deadZone
+          direction: below
+          id: 4
+        mac: 
+          bound: -deadZone
+          direction: below
+          id: 5
+        windows: 
+          bound: -deadZone
+          direction: below
+          id: 2
+      id: RightStickUp
+      type: axis
+    - 
+      config: 
+        linux: 
+          bound: deadZone
+          direction: above
+          id: 4
+        mac: 
+          bound: deadZone
+          direction: above
+          id: 5
+        windows: 
+          bound: deadZone
+          direction: above
+          id: 2
+      id: RightStickDown
+      type: axis
+    - 
+      config: 
+        linux: 
+          bound: -deadZone
+          direction: below
+          id: 3
+        mac: 
+          bound: -deadZone
+          direction: below
+          id: 4
+        windows: 
+          bound: -deadZone
+          direction: below
+          id: 3
+      id: RightStickLeft
+      type: axis
+    - 
+      config: 
+        linux: 
+          bound: deadZone
+          direction: above
+          id: 3
+        mac: 
+          bound: deadZone
+          direction: above
+          id: 4
+        windows: 
+          bound: deadZone
+          direction: above
+          id: 3
+      id: RightStickRight
+      type: axis
+  title: xbox360
+  deadZone: 0.5
+  hardwareNames:
+    - microsoft
+    - xbox
+    - x-box

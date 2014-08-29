@@ -32,13 +32,18 @@ public class SpsConfigData {
 
     }
 
-    public List<String> commandContexts;
-    public List<Map<String, String>> contextOverrides;
-    public List<String> drawDepths;
+    //Serializable data structures
     public Map<String, Object> gameOptions;
     public Map<String, Object> engineOptions;
     public Map<String, Object> devOptions;
-    public List<Map<String, Object>> inputBindings;
+    public List<Map<String, Object>> commandBindings;
+
+    //Easier to access properties
+
+    //Converted from old bridge.cfg
+    public List<String> commandContexts;
+    public List<Map<String, String>> contextOverrides;
+    public List<String> drawDepths;
 
     //gameOptions
     public Boolean disableCloudyTextures;
@@ -76,6 +81,7 @@ public class SpsConfigData {
     public Integer spriteHeight;
     public Integer tileMapHeight;
     public Integer tileMapWidth;
+    public Float inputDetectCooldown;
     public Boolean entityGridEnabled;
     public Boolean displayLogging;
     public Boolean taskLogging;
@@ -109,7 +115,7 @@ public class SpsConfigData {
                     case "gameOptions":
                     case "engineOptions":
                     case "devOptions":
-                    case "inputBindings":
+                    case "commandBindings":
                         break;
                     default:
                         Logger.info("Unable to find config entry for: " + name);
@@ -119,7 +125,6 @@ public class SpsConfigData {
             if (value != null) {
                 try {
                     if (value.getClass() == Double.class) {
-                        //TODO Must be a better way, but I don't have Internet access to see how :p
                         Logger.info("Converting double found in sps config to float: " + name);
                         value = Parse.floa(value.toString());
                     }
@@ -130,10 +135,5 @@ public class SpsConfigData {
                 }
             }
         }
-    }
-
-    public void dumpVarsToMaps() {
-        //TODO Store everything in a user's YAML file
-        throw new NotImplementedException();
     }
 }
