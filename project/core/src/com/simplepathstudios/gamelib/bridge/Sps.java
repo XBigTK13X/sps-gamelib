@@ -14,16 +14,5 @@ public class Sps {
         Bridge.setup(enableGraphics);
     }
 
-    public static class Contexts {
-        public static final String Non_Free = "Non_Free";
-        public static final String Free = "Free";
-        public static final String All = "All";
-    }
-
-    public static class DrawDepths {
-        public static final String DefaultText = "DefaultText";
-        public static final String AnimatedTexture = "AnimatedTexture";
-    }
-
     public static final int AnimationFps = 20;
 }

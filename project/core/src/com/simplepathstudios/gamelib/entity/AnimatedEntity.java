@@ -1,7 +1,7 @@
 package com.simplepathstudios.gamelib.entity;
 
 import com.simplepathstudios.gamelib.bridge.DrawDepth;
-import com.simplepathstudios.gamelib.core.Point2;
+import com.simplepathstudios.gamelib.display.Point2;
 import com.simplepathstudios.gamelib.display.Animation;
 import com.simplepathstudios.gamelib.display.SpriteDefinition;
 import com.simplepathstudios.gamelib.display.SpriteEdge;

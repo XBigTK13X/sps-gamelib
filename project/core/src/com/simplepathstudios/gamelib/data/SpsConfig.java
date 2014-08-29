@@ -1,8 +1,8 @@
-package com.simplepathstudios.gamelib.core;
+package com.simplepathstudios.gamelib.data;
 
-import com.simplepathstudios.gamelib.data.UserFiles;
+import com.simplepathstudios.gamelib.core.Loader;
+import com.simplepathstudios.gamelib.core.Logger;
 import com.simplepathstudios.gamelib.display.Window;
-import com.simplepathstudios.gamelib.input.InputBindings;
 import com.simplepathstudios.gamelib.util.Maths;
 import com.simplepathstudios.gamelib.util.YAML;
 import org.apache.commons.io.FileUtils;

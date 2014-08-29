@@ -1,6 +1,6 @@
 package com.simplepathstudios.gamelib.tutorial;
 
-import com.simplepathstudios.gamelib.core.Point2;
+import com.simplepathstudios.gamelib.display.Point2;
 
 public class Step {
 

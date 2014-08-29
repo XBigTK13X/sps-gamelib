@@ -2,8 +2,8 @@ package com.simplepathstudios.gamelib.playerselection;
 
 import com.simplepathstudios.gamelib.bridge.Commands;
 import com.simplepathstudios.gamelib.color.Color;
-import com.simplepathstudios.gamelib.core.SpsConfig;
-import com.simplepathstudios.gamelib.core.Point2;
+import com.simplepathstudios.gamelib.data.SpsConfig;
+import com.simplepathstudios.gamelib.display.Point2;
 import com.simplepathstudios.gamelib.display.Screen;
 import com.simplepathstudios.gamelib.input.Input;
 import com.simplepathstudios.gamelib.input.PlayerIndex;

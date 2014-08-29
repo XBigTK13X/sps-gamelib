@@ -1,7 +1,7 @@
 package com.simplepathstudios.gamelib.color;
 
 import com.simplepathstudios.gamelib.core.RNG;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.util.Maths;
 
 import java.util.HashMap;

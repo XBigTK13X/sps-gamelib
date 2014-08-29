@@ -1,5 +1,7 @@
 package com.simplepathstudios.gamelib.core;
 
+import com.simplepathstudios.gamelib.display.Point2;
+
 import java.util.List;
 import java.util.Random;
 

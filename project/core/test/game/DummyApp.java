@@ -8,7 +8,7 @@ import com.simplepathstudios.gamelib.bridge.SpriteTypes;
 import com.simplepathstudios.gamelib.bridge.Sps;
 import com.simplepathstudios.gamelib.color.Color;
 import com.simplepathstudios.gamelib.core.RNG;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.data.UserFiles;
 import com.simplepathstudios.gamelib.display.Assets;
 import com.simplepathstudios.gamelib.display.SpriteSheetManager;

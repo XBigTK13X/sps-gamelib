@@ -1,6 +1,6 @@
-package com.simplepathstudios.gamelib.core;
+package com.simplepathstudios.gamelib.display;
 
-import com.simplepathstudios.gamelib.display.Screen;
+import com.simplepathstudios.gamelib.core.RNG;
 
 public class Point2 {
     public static final Point2 Zero = new Point2(0, 0);

@@ -1,12 +1,12 @@
-package com.simplepathstudios.gamelib.core;
+package com.simplepathstudios.gamelib.data;
 
+import com.simplepathstudios.gamelib.core.Logger;
 import com.simplepathstudios.gamelib.util.Parse;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.constructor.Constructor;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -62,8 +62,6 @@ public class SpsConfigData {
     public Integer virtualWidth;
     public Integer virtualHeight;
     public Boolean vSyncEnabled;
-    public Boolean displayLoggingEnabled;
-    public Boolean taskLoggingEnabled;
     public Float gameTasksTimeDilation;
     public Boolean gameTasksTimeDilationEnabled;
     public Integer particleEffectPoolLimit;
@@ -79,6 +77,9 @@ public class SpsConfigData {
     public Integer tileMapHeight;
     public Integer tileMapWidth;
     public Boolean entityGridEnabled;
+    public Boolean displayLogging;
+    public Boolean taskLogging;
+    public Boolean inputLoadLogging;
 
     //devOptions
     public Boolean endToEndTest;
@@ -129,17 +130,6 @@ public class SpsConfigData {
                 }
             }
         }
-
-        for (Map<String, Object> commandBindings : inputBindings) {
-            String command = commandBindings.get("command").toString();
-            List<Map<String, Object>> castedBindings = (List<Map<String, Object>>) commandBindings.get("bindings");
-            for (Map<String, Object> binding : castedBindings) {
-                String type = binding.get("type").toString();
-                List<String> chord = (List<String>)binding.get("chord");
-                //TODO Pass these pieces of info into InputBindings
-            }
-        }
-        System.exit(1);
     }
 
     public void dumpVarsToMaps() {

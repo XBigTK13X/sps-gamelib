@@ -3,7 +3,7 @@ package com.simplepathstudios.gamelib.desktop.bootstrap;
 import com.badlogic.gdx.Gdx;
 import com.simplepathstudios.gamelib.console.DevConsole;
 import com.simplepathstudios.gamelib.console.DevShortcuts;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.display.Window;
 import com.simplepathstudios.gamelib.input.Input;
 import com.simplepathstudios.gamelib.input.InputWrapper;

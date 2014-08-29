@@ -1,7 +1,7 @@
 package com.simplepathstudios.gamelib.console;
 
 import com.simplepathstudios.gamelib.data.DevConfig;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.input.InputWrapper;
 import com.simplepathstudios.gamelib.pregame.PreloadMainMenu;
 import com.simplepathstudios.gamelib.states.GlobalStateResolver;

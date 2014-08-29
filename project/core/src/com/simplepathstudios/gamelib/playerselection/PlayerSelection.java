@@ -1,6 +1,6 @@
 package com.simplepathstudios.gamelib.playerselection;
 
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.input.PlayerIndex;
 import com.simplepathstudios.gamelib.input.Players;
 import com.simplepathstudios.gamelib.states.State;

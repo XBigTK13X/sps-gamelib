@@ -2,7 +2,7 @@ package com.simplepathstudios.gamelib.pregame;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.simplepathstudios.gamelib.bridge.Commands;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.states.StateManager;
 import com.simplepathstudios.gamelib.ui.ButtonStyle;
 import com.simplepathstudios.gamelib.ui.UIButton;

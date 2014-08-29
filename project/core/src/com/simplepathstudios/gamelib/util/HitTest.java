@@ -2,7 +2,7 @@ package com.simplepathstudios.gamelib.util;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
-import com.simplepathstudios.gamelib.core.Point2;
+import com.simplepathstudios.gamelib.display.Point2;
 import com.simplepathstudios.gamelib.input.Input;
 
 public class HitTest {

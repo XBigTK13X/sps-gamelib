@@ -1,6 +1,6 @@
 package com.simplepathstudios.gamelib.tutorial;
 
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.states.StateManager;
 
 import java.util.HashMap;

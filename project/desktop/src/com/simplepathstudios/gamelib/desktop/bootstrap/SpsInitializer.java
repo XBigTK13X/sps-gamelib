@@ -8,7 +8,7 @@ import com.simplepathstudios.gamelib.color.Color;
 import com.simplepathstudios.gamelib.console.DevConsole;
 import com.simplepathstudios.gamelib.core.*;
 import com.simplepathstudios.gamelib.data.DevConfig;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.data.UserFiles;
 import com.simplepathstudios.gamelib.display.Assets;
 import com.simplepathstudios.gamelib.display.Window;
@@ -64,10 +64,10 @@ public class SpsInitializer {
             }
         });
 
-        preload.add(new PreloadChainLink("Read input bindings") {
+        preload.add(new PreloadChainLink("Initializing input bindings from config") {
             @Override
             public void process() {
-                InputBindings.reload(UserFiles.input());
+                InputBindings.bindAll();
             }
         });
 

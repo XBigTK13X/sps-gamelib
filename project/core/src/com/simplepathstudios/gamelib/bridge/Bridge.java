@@ -1,7 +1,7 @@
 package com.simplepathstudios.gamelib.bridge;
 
 import com.simplepathstudios.gamelib.core.Logger;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.display.Assets;
 
 import java.util.Map;
@@ -21,9 +21,12 @@ public class Bridge {
                     Contexts.add(new Context(context));
                 }
                 for (Map<String, String> override : SpsConfig.get().contextOverrides) {
-                    for (String command : override.keySet()) {
-                        Commands.add(new Command(command, Contexts.get(override.get(command))));
+                    String command = override.get("command");
+                    String context = override.get("context");
+                    if (SpsConfig.get().inputLoadLogging) {
+                        Logger.info("Overriding " + command + " context to " + context);
                     }
+                    Commands.add(new Command(command, Contexts.get(context)));
                 }
                 for (String drawDepthName : SpsConfig.get().drawDepths) {
                     DrawDepths.add(new DrawDepth(drawDepthName, drawDepth++));

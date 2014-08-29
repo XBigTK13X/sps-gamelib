@@ -2,7 +2,7 @@ package game;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.simplepathstudios.gamelib.color.Color;
-import com.simplepathstudios.gamelib.core.Point2;
+import com.simplepathstudios.gamelib.display.Point2;
 import com.simplepathstudios.gamelib.display.Assets;
 import com.simplepathstudios.gamelib.display.Screen;
 import com.simplepathstudios.gamelib.display.Window;

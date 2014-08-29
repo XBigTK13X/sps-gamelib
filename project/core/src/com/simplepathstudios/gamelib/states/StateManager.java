@@ -3,7 +3,7 @@ package com.simplepathstudios.gamelib.states;
 import com.simplepathstudios.gamelib.audio.MusicPlayer;
 import com.simplepathstudios.gamelib.core.Logger;
 import com.simplepathstudios.gamelib.data.DevConfig;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.display.Window;
 import com.simplepathstudios.gamelib.particle.ParticleWrapper;
 import com.simplepathstudios.gamelib.text.TextPool;

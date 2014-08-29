@@ -3,7 +3,7 @@ package com.simplepathstudios.gamelib.particle.simple;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.simplepathstudios.gamelib.bridge.DrawDepths;
 import com.simplepathstudios.gamelib.color.Color;
-import com.simplepathstudios.gamelib.core.Point2;
+import com.simplepathstudios.gamelib.display.Point2;
 import com.simplepathstudios.gamelib.core.RNG;
 import com.simplepathstudios.gamelib.display.Window;
 import com.simplepathstudios.gamelib.draw.SpriteMaker;

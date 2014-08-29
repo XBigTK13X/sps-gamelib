@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.simplepathstudios.gamelib.console.DevConsole;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.display.Screen;
 
 public class StretchStrategy implements RenderStrategy {
@@ -26,7 +26,7 @@ public class StretchStrategy implements RenderStrategy {
 
     @Override
     public void resize(int width, int height) {
-        if (SpsConfig.get().displayLoggingEnabled) {
+        if (SpsConfig.get().displayLogging) {
             DevConsole.get().add("Resizing with Stretch strategy: " + width + ", " + height);
         }
     }

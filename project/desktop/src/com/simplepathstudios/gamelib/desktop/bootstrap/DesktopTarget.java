@@ -4,7 +4,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.simplepathstudios.gamelib.core.Logger;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.data.DevConfig;
 import com.simplepathstudios.gamelib.data.UserFiles;
 import com.simplepathstudios.gamelib.preload.DelayedPreloader;

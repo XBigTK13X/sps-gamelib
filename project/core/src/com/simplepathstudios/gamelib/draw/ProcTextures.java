@@ -2,9 +2,9 @@ package com.simplepathstudios.gamelib.draw;
 
 import com.simplepathstudios.gamelib.color.Color;
 import com.simplepathstudios.gamelib.color.Colors;
-import com.simplepathstudios.gamelib.core.Point2;
+import com.simplepathstudios.gamelib.display.Point2;
 import com.simplepathstudios.gamelib.core.RNG;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.util.HitTest;
 import com.simplepathstudios.gamelib.util.Maths;
 

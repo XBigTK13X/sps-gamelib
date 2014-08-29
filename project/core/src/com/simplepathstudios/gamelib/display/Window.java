@@ -5,7 +5,7 @@ import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.GL20;
 import com.simplepathstudios.gamelib.color.Color;
 import com.simplepathstudios.gamelib.console.DevConsole;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.display.render.RenderStrategy;
 import com.simplepathstudios.gamelib.display.render.Renderer;
 import com.simplepathstudios.gamelib.display.render.StretchStrategy;
@@ -36,14 +36,14 @@ public class Window {
         if (__dynamic == null || __fixed == null) {
             int width = SpsConfig.get().virtualWidth;
             int height = SpsConfig.get().virtualHeight;
-            if (SpsConfig.get().displayLoggingEnabled) {
+            if (SpsConfig.get().displayLogging) {
                 DevConsole.get().add("Virtual resolution: " + width + "W, " + height + "H");
             }
             __dynamic = new Renderer(width, height);
             __dynamic.screenEngine().setStrategy(__defaultStrategy);
             __fixed = new Renderer(width, height);
             __fixed.screenEngine().setStrategy(__defaultStrategy);
-            if (SpsConfig.get().displayLoggingEnabled) {
+            if (SpsConfig.get().displayLogging) {
                 DevConsole.get().add("Window resolution: " + Gdx.graphics.getWidth() + "W, " + Gdx.graphics.getHeight() + "H");
             }
             Width = width;
@@ -57,14 +57,14 @@ public class Window {
     }
 
     public static void resize(int width, int height, boolean enableFullScreen) {
-        if (SpsConfig.get().displayLoggingEnabled) {
+        if (SpsConfig.get().displayLogging) {
             DevConsole.get().add("== Resizing window: " + width + ", " + height + ", " + (enableFullScreen ? "FullScreen" : "Windowed"));
         }
         if (enableFullScreen) {
             Graphics.DisplayMode nativeMode = Gdx.graphics.getDesktopDisplayMode();
             width = nativeMode.width;
             height = nativeMode.height;
-            if (SpsConfig.get().displayLoggingEnabled) {
+            if (SpsConfig.get().displayLogging) {
                 DevConsole.get().add("Fullscreen enabled. Ignore parameters and resize to native resolution:  " + width + "x" + height);
             }
         }

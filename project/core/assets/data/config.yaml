@@ -77,8 +77,6 @@ engineOptions:
   virtualWidth: 1920
   virtualHeight: 1080
   vSyncEnabled: true
-  displayLoggingEnabled: false
-  taskLoggingEnabled: false
   gameTasksTimeDilation: 1.0
   gameTasksTimeDilationEnabled: true
   particleEffectPoolLimit: 20
@@ -95,6 +93,9 @@ engineOptions:
   tileMapHeight: 15
   tileMapWidth: 30
   entityGridEnabled: false
+  displayLogging: false
+  taskLogging: false
+  inputLoadLogging: false
 
 devOptions:
   endToEndTest: false
@@ -195,7 +196,7 @@ inputBindings:
         - type: xbox360
           chord:
             - Back
-    - command: Pause
+    - command: AdvanceTutorial
       bindings:
         - type: keyboard
           chord:
@@ -276,9 +277,6 @@ inputBindings:
             - J 
     - command: AimAndFire
       bindings:
-        - type: keyboard
-          chord:
-            - NUM_1
         - type: xbox360
           chord:
             - LeftTrigger

@@ -1,7 +1,7 @@
 package com.simplepathstudios.gamelib.particle.simple;
 
 import com.simplepathstudios.gamelib.color.Color;
-import com.simplepathstudios.gamelib.core.Point2;
+import com.simplepathstudios.gamelib.display.Point2;
 import com.simplepathstudios.gamelib.entity.Entity;
 import com.simplepathstudios.gamelib.states.GameSystem;
 
