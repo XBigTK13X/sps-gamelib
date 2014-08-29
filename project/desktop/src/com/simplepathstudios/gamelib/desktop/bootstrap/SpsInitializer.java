@@ -41,6 +41,13 @@ public class SpsInitializer {
             }
         };
 
+        preload.add(new PreloadChainLink("Bootstrapping") {
+            @Override
+            public void process() {
+
+            }
+        });
+
         preload.add(new PreloadChainLink("Loading SPS configuration") {
             @Override
             public void process() {
