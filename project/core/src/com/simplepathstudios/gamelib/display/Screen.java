@@ -1,8 +1,7 @@
 package com.simplepathstudios.gamelib.display;
 
-import com.simplepathstudios.gamelib.core.Point2;
 import com.simplepathstudios.gamelib.core.RNG;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 
 public class Screen {
     public static float height(int percent) {

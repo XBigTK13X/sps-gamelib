@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.simplepathstudios.gamelib.bridge.Command;
 import com.simplepathstudios.gamelib.bridge.Commands;
 import com.simplepathstudios.gamelib.core.Logger;
-import com.simplepathstudios.gamelib.data.UserFiles;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.display.Screen;
 import com.simplepathstudios.gamelib.input.InputBindings;
 import com.simplepathstudios.gamelib.input.KeyCatcher;
@@ -16,7 +16,6 @@ import com.simplepathstudios.gamelib.text.TextPool;
 import com.simplepathstudios.gamelib.time.CoolDown;
 import com.simplepathstudios.gamelib.ui.ButtonStyle;
 import com.simplepathstudios.gamelib.ui.UIButton;
-import org.apache.commons.io.FileUtils;
 
 import java.util.*;
 
@@ -57,7 +56,7 @@ public class ControlConfigMenu extends OptionsState {
             for (Command command : Commands.values()) {
                 if (command != _current) {
                     for (Keys key : command.keys()) {
-                        if (key.getKeyCode() == keyCode) {
+                        if (key.getKeyCode() == keyCode && command.keys().size() == 1 && _current.keys().size() == 1) {
                             _prompt.setMessage("Duplicate key detected.\nUnable to save.");
                         }
                     }
@@ -79,7 +78,7 @@ public class ControlConfigMenu extends OptionsState {
         setupCommandNames();
         _buttons = new HashMap<>();
         _chords = new HashMap<>();
-        _delay = new CoolDown(.1f);
+        _delay = new CoolDown(SpsConfig.get().inputDetectCooldown);
         _delay.zeroOut();
 
         _prompt = Systems.get(TextPool.class).write("", Screen.pos(20, 13));
@@ -116,7 +115,7 @@ public class ControlConfigMenu extends OptionsState {
                     }
                 }
                 try {
-                    FileUtils.writeLines(UserFiles.input(), InputBindings.toConfig());
+                    InputBindings.updateConfig();
                 }
                 catch (Exception e) {
                     Logger.exception(e, false);

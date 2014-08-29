@@ -2,7 +2,7 @@ package com.simplepathstudios.gamelib.text;
 
 import com.simplepathstudios.gamelib.color.Color;
 import com.simplepathstudios.gamelib.core.Logger;
-import com.simplepathstudios.gamelib.core.Point2;
+import com.simplepathstudios.gamelib.display.Point2;
 import com.simplepathstudios.gamelib.states.GameSystem;
 import com.simplepathstudios.gamelib.states.State;
 

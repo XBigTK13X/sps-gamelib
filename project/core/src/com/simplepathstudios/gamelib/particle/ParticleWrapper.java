@@ -7,8 +7,8 @@ import com.simplepathstudios.gamelib.bridge.DrawDepth;
 import com.simplepathstudios.gamelib.bridge.DrawDepths;
 import com.simplepathstudios.gamelib.color.Color;
 import com.simplepathstudios.gamelib.core.Loader;
-import com.simplepathstudios.gamelib.core.Point2;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.display.Point2;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.display.Window;
 
 import java.io.File;

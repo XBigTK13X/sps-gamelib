@@ -3,7 +3,7 @@ package com.simplepathstudios.gamelib.desktop.bootstrap;
 import com.badlogic.gdx.Gdx;
 import com.simplepathstudios.gamelib.console.DevConsole;
 import com.simplepathstudios.gamelib.console.DevShortcuts;
-import com.simplepathstudios.gamelib.data.Options;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.display.Window;
 import com.simplepathstudios.gamelib.input.Input;
 import com.simplepathstudios.gamelib.input.InputWrapper;
@@ -22,8 +22,7 @@ public class LoadedGame implements SpsEngineChainLink {
 
     private void handleWindowQuerks() {
         if (!_firstUpdateOptionsLoaded) {
-            Options.load();
-            Options.get().apply();
+            SpsConfig.getInstance().apply();
             _firstUpdateOptionsLoaded = true;
         }
     }
@@ -36,9 +35,9 @@ public class LoadedGame implements SpsEngineChainLink {
         }
 
         if (InputWrapper.isActive("ToggleFullScreen") && !DevConsole.get().isActive()) {
-            Options.get().FullScreen = !Gdx.graphics.isFullscreen();
-            Options.get().apply();
-            Options.get().save();
+            SpsConfig.get().fullScreen = !Gdx.graphics.isFullscreen();
+            SpsConfig.getInstance().apply();
+            SpsConfig.getInstance().save();
         }
 
         if (!DevConsole.get().isActive()) {

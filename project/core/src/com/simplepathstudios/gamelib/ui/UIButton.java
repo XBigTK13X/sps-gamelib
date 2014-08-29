@@ -6,8 +6,8 @@ import com.simplepathstudios.gamelib.bridge.Command;
 import com.simplepathstudios.gamelib.bridge.DrawDepth;
 import com.simplepathstudios.gamelib.bridge.DrawDepths;
 import com.simplepathstudios.gamelib.color.Color;
-import com.simplepathstudios.gamelib.core.Point2;
-import com.simplepathstudios.gamelib.data.Options;
+import com.simplepathstudios.gamelib.display.Point2;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.display.Screen;
 import com.simplepathstudios.gamelib.display.Window;
 import com.simplepathstudios.gamelib.draw.Outline;
@@ -65,7 +65,7 @@ public abstract class UIButton {
         _command = command;
         _position = new Point2(0, 0);
 
-        if (_command != null && Options.get().GUIButtonKeyboardLabelsEnabled) {
+        if (_command != null && SpsConfig.get().uiButtonKeyboardLabelsEnabled) {
             _commandMessage = Systems.get(TextPool.class).write(_command.toString(), new Point2(0, 0));
             _commandMessage.setDepth(DrawDepths.get("UIButtonText"));
         }

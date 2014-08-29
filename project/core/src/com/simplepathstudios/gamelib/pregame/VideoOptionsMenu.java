@@ -3,7 +3,7 @@ package com.simplepathstudios.gamelib.pregame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.simplepathstudios.gamelib.bridge.Commands;
-import com.simplepathstudios.gamelib.data.Options;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.display.Screen;
 import com.simplepathstudios.gamelib.states.StateManager;
 import com.simplepathstudios.gamelib.states.Systems;
@@ -33,18 +33,18 @@ public class VideoOptionsMenu extends OptionsState {
         final UIButton fullScreen = new UIButton("Toggle Full Screen", Commands.get("Menu2")) {
             @Override
             public void click() {
-                Options.get().FullScreen = !Gdx.graphics.isFullscreen();
-                Options.get().save();
-                Options.get().apply();
+                SpsConfig.get().fullScreen = !Gdx.graphics.isFullscreen();
+                SpsConfig.getInstance().save();
+                SpsConfig.getInstance().apply();
             }
         };
-        final UIButton graphicsMode = new UIButton(qualityMessage(Options.get()), Commands.get("Menu1")) {
+        final UIButton graphicsMode = new UIButton(qualityMessage(), Commands.get("Menu1")) {
             @Override
             public void click() {
-                Options.get().GraphicsLowQuality = !Options.get().GraphicsLowQuality;
-                Options.get().save();
-                Options.get().apply();
-                setMessage(qualityMessage(Options.get()));
+                SpsConfig.get().graphicsLowQuality = !SpsConfig.get().graphicsLowQuality;
+                SpsConfig.getInstance().save();
+                SpsConfig.getInstance().apply();
+                setMessage(qualityMessage());
                 layout();
             }
         };
@@ -61,7 +61,7 @@ public class VideoOptionsMenu extends OptionsState {
             }
         };
 
-        setBrightnessPercent(Options.get().Brightness, false);
+        setBrightnessPercent(SpsConfig.get().brightness, false);
 
         final UIButton brightnessReset = new UIButton("") {
             @Override
@@ -89,14 +89,14 @@ public class VideoOptionsMenu extends OptionsState {
     private void setBrightnessPercent(int brightness, boolean persist) {
         _brightness.setSliderPercent(brightness);
         if (persist) {
-            Options.get().Brightness = brightness;
-            Options.get().apply();
-            Options.get().save();
+            SpsConfig.get().brightness = brightness;
+            SpsConfig.getInstance().apply();
+            SpsConfig.getInstance().save();
         }
     }
 
-    private String qualityMessage(Options options) {
-        return "Graphics Mode: " + (options.GraphicsLowQuality ? "Fast" : "Pretty");
+    private String qualityMessage() {
+        return "Graphics Mode: " + (SpsConfig.get().graphicsLowQuality ? "Fast" : "Pretty");
     }
 
     @Override

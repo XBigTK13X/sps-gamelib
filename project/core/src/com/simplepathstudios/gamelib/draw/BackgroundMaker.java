@@ -3,7 +3,7 @@ package com.simplepathstudios.gamelib.draw;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.simplepathstudios.gamelib.color.Color;
 import com.simplepathstudios.gamelib.color.Colors;
-import com.simplepathstudios.gamelib.core.Point2;
+import com.simplepathstudios.gamelib.display.Point2;
 import com.simplepathstudios.gamelib.core.RNG;
 import com.simplepathstudios.gamelib.display.Screen;
 import com.simplepathstudios.gamelib.util.HitTest;

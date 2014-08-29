@@ -5,10 +5,11 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.PovDirection;
 import com.google.gson.JsonObject;
 import com.simplepathstudios.gamelib.input.PlayerIndex;
-import com.simplepathstudios.gamelib.util.JSON;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GamepadInput implements Serializable {
     private enum Device {
@@ -52,27 +53,33 @@ public class GamepadInput implements Serializable {
         this(name, Device.Pov, index, null, direction);
     }
 
-    public static GamepadInput parse(String source, Float deadZone) {
-        if (source.equalsIgnoreCase("null") || source == null) {
+    public static GamepadInput fromSerializable(Object serializable, Float deadZone) {
+        String controlName = serializable.toString();
+        if (controlName.equalsIgnoreCase("null") || controlName == null) {
             return null;
         }
-        JsonObject sourceJson = JSON.getObject(source);
-        String name = sourceJson.get("id").getAsString();
-        String inputType = sourceJson.get("type").getAsString();
+
+        Map<String, Object> bindings = (Map<String, Object>) serializable;
+
+        String name = bindings.get("id").toString();
+        String inputType = bindings.get("type").toString();
         String os = getPlatformString();
-        JsonObject config = sourceJson.get("config").getAsJsonObject().get(os).getAsJsonObject();
-        if (config.has("type")) {
-            inputType = config.get("type").getAsString();
+
+        Map<String, Object> configs = (Map<String, Object>) bindings.get("config");
+
+        Map<String, Object> platformBinding = (Map<String, Object>) configs.get(os);
+        if (platformBinding.containsKey("type")) {
+            inputType = platformBinding.get("type").toString();
         }
-        int hardwareIndex = config.get("id").getAsInt();
+        int hardwareIndex = (int) platformBinding.get("id");
 
         switch (inputType) {
             case "button":
                 return new GamepadInput(name, hardwareIndex);
             case "axis":
-                if (config.has("direction")) {
-                    String axisDirection = config.get("direction").getAsString();
-                    String bounds = config.get("bound").getAsString();
+                if (platformBinding.containsKey("direction")) {
+                    String axisDirection = platformBinding.get("direction").toString();
+                    String bounds = platformBinding.get("bound").toString();
                     float threshold = 0;
                     switch (bounds) {
                         case "deadZone":
@@ -88,7 +95,7 @@ public class GamepadInput implements Serializable {
                     return new GamepadInput(name, hardwareIndex, null, 0f);
                 }
             case "pov":
-                String povDirection = config.get("direction").getAsString();
+                String povDirection = platformBinding.get("direction").toString();
                 return new GamepadInput(name, hardwareIndex, povDirection);
             default:
                 return null;
@@ -108,29 +115,30 @@ public class GamepadInput implements Serializable {
         return SystemUtils.IS_OS_MAC ? "mac" : SystemUtils.IS_OS_WINDOWS ? "windows" : "linux";
     }
 
-    public String serialize() {
-        String result = "{";
-        result += "id:\"" + _name + "\",";
-        result += "type:\"" + _inputType.name().toLowerCase() + "\",";
-        result += "config:{";
+    public Map<String, Object> getSerializable() {
+        Map<String, Object> serializable = new HashMap<>();
+        serializable.put("id", _name);
+        serializable.put("type", _inputType.name().toLowerCase());
 
-        String platform = getPlatformString();
-        result += platform + ":{id:" + _hardwareId;
-
+        Map<String, Object> platformBlock = new HashMap<>();
+        platformBlock.put("id", _hardwareId);
         switch (_inputType) {
             case Pov:
-                result += ", direction:\"" + _direction + "\"";
+                platformBlock.put("direction", _direction);
                 break;
             case Axis:
-                result += ", direction:\"" + _direction + "\"";
-                result += ", bound:\"" + _threshold + "\"";
+                platformBlock.put("direction", _direction);
+                platformBlock.put("bound", _threshold);
                 break;
             default:
                 break;
         }
-        result += "}}}";
 
-        return result;
+        Map<String, Object> configBlock = new HashMap<>();
+        configBlock.put(getPlatformString(), platformBlock);
+        serializable.put("config", configBlock);
+
+        return serializable;
     }
 
     public boolean isActive(PlayerIndex playerIndex) {

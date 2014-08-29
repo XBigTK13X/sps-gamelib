@@ -2,7 +2,7 @@ package com.simplepathstudios.gamelib.pregame;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.simplepathstudios.gamelib.bridge.Commands;
-import com.simplepathstudios.gamelib.data.Options;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.states.StateManager;
 import com.simplepathstudios.gamelib.ui.ButtonStyle;
 import com.simplepathstudios.gamelib.ui.UIButton;
@@ -52,7 +52,7 @@ public class OptionsMenu extends OptionsState {
         final UIButton defaults = new UIButton("Reset Defaults", Commands.get("Menu9")) {
             @Override
             public void click() {
-                Options.resetToDefaults();
+                SpsConfig.getInstance().resetToDefaults();
             }
         };
 

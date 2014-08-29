@@ -2,7 +2,7 @@ package com.simplepathstudios.gamelib.pregame;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.simplepathstudios.gamelib.bridge.Commands;
-import com.simplepathstudios.gamelib.data.Options;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.states.StateManager;
 import com.simplepathstudios.gamelib.ui.ButtonStyle;
 import com.simplepathstudios.gamelib.ui.UIButton;
@@ -21,24 +21,24 @@ public class AudioOptionsMenu extends OptionsState {
             }
         };
 
-        final UIButton musicEnabled = new UIButton("Music: " + (Options.get().MusicEnabled ? "Enabled" : "Disabled"), Commands.get("Menu1")) {
+        final UIButton musicEnabled = new UIButton("Music: " + (SpsConfig.get().musicEnabled? "Enabled" : "Disabled"), Commands.get("Menu1")) {
             @Override
             public void click() {
-                Options.get().MusicEnabled = !Options.get().MusicEnabled;
-                Options.get().save();
-                Options.get().apply();
-                setMessage("Music: " + (Options.get().MusicEnabled ? "Enabled" : "Disabled"));
+                SpsConfig.get().musicEnabled= !SpsConfig.get().musicEnabled;
+                SpsConfig.getInstance().save();
+                SpsConfig.getInstance().apply();
+                setMessage("Music: " + (SpsConfig.get().musicEnabled? "Enabled" : "Disabled"));
                 layout();
             }
         };
 
-        final UIButton soundEnabled = new UIButton("Sound: " + (Options.get().MusicEnabled ? "Enabled" : "Disabled"), Commands.get("Menu2")) {
+        final UIButton soundEnabled = new UIButton("Sound: " + (SpsConfig.get().musicEnabled? "Enabled" : "Disabled"), Commands.get("Menu2")) {
             @Override
             public void click() {
-                Options.get().SoundEnabled = !Options.get().SoundEnabled;
-                Options.get().save();
-                Options.get().apply();
-                setMessage("Sound: " + (Options.get().SoundEnabled ? "Enabled" : "Disabled"));
+                SpsConfig.get().soundEnabled = !SpsConfig.get().soundEnabled;
+                SpsConfig.getInstance().save();
+                SpsConfig.getInstance().apply();
+                setMessage("Sound: " + (SpsConfig.get().soundEnabled ? "Enabled" : "Disabled"));
                 layout();
             }
         };

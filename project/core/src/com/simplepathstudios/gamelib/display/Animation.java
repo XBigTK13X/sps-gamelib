@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.simplepathstudios.gamelib.bridge.DrawDepth;
 import com.simplepathstudios.gamelib.color.Color;
-import com.simplepathstudios.gamelib.core.Point2;
 import com.simplepathstudios.gamelib.core.RNG;
 
 public class Animation {

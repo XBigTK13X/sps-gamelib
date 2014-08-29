@@ -48,7 +48,7 @@ public class Input implements InputProvider {
     public void setup(StateProvider stateProvider) {
         __contexts = new HashMap<>();
         for (PlayerIndex index : Players.getAll()) {
-            __contexts.put(index, Contexts.get(Sps.Contexts.Free));
+            __contexts.put(index, Contexts.get("Free"));
         }
 
         if (stateProvider == null) {
@@ -193,7 +193,7 @@ public class Input implements InputProvider {
     // If the key is marked to be locked on press and its lock context is
     // currently inactive
     private boolean shouldLock(Command command, PlayerIndex playerIndex) {
-        return command.Context == __contexts.get(playerIndex) || (command.Context == Contexts.get(Sps.Contexts.Non_Free) && __contexts.get(playerIndex) != Contexts.get(Sps.Contexts.Free) || command.Context == Contexts.get(Sps.Contexts.All));
+        return command.Context == __contexts.get(playerIndex) || (command.Context == Contexts.get("Non_Free") && __contexts.get(playerIndex) != Contexts.get("Free") || command.Context == Contexts.get("All"));
     }
 
     @Override

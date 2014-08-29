@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.simplepathstudios.gamelib.color.Color;
-import com.simplepathstudios.gamelib.core.Point2;
-import com.simplepathstudios.gamelib.data.GameConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
+import com.simplepathstudios.gamelib.display.Point2;
 import com.simplepathstudios.gamelib.display.Assets;
 import com.simplepathstudios.gamelib.display.DrawApiCall;
 import com.simplepathstudios.gamelib.display.Screen;
@@ -43,7 +43,7 @@ public class ScreenRenderEngine {
         _nextToWrite.setScale(scale);
         content = content.replaceAll("\t", "    ");
 
-        if (GameConfig.OptEnableFontOutlines) {
+        if (SpsConfig.get().enableFontOutlines) {
             //FIXME Really messy. Distance field fonts might remove the need for an outline.
             _nextToWrite.setColor(0, 0, 0, 1);
 

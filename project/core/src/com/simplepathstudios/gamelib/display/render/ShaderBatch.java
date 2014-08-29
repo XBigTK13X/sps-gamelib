@@ -3,7 +3,7 @@ package com.simplepathstudios.gamelib.display.render;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.simplepathstudios.gamelib.core.Logger;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 
 //Modified from: https://github.com/mattdesl/lwjgl-basics/wiki/LibGDX-Brightness-&-Contrast
 public class ShaderBatch extends SpriteBatch {
@@ -33,7 +33,7 @@ public class ShaderBatch extends SpriteBatch {
         pushUniforms();
 
         if (!__shaderCapabilitiesDisplayed) {
-            if (SpsConfig.get().displayLoggingEnabled) {
+            if (SpsConfig.get().displayLogging) {
                 Logger.info("Shaders initialized. Supported variables:  (Brightness: " + _brightnessControlsSupported + ", Contrast: " + _contrastControlsSupported + ", Saturation: " + _saturationControlsSupported + ")");
             }
             __shaderCapabilitiesDisplayed = true;

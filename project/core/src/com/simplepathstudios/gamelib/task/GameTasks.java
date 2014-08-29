@@ -1,7 +1,7 @@
 package com.simplepathstudios.gamelib.task;
 
 import com.simplepathstudios.gamelib.core.Logger;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.states.GameSystem;
 
 import java.util.Iterator;
@@ -28,7 +28,7 @@ public class GameTasks implements GameSystem {
         if (task.start()) {
             _tasks.add(task);
             task.setStartSuccess(true);
-            if (SpsConfig.get().taskLoggingEnabled) {
+            if (SpsConfig.get().taskLogging) {
                 String startInfo = "Starting task: " + task.getName();
                 if (task.hasActionEachFrame()) {
                     startInfo += ". Acting each frame until complete";
@@ -41,7 +41,7 @@ public class GameTasks implements GameSystem {
             return;
         }
         else {
-            if (SpsConfig.get().taskLoggingEnabled) {
+            if (SpsConfig.get().taskLogging) {
                 Logger.info("Unable to start task: " + task.getName());
             }
             task.setStartSuccess(false);
@@ -58,7 +58,7 @@ public class GameTasks implements GameSystem {
             if (!_current.isActive()) {
                 if (_current.isCancelled()) {
                     if (_current.onCancel() != null) {
-                        if (SpsConfig.get().taskLoggingEnabled) {
+                        if (SpsConfig.get().taskLogging) {
                             Logger.info("Cancelling task: " + _current.getName());
                         }
                         _onCancelTasks.add(_current.onCancel());
@@ -66,7 +66,7 @@ public class GameTasks implements GameSystem {
                 }
                 else {
                     if (_current.onComplete() != null) {
-                        if (SpsConfig.get().taskLoggingEnabled) {
+                        if (SpsConfig.get().taskLogging) {
                             Logger.info("Completing task: " + _current.getName());
                         }
                         _onCompleteTasks.add(_current.onComplete());

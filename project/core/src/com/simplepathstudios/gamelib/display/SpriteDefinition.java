@@ -1,7 +1,7 @@
 package com.simplepathstudios.gamelib.display;
 
 import com.simplepathstudios.gamelib.bridge.Sps;
-import com.simplepathstudios.gamelib.core.SpsConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 
 public class SpriteDefinition {
     public final String Name;

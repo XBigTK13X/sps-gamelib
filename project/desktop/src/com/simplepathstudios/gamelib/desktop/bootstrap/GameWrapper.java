@@ -7,8 +7,7 @@ import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.simplepathstudios.gamelib.audio.MusicPlayer;
 import com.simplepathstudios.gamelib.audio.SoundPlayer;
 import com.simplepathstudios.gamelib.core.Logger;
-import com.simplepathstudios.gamelib.core.SpsConfig;
-import com.simplepathstudios.gamelib.data.Options;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.display.Window;
 import com.simplepathstudios.gamelib.preload.DelayedPreloader;
 import com.simplepathstudios.gamelib.preload.PreloadChain;
@@ -58,7 +57,7 @@ public class GameWrapper implements ApplicationListener {
     @Override
     public void resize(int width, int height) {
         if (_firstResizeCall) {
-            if (SpsConfig.get().displayLoggingEnabled) {
+            if (SpsConfig.get().displayLogging) {
                 Logger.info("Libgdx overrides the resolution set in config. Ignoring that resize call");
             }
             _firstResizeCall = false;
@@ -73,10 +72,10 @@ public class GameWrapper implements ApplicationListener {
     private void handleWindowQuirks() {
         if (!_persistResizeOperation.isCooled()) {
             if (_persistResizeOperation.updateAndCheck()) {
-                Options.get().WindowResolutionX = Window.Width;
-                Options.get().WindowResolutionY = Window.Height;
-                Options.get().apply();
-                Options.get().save();
+                SpsConfig.get().resolutionWidth = Window.Width;
+                SpsConfig.get().resolutionHeight = Window.Height;
+                SpsConfig.getInstance().apply();
+                SpsConfig.getInstance().save();
                 _persistResizeOperation.zeroOut();
             }
         }

@@ -1,6 +1,6 @@
 package com.simplepathstudios.gamelib.playerselection;
 
-import com.simplepathstudios.gamelib.data.GameConfig;
+import com.simplepathstudios.gamelib.data.SpsConfig;
 import com.simplepathstudios.gamelib.input.PlayerIndex;
 import com.simplepathstudios.gamelib.input.Players;
 import com.simplepathstudios.gamelib.states.State;
@@ -28,7 +28,7 @@ public class PlayerSelection implements State {
             _availableInputs.add(new AvailableInput(index, inputCount++));
         }
 
-        for (int ii = 0; ii < GameConfig.PlayersMax; ii++) {
+        for (int ii = 0; ii < SpsConfig.get().playersMax; ii++) {
             _availablePlayers.add(new AvailablePlayer(ii));
         }
     }

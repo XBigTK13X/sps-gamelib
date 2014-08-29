@@ -1,0 +1,299 @@
+commandContexts:
+  - All
+  - Non_Free
+  - Free
+
+contextOverrides:
+  - command: MoveUp
+    context: Non_Free
+  - command: MoveDown
+    context: Non_Free
+  - command: MoveLeft
+    context: Non_Free
+  - command: MoveRight
+    context: Non_Free
+  - command: MoveHorizontal
+    context: Non_Free
+  - command: MoveVertical
+    context: Non_Free
+
+drawDepths:
+  - Default
+  - GameBackground
+  - TimerGraphic
+  - AnimatedTexture
+  - MovieImage
+  - MovieSubtitle
+  - Floor
+  - ForceMeter
+  - TooltipBackground
+  - MeterBackground
+  - Meter
+  - MeterFrame
+  - UIButton
+  - UIButtonText
+  - Logo
+  - Player
+  - Arrow
+  - Hand
+  - Particle
+  - SpsParticle
+  - DefaultTextBG
+  - DefaultText
+  - TooltipBackground
+  - TooltipText
+  - TutorialBackground
+  - TutorialArrow
+  - TutorialText
+  - PauseScreen
+  - PauseText
+  - ExitBackground
+  - ExitText
+  - DevConsole
+  - DevConsoleText
+  - Debug
+
+gameOptions:
+  disableCloudyTextures: false
+  enableFontOutlines: true
+  collectMetaData: true
+  playersMax: 4
+  graphicsLowQuality: true
+  tutorialEnabled: true
+  showIntro: true
+  tutorialQueryEnabled: true
+  brightness: 85
+  settingsDetected: false
+  uiButtonKeyboardLabelsEnabled: true
+
+engineOptions:
+  fullScreen: false
+  musicEnabled: true
+  soundEnabled: true
+  # Change these two resolution values to get a different window size
+  resolutionWidth: 1344
+  resolutionHeight: 756
+  ## Changing these two resolution values affects internal rendering calculations and will break the game
+  virtualWidth: 1920
+  virtualHeight: 1080
+  vSyncEnabled: true
+  gameTasksTimeDilation: 1.0
+  gameTasksTimeDilationEnabled: true
+  particleEffectPoolLimit: 20
+  particleEffectPoolStartSize: 10
+  maxColorLookupSize: 1000
+  gamepadAxisDeadZone: .2
+  devConsoleEnabled: true
+  viewPaths: false
+  controllersEnabled: true
+  threadMaxStalledMilliseconds: 10000
+  # These are legacy options that only affect tile mapped sprites
+  spriteWidth: 64
+  spriteHeight: 64
+  tileMapHeight: 15
+  tileMapWidth: 30
+  inputDetectCooldown: 0.2
+  entityGridEnabled: false
+  displayLogging: false
+  taskLogging: false
+  inputLoadLogging: false
+
+devOptions:
+  endToEndTest: false
+  botEnabled: false
+  timeStates: false
+  shortcutsEnabled: true
+
+commandBindings:
+    - command: MoveUp 
+      bindings:
+        - type: keyboard
+          chord:
+            - Up
+        - type: xbox360
+          chord:
+            - LeftStickUp
+        - type: ps3
+          chord:
+            - LeftStickUp
+    - command: MoveDown
+      bindings:
+        - type: keyboard
+          chord:
+            - Down
+        - type: xbox360
+          chord:
+            - LeftStickDown
+        - type: ps3
+          chord:
+            - LeftStickDown
+    - command: MoveLeft
+      bindings:
+        - type: keyboard
+          chord:
+            - Left
+        - type: xbox360
+          chord:
+            - LeftStickLeft
+        - type: ps3
+          chord:
+            - LeftStickLeft
+    - command: MoveRight
+      bindings:
+        - type: keyboard
+          chord:
+            - Right
+        - type: xbox360
+          chord:
+            - LeftStickRight
+        - type: ps3
+          chord:
+            - LeftStickRight
+    - command: Confirm
+      bindings:
+        - type: keyboard
+          chord:
+            - Space
+        - type: xbox360
+          chord:
+            - A
+        - type: ps3
+          chord:
+            - X
+    - command: Cancel
+      bindings:
+        - type: keyboard
+          chord:
+            - Backspace
+        - type: xbox360
+          chord:
+            - B
+        - type: ps3
+          chord:
+            - Circle
+    - command: Start
+      bindings:
+        - type: keyboard
+          chord:
+            - Tab
+        - type: xbox360
+          chord:
+            - A
+    - command: Pause
+      bindings:
+        - type: keyboard
+          chord:
+            - H
+            - SHIFT_RIGHT
+        - type: xbox360
+          chord:
+            - Start
+    - command: Help
+      bindings:
+        - type: keyboard
+          chord:
+            - F1
+            - SHIFT_RIGHT
+        - type: xbox360
+          chord:
+            - Back
+    - command: AdvanceTutorial
+      bindings:
+        - type: keyboard
+          chord:
+            - ENTER
+        - type: xbox360
+          chord:
+            - X
+    - command: ToggleFullScreen
+      bindings:
+        - type: keyboard
+          chord:
+            - F11
+    - command: Menu1
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_1
+    - command: Menu2
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_2
+    - command: Menu3
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_3
+    - command: Menu4
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_4
+    - command: Menu5
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_5
+    - command: Menu6
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_6
+    - command: Menu7
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_7
+    - command: Menu8
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_8
+    - command: Menu9
+      bindings:
+        - type: keyboard
+          chord:
+            - NUM_9
+    - command: ToggleDevConsole
+      bindings:
+        - type: keyboard
+          chord:
+            - P
+            - SHIFT_RIGHT
+    - command: Exit
+      bindings:
+        - type: keyboard
+          chord:
+            - ESCAPE
+    - command: Debug1
+      bindings:
+        - type: keyboard
+          chord:
+            - U
+    - command: Debug2
+      bindings:
+        - type: keyboard
+          chord:
+            - J 
+    - command: AimAndFire
+      bindings:
+        - type: xbox360
+          chord:
+            - LeftTrigger
+            - RightTrigger
+        - type: ps3
+          chord:
+            - L2
+            - R2
+    - command: MoveVertical
+      bindings:
+        - type: xbox360
+          chord:
+            - RightStickY
+    - command: MoveHorizontal
+      bindings:
+        - type: xbox360
+          chord:
+            - RightStickX
+            
