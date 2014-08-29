@@ -41,7 +41,6 @@ public class GameWrapper implements ApplicationListener {
         });
         GdxNativesLoader.load();
         _engineChain = new SpsEngineChain();
-        _engineChain.add(new SpsBootstrap());
         _engineChain.add(SpsInitializer.getChain());
         _engineChain.add(delayedPreloader);
         _engineChain.add(kickstart);
